@@ -1,0 +1,25 @@
+node_modules
+dist
+dist-ssr
+dist-e2e
+.vercel
+*.local
+.env
+.env.*
+!.env.example
+coverage
+playwright-report
+test-results
+.DS_Store
+Thumbs.db
+*.log
+.idea
+.vscode/*
+!.vscode/extensions.json
+supabase/.temp
+supabase/.branches
+supabase/functions/.env
+
+# generated at build time (scripts/generate-seo-files.ts)
+public/sitemap.xml
+public/robots.txt

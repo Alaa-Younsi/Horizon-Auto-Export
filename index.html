@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!--
+      No inline scripts on purpose: the CSP (vercel.json) allows none, and the
+      language is in the URL (/ro, /en, /fr), so nothing needs to run before paint.
+      %VITE_SITE_URL% is substituted at build time from the env (vite.config.ts).
+    -->
+    <title>Vehicule rulate B2B — achiziție, vânzare și export auto | Horizon Auto Export</title>
+    <meta
+      name="description"
+      content="Horizon Auto Export, București: achiziție și vânzare de mașini second-hand pentru profesioniști. Autoturisme, vehicule comerciale și avariate, livrare în toată Europa."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#08193D" />
+    <link rel="canonical" href="%VITE_SITE_URL%/ro" />
+    <link rel="alternate" hreflang="ro" href="%VITE_SITE_URL%/ro" />
+    <link rel="alternate" hreflang="en" href="%VITE_SITE_URL%/en" />
+    <link rel="alternate" hreflang="fr" href="%VITE_SITE_URL%/fr" />
+    <link rel="alternate" hreflang="x-default" href="%VITE_SITE_URL%/ro" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Horizon Auto Export" />
+    <meta property="og:title" content="Vehicule rulate B2B | Horizon Auto Export" />
+    <meta
+      property="og:description"
+      content="Achiziție și vânzare de mașini second-hand pentru profesioniști. Mașini verificate, prețuri competitive, livrare în toată Europa."
+    />
+    <meta property="og:url" content="%VITE_SITE_URL%/ro" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Horizon Auto Export — vehicule rulate B2B" />
+    <meta property="og:locale" content="ro_RO" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vehicule rulate B2B | Horizon Auto Export" />
+    <meta
+      name="twitter:description"
+      content="Achiziție și vânzare de mașini second-hand pentru profesioniști. Livrare în toată Europa."
+    />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og-image.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AutoDealer",
+        "name": "Horizon Auto Export S.R.L.",
+        "url": "%VITE_SITE_URL%/",
+        "logo": "%VITE_SITE_URL%/brand/logo-full-512.png",
+        "image": "%VITE_SITE_URL%/og-image.jpg",
+        "description": "Achiziție și vânzare de vehicule rulate pentru clienți profesioniști, export în toată Europa.",
+        "telephone": "+40759145041",
+        "email": "horizonautoexport@gmail.com",
+        "vatID": "RO55177825",
+        "areaServed": "EU",
+        "address": { "@type": "PostalAddress", "addressLocality": "București", "addressCountry": "RO" },
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "availableLanguage": ["ro", "en", "fr"]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p class="p-8 font-sans">
+        Acest site necesită JavaScript. · This site requires JavaScript. · Ce site nécessite JavaScript.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
