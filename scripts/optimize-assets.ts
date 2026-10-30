@@ -3,7 +3,7 @@
  * Always regenerates from _brand (never from an already-shrunk copy), so a
  * second run is a byte-identical no-op rather than a slow quality loss.
  *
- *   _brand/hero-x4.png    -> public/images/hero-{960,1600,2360}.webp   (LCP image, srcset)
+ *   _brand/hero-photo-x4.png -> public/images/hero-{960,1600,2400}.webp (LCP image, srcset)
  *   _brand/about-x4.png   -> public/images/about-{640,756}.webp
  *   _brand/logo-*.png     -> src/assets/*.webp (bundled, hashed) + favicons + og-image
  *
@@ -27,10 +27,10 @@ async function report(path: string) {
 }
 
 // ---- photos -----------------------------------------------------------------
-// The upscaled hero carries a faint 1–2 px line from the mock-up's header edge.
-const hero = sharp("_brand/hero-x4.png").extract({ left: 0, top: 10, width: 2364, height: 620 });
-const heroBuffer = await hero.toBuffer();
-for (const width of [960, 1600, 2360]) {
+// The client's sunset photo, its baked-in copy painted out (scripts/brand/clean_hero.py)
+// and upscaled x4 with Real-ESRGAN. 16:9, so it covers any hero shape.
+const heroBuffer = await sharp("_brand/hero-photo-x4.png").toBuffer();
+for (const width of [960, 1600, 2400]) {
   const out = `public/images/hero-${width}.webp`;
   await sharp(heroBuffer).resize({ width }).webp({ quality: 80, effort: 6 }).toFile(out);
   await report(out);
@@ -88,9 +88,10 @@ await report("public/brand/logo-full-512.png");
 
 // OG card: a straight crop of the hero photo (platforms print the title and
 // description themselves; baking text in would only repeat it).
+// 1200x630 out of the right of the photo: the three cars and the sun.
 await sharp(heroBuffer)
-  .resize({ height: 630 })
-  .extract({ left: 1020, top: 0, width: 1200, height: 630 })
+  .resize({ height: 900 })
+  .extract({ left: 401, top: 150, width: 1200, height: 630 })
   .jpeg({ quality: 82, mozjpeg: true })
   .toFile("public/og-image.jpg");
 await report("public/og-image.jpg");

@@ -1,4 +1,6 @@
-"""One-off: pull the hero and about photos out of the client's approved mock-up.
+"""One-off: pull the "about" photo out of the client's approved mock-up.
+
+(The hero now comes from the client's own photo: see clean_hero.py.)
 
 The mock-up (_brand/mockup.jpeg) is a 591px-wide WhatsApp screenshot, so both
 photos arrive tiny and with the mock-up's own text baked in. This script:
@@ -24,23 +26,6 @@ page = cv2.imread(str(SRC))
 if page is None:
     raise SystemExit(f"cannot read {SRC}")
 
-# ---- hero: rows 385..543, full width (measured from the row luminance profile)
-HERO_Y0, HERO_Y1 = 385, 544
-hero = page[HERO_Y0:HERO_Y1, 0:591].copy()
-# Text blocks in page coordinates (eyebrow, title, subtitle, bullets, button).
-TEXT_BOXES = [
-    (22, 403, 121, 416),
-    (22, 414, 223, 440),
-    (22, 442, 208, 469),
-    (22, 475, 244, 492),
-    (22, 500, 114, 526),
-]
-mask = np.zeros(hero.shape[:2], np.uint8)
-for x0, y0, x1, y1 in TEXT_BOXES:
-    mask[y0 - HERO_Y0 : y1 - HERO_Y0, x0:x1] = 255
-hero = cv2.inpaint(hero, mask, 6, cv2.INPAINT_TELEA)
-cv2.imwrite(str(OUT / "hero-clean.png"), hero)
-
 # ---- about: x 0..191, rows 636..763; paint out the white + gold diagonal blade
 ABOUT = page[636:764, 0:192].copy()
 hsv = cv2.cvtColor(ABOUT, cv2.COLOR_BGR2HSV)
@@ -53,4 +38,4 @@ blade = cv2.dilate(blade, np.ones((5, 5), np.uint8), iterations=2)
 about = cv2.inpaint(ABOUT, blade, 7, cv2.INPAINT_TELEA)
 cv2.imwrite(str(OUT / "about-clean.png"), about)
 
-print("hero", hero.shape, "about", about.shape)
+print("about", about.shape)

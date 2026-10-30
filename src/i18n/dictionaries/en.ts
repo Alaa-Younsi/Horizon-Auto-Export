@@ -32,6 +32,8 @@ export const en: Dictionary = {
   "nav.primary": "Main navigation",
 
   "hero.eyebrow": "Horizon Auto Export",
+  "hero.location": "Bucharest · All of Europe",
+  "hero.scroll": "Discover our services",
   "hero.title": "Used vehicles",
   "hero.titleAccent": "B2B",
   "hero.subtitle": "Buying and selling second-hand cars for professionals",
@@ -40,8 +42,8 @@ export const en: Dictionary = {
   "hero.point3": "Delivery across Europe",
   "hero.cta": "Contact us",
   "hero.ctaSecondary": "View vehicles",
-  "hero.scroll": "Scroll",
-  "hero.imageAlt": "Premium cars on a motorway at sunset, a world map across the sky",
+  "hero.imageAlt":
+    "Three black premium cars on wet asphalt at sunset, a city and a lake behind them",
 
   "svc.passenger.title": "Passenger cars",
   "svc.passenger.short": "Saloon, SUV, Hatchback",
@@ -82,6 +84,7 @@ export const en: Dictionary = {
   "svc.title": "Complete services for automotive professionals",
   "svc.lead":
     "From a single car to entire fleets: we buy, sell and deliver used vehicles for dealers, companies and partners across Europe.",
+  "svc.all": "All services",
   "svc.more": "Details",
 
   "about.eyebrow": "About us",
@@ -112,7 +115,9 @@ export const en: Dictionary = {
   "export.title": "From Bucharest to all of Europe",
   "export.lead":
     "We work with dealers, fleets and companies across the European Union. One partner for sourcing, inspection, paperwork and transport.",
-  "export.globeLabel": "3D globe showing export routes from Bucharest to major European cities",
+  "export.destination": "Europe",
+  "export.docTitle": "Export file",
+  "export.status": "Step confirmed",
   "export.origin": "Bucharest",
   "export.step1.title": "Your request",
   "export.step1.text":

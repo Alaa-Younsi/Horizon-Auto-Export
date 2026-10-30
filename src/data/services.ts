@@ -1,4 +1,4 @@
-import { CarFront, Globe2, Handshake, type LucideIcon, ShieldCheck, Van } from "lucide-react";
+import { CarFront, Handshake, type LucideIcon, Route, ShieldCheck, Van } from "lucide-react";
 import type { TranslationKey } from "@/i18n/dictionaries";
 
 export interface Service {
@@ -47,7 +47,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "export",
-    icon: Globe2,
+    icon: Route,
     title: "svc.export.title",
     short: "svc.export.short",
     long: "svc.export.long",

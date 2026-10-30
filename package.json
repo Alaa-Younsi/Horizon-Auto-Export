@@ -17,13 +17,12 @@
     "test:db": "bun run scripts/test-db.ts",
     "test:e2e": "playwright test",
     "check": "bun run typecheck && bun run lint && bun run test && bun run test:db",
-    "build:globe": "bun run scripts/build-globe-points.ts",
+    "build:map": "bun run scripts/build-world-dots.ts",
     "build:brands": "bun run scripts/build-brand-logos.ts",
     "optimize:assets": "bun run scripts/optimize-assets.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^6.0.0",
-    "@react-three/fiber": "^8.17",
     "@supabase/supabase-js": "^2.118.0",
     "@tanstack/react-query": "^5.105.0",
     "@vercel/edge": "^1.2.2",
@@ -37,7 +36,6 @@
     "react-hook-form": "^7.91.0",
     "react-router": "^7",
     "tailwind-merge": "^3.7.0",
-    "three": "0.170.0",
     "write-excel-file": "^2",
     "zod": "^4.6.7"
   },
@@ -54,7 +52,6 @@
     "@types/node": "^26.6.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/three": "0.170.0",
     "@types/topojson-client": "^3.1.5",
     "@types/topojson-specification": "^1.0.5",
     "@vitejs/plugin-react": "^6.1.2",

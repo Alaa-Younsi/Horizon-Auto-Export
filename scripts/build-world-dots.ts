@@ -1,14 +1,12 @@
 /**
- * Pre-computes the dotted-earth geometry for the export globe + a flat dotted map.
+ * Pre-computes the flat dotted world map used as a faint decorative texture.
  *
  * Output (committed, regenerate only if the look changes):
- *   public/data/globe-land.bin     Int16 pairs [lat*100, lon*100] — land dots on a Fibonacci sphere
- *   public/data/globe-romania.bin  Int16 pairs — a denser grid of dots filling Romania (gold)
- *   public/images/world-dots.svg   flat equirectangular dot map (CSS mask, decorative backgrounds)
+ *   public/images/world-dots.svg   equirectangular dot map, Romania in gold (CSS mask)
  *
  * Land is rasterised once into an equirectangular bitmap (even-odd scanline fill of
- * every Natural Earth 1:50m ring) so each of the ~170k samples is a lookup, not a
- * point-in-polygon test. Run: bun run build:globe
+ * every Natural Earth 1:50m ring) so each sample is a lookup, not a point-in-polygon
+ * test. Run: bun run build:map
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { geoContains } from "d3-geo";
@@ -19,7 +17,6 @@ import countriesTopo from "world-atlas/countries-110m.json" with { type: "json" 
 import landTopo from "world-atlas/land-50m.json" with { type: "json" };
 
 const ROMANIA_ID = "642";
-const LAND_SAMPLES = 170_000;
 const W = 4096;
 const H = 2048;
 
@@ -77,32 +74,6 @@ const onLand = (lon: number, lat: number) => {
 const inRomania = (lon: number, lat: number) =>
   lat > 43.5 && lat < 48.4 && lon > 20 && lon < 30 && geoContains(romania, [lon, lat]);
 
-// ---- globe ------------------------------------------------------------------
-const landDots: number[] = [];
-const golden = Math.PI * (3 - Math.sqrt(5));
-for (let i = 0; i < LAND_SAMPLES; i++) {
-  const y = 1 - (i / (LAND_SAMPLES - 1)) * 2;
-  const lat = (Math.asin(y) * 180) / Math.PI;
-  const lon = (((((golden * i * 180) / Math.PI) % 360) + 540) % 360) - 180;
-  if (lat < -60) continue; // Antarctica reads as noise at this size
-  if (!onLand(lon, lat)) continue;
-  if (inRomania(lon, lat)) continue; // drawn separately, in gold
-  landDots.push(Math.round(lat * 100), Math.round(lon * 100));
-}
-
-const ro: number[] = [];
-const STEP = 0.22;
-for (let lat = 43.6; lat <= 48.3; lat += STEP) {
-  const lonStep = STEP / Math.cos((lat * Math.PI) / 180);
-  for (let lon = 20.2; lon <= 29.8; lon += lonStep) {
-    if (inRomania(lon, lat)) ro.push(Math.round(lat * 100), Math.round(lon * 100));
-  }
-}
-
-mkdirSync("public/data", { recursive: true });
-writeFileSync("public/data/globe-land.bin", Buffer.from(new Int16Array(landDots).buffer));
-writeFileSync("public/data/globe-romania.bin", Buffer.from(new Int16Array(ro).buffer));
-
 // ---- flat dotted map (SVG) --------------------------------------------------
 // 2° grid, latitude -56..76 (no Antarctica, no empty Arctic band).
 const CELL = 2;
@@ -126,6 +97,5 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cols * 10} $
 mkdirSync("public/images", { recursive: true });
 writeFileSync("public/images/world-dots.svg", svg);
 
-process.stdout.write(
-  `land dots: ${landDots.length / 2}, romania dots: ${ro.length / 2}, map dots: ${circles.length}, svg ${(svg.length / 1024).toFixed(0)} KB\n`,
-);
+process.stdout.write(`map dots: ${circles.length}, svg ${(svg.length / 1024).toFixed(0)} KB
+`);

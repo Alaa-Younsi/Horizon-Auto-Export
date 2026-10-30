@@ -3,14 +3,14 @@
 B2B used-vehicle trading & export (Bucharest → all of Europe). Public site in **Romanian,
 English and French**, an integrated **admin dashboard**, and a **Supabase** backend.
 
-|          |                                                                                                        |
-| -------- | ------------------------------------------------------------------------------------------------------ |
-| Frontend | Vite 8 · React 18 · TypeScript (strict) · Tailwind CSS v4 · React Router 7 · TanStack Query            |
-| Motion   | GSAP 3.15 (ScrollTrigger, SplitText) · Lenis smooth scroll · Motion · React Three Fiber (export globe) |
-| Forms    | react-hook-form + zod (server re-validates everything)                                                 |
-| Backend  | Supabase: Postgres + RLS, RPCs, Storage, Auth, 3 Deno edge functions                                   |
-| Hosting  | Vercel (static SPA + Edge Middleware for link previews), strict CSP                                    |
-| Tooling  | Bun · Biome · Vitest · PGlite (Postgres-in-WASM DB tests) · Playwright                                 |
+|          |                                                                                             |
+| -------- | ------------------------------------------------------------------------------------------- |
+| Frontend | Vite 8 · React 18 · TypeScript (strict) · Tailwind CSS v4 · React Router 7 · TanStack Query |
+| Motion   | GSAP 3.15 (ScrollTrigger, SplitText) · Lenis smooth scroll · Motion                         |
+| Forms    | react-hook-form + zod (server re-validates everything)                                      |
+| Backend  | Supabase: Postgres + RLS, RPCs, Storage, Auth, 3 Deno edge functions                        |
+| Hosting  | Vercel (static SPA + Edge Middleware for link previews), strict CSP                         |
+| Tooling  | Bun · Biome · Vitest · PGlite (Postgres-in-WASM DB tests) · Playwright                      |
 
 The site **runs without a database**: until Supabase is linked it uses the compiled contact
 details and brands, shows a "we source to order" state instead of stock (no invented vehicles
@@ -41,7 +41,7 @@ Copy `.env.example` to `.env.local` and fill it in once the database exists (see
 | `bun run test:e2e`                   | Playwright, desktop + phone: public site (no DB and mocked DB), admin, CSP                                            |
 | `bun run check`                      | typecheck + lint + unit + DB tests                                                                                    |
 | `bun run optimize:assets`            | Rebuilds every web image/icon from the pristine sources in `_brand/`                                                  |
-| `bun run build:globe`                | Rebuilds the globe dot data + the dotted world map                                                                    |
+| `bun run build:map`                  | Rebuilds the faint dotted world map used as a background texture                                                      |
 | `bun run build:brands`               | Re-extracts the car-make marks from `simple-icons`                                                                    |
 
 ---
@@ -53,9 +53,8 @@ src/
   App.tsx                    routes: /ro|/en|/fr/* (static prefixes), /admin/*
   i18n/                      dictionaries (ro = source, typed), LanguageProvider (language lives in the URL)
   components/
-    layout/                  Header, Footer (curtain reveal), PublicLayout, PageHero
+    layout/                  Header, Footer (sunrise horizon), PublicLayout, PageHero
     sections/home/           Hero, ServicesStrip, AboutTeaser, WhyUs, ExportStory, FeaturedVehicles, BrandsMarquee
-    three/                   lazy WebGL globe (+ static SVG poster fallback)
     fx/                      SmoothScroll, RevealText, Reveal, DrawIcon, Magnetic, TiltCard, ScrollProgress
     vehicles/ forms/ ui/
   pages/                     Home, About, Services, Vehicles, VehicleDetail, Contact, Legal, NotFound
@@ -65,8 +64,8 @@ supabase/
   migrations/                0001 schema … 0007 seed (sequential; never edit one that may have run)
   functions/                 create-staff, set-staff-password, notify (self-contained Deno)
 middleware.ts                Vercel Edge: real link previews for shared vehicle URLs (social crawlers only)
-scripts/                     SEO files, DB tests, asset pipeline, globe/brand generators
-_brand/                      pristine brand sources (logo, mock-up, upscaled photos)
+scripts/                     SEO files, DB tests, asset pipeline, map/brand generators
+_brand/                      pristine brand sources (logo, mock-up, client hero photo, upscales)
 ```
 
 ### Design system
@@ -77,14 +76,17 @@ Romanian diacritics); display type runs extended to echo the wide HORIZON wordma
 
 ### Signature motion (all respect `prefers-reduced-motion`)
 
-- **Hero**: a gold horizon line draws across, the photo opens out of it (pure CSS — can't stall),
-  the headline rises word by word, "B2B" catches a travelling gold sheen; on scroll the hero
-  contracts into a rounded card under the services strip; subtle cursor depth parallax.
-- **Export story**: a WebGL globe (Romania lit in gold) stays pinned while four steps scroll past;
-  scroll progress unlocks export lanes from Bucharest to 12 European cities. Lazy chunk, paused
-  off-screen, SVG poster on weak devices / no WebGL.
-- Masked text reveals, self-drawing icons, scroll-scrubbed quote, curtain-reveal footer, route
-  curtain transitions, Lenis smooth scroll, tilt/magnetic hovers (mouse only).
+- **Hero** (the client's sunset photo, exactly one screen tall so nothing peeks below it): a
+  gold horizon line draws across, the photo opens out of it (pure CSS — can't stall), the
+  headline rises word by word, "B2B" catches a travelling gold sheen; contact details run along
+  its top edge; on scroll it contracts into a rounded card; subtle cursor depth parallax.
+- **Services**: their own section right under the hero — five navy cards with the service icon
+  as a large watermark, rising in on the first scroll.
+- **Export file**: the four steps are sheets of an export dossier that stick and pile up as you
+  scroll, each stamped as it lands, while a truck drives the road Bucharest → Europe.
+- **Footer**: a sun rises out of a gold horizon line as the footer scrolls in.
+- Masked text reveals, self-drawing icons, scroll-scrubbed quote, route curtain transitions,
+  Lenis smooth scroll, tilt/magnetic hovers (mouse only).
 
 ### Admin (`/admin`)
 
@@ -134,11 +136,13 @@ change with re-authentication, e-mail notifications).
     `curl -A "facebookexternalhit/1.1" https://<domain>/ro/vehicles/<slug>` returns the vehicle's
     own title/photo/price.
 11. **Content from the client**:
-    - ⚠ **Original hero and "about" photos.** The current ones were extracted from the WhatsApp
-      mock-up (591 px wide), the baked-in text painted out and upscaled ×4 with Real-ESRGAN.
-      They look good, but the originals will be sharper: upload them in _Site settings → Images_
-      (no deploy needed), or replace `_brand/hero-x4.png` / `_brand/about-x4.png` and run
-      `bun run optimize:assets`.
+    - **Hero photo**: the client's own image (`_brand/hero-source.png`); its baked-in copy is
+      painted out by `scripts/brand/clean_hero.py`, then upscaled ×4 with Real-ESRGAN
+      (`_brand/hero-photo-x4.png`) and turned into web sizes by `bun run optimize:assets`.
+      A text-free original from the designer would still be the cleanest source.
+    - ⚠ **Original "about" photo.** The current one was extracted from the WhatsApp mock-up
+      (591 px wide), cleaned and upscaled ×4. Upload the original in _Site settings → Images_
+      (no deploy needed), or replace `_brand/about-x4.png` and run `bun run optimize:assets`.
     - Trade register number (_Nr. Reg. Com._) — add it in _Site settings_.
     - Have a lawyer review `src/content/legal.ts` (privacy policy + terms).
 

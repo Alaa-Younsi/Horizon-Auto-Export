@@ -4,11 +4,9 @@ import { Navigate, Outlet, useLocation } from "react-router";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ScrollProgress } from "@/components/fx/ScrollProgress";
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
-import { useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import { LanguageProvider, useI18n } from "@/i18n/LanguageProvider";
 import { type Lang, preferredLang } from "@/i18n/languages";
-import { cn } from "@/lib/cn";
 import { whatsappHref } from "@/lib/contact";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -89,32 +87,6 @@ function PageFallback() {
 export function PublicLayout() {
   const { t } = useI18n();
   const { pathname } = useLocation();
-  const reduced = useReducedMotion();
-  const mainRef = useRef<HTMLElement>(null);
-  const footerRef = useRef<HTMLElement>(null);
-  const [curtain, setCurtain] = useState(false);
-
-  // Curtain-reveal footer: pinned under the page while it fits the viewport; the
-  // page keeps a bottom margin of the footer's height to scroll it into view.
-  useLayoutEffect(() => {
-    const footer = footerRef.current;
-    const main = mainRef.current;
-    if (!footer || !main) return;
-    const measure = () => {
-      const h = footer.offsetHeight;
-      const fits = !reduced && h < window.innerHeight * 0.92 && window.innerWidth >= 768;
-      main.style.setProperty("--footer-h", `${h}px`);
-      setCurtain(fits);
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(footer);
-    window.addEventListener("resize", measure);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [reduced]);
 
   return (
     <SmoothScroll>
@@ -126,23 +98,14 @@ export function PublicLayout() {
       </a>
       <ScrollProgress />
       <Header />
-      <main
-        id="main"
-        ref={mainRef}
-        className={cn(
-          "relative z-10 bg-white shadow-[0_40px_60px_-30px_rgb(4_14_36/0.35)]",
-          curtain && "mb-[var(--footer-h)]",
-        )}
-      >
+      <main id="main" className="relative bg-white">
         <ErrorBoundary key={pathname}>
           <Suspense fallback={<PageFallback />}>
             <Outlet />
           </Suspense>
         </ErrorBoundary>
       </main>
-      <div className={cn(curtain ? "fixed inset-x-0 bottom-0 z-0" : "relative")}>
-        <Footer ref={footerRef} />
-      </div>
+      <Footer />
       <FloatingWhatsApp />
       <RouteCurtain />
     </SmoothScroll>

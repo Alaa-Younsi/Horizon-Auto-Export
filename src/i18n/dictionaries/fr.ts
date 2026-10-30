@@ -32,6 +32,8 @@ export const fr: Dictionary = {
   "nav.primary": "Navigation principale",
 
   "hero.eyebrow": "Horizon Auto Export",
+  "hero.location": "Bucarest · Toute l'Europe",
+  "hero.scroll": "Découvrir nos services",
   "hero.title": "Véhicules d'occasion",
   "hero.titleAccent": "B2B",
   "hero.subtitle": "Achat et vente de voitures d'occasion pour les professionnels",
@@ -40,9 +42,8 @@ export const fr: Dictionary = {
   "hero.point3": "Livraison dans toute l'Europe",
   "hero.cta": "Contactez-nous",
   "hero.ctaSecondary": "Voir les véhicules",
-  "hero.scroll": "Défiler",
   "hero.imageAlt":
-    "Voitures premium sur l'autoroute au coucher du soleil, carte du monde dans le ciel",
+    "Trois berlines premium noires sur l'asphalte mouillé au coucher du soleil, une ville et un lac en contrebas",
 
   "svc.passenger.title": "Voitures",
   "svc.passenger.short": "Berline, SUV, Citadine",
@@ -83,6 +84,7 @@ export const fr: Dictionary = {
   "svc.title": "Des services complets pour les professionnels de l'automobile",
   "svc.lead":
     "D'une seule voiture à des flottes entières : nous achetons, vendons et livrons des véhicules d'occasion pour concessionnaires, entreprises et partenaires dans toute l'Europe.",
+  "svc.all": "Tous nos services",
   "svc.more": "Détails",
 
   "about.eyebrow": "À propos",
@@ -115,8 +117,9 @@ export const fr: Dictionary = {
   "export.title": "De Bucarest vers toute l'Europe",
   "export.lead":
     "Nous travaillons avec des concessionnaires, des flottes et des entreprises dans toute l'Union européenne. Un seul partenaire pour la recherche, le contrôle, les papiers et le transport.",
-  "export.globeLabel":
-    "Globe 3D montrant les routes d'export de Bucarest vers les grandes villes européennes",
+  "export.destination": "Europe",
+  "export.docTitle": "Dossier d'export",
+  "export.status": "Étape validée",
   "export.origin": "Bucarest",
   "export.step1.title": "Votre demande",
   "export.step1.text":

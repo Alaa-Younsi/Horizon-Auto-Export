@@ -38,6 +38,8 @@ export const ro = {
 
   // ---- hero -----------------------------------------------------------------
   "hero.eyebrow": "Horizon Auto Export",
+  "hero.location": "București · Toată Europa",
+  "hero.scroll": "Descoperă serviciile",
   "hero.title": "Vehicule rulate",
   "hero.titleAccent": "B2B",
   "hero.subtitle": "Achiziție și vânzare de mașini second-hand pentru profesioniști",
@@ -46,8 +48,8 @@ export const ro = {
   "hero.point3": "Livrare în toată Europa",
   "hero.cta": "Contactează-ne",
   "hero.ctaSecondary": "Vezi vehiculele",
-  "hero.scroll": "Derulează",
-  "hero.imageAlt": "Autoturisme premium pe autostradă la apus, cu harta lumii pe cer",
+  "hero.imageAlt":
+    "Trei autoturisme premium negre pe asfalt ud, la apus, cu un oraș și un lac în spate",
 
   // ---- services -------------------------------------------------------------
   "svc.passenger.title": "Autoturisme",
@@ -89,6 +91,7 @@ export const ro = {
   "svc.title": "Servicii complete pentru profesioniștii din auto",
   "svc.lead":
     "De la o singură mașină până la flote întregi: cumpărăm, vindem și livrăm vehicule rulate pentru dealeri, companii și parteneri din toată Europa.",
+  "svc.all": "Toate serviciile",
   "svc.more": "Detalii",
 
   // ---- about ----------------------------------------------------------------
@@ -116,12 +119,14 @@ export const ro = {
   "about.company.name": "Denumire",
   "about.company.seat": "Sediu",
 
-  // ---- export story (globe) ------------------------------------------------
+  // ---- export story (dossier) ------------------------------------------------
   "export.eyebrow": "Excelență dincolo de granițe",
   "export.title": "Din București, către toată Europa",
   "export.lead":
     "Lucrăm cu dealeri, flote și companii din întreaga Uniune Europeană. Un singur partener pentru căutare, verificare, documente și transport.",
-  "export.globeLabel": "Glob 3D cu rutele de export din București către marile orașe europene",
+  "export.destination": "Europa",
+  "export.docTitle": "Dosar de export",
+  "export.status": "Etapă confirmată",
   "export.origin": "București",
   "export.step1.title": "Cererea dumneavoastră",
   "export.step1.text":

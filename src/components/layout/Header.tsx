@@ -1,4 +1,4 @@
-import { ArrowUpRight, Clock, Mail, MapPin, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
@@ -47,52 +47,6 @@ function DesktopNav() {
         ))}
       </ul>
     </nav>
-  );
-}
-
-function ContactBlock({ compact }: { compact: boolean }) {
-  const { lang } = useI18n();
-  const { data: s } = useSiteSettings();
-  if (!s) return null;
-  return (
-    <div className="hidden items-center gap-6 border-s border-line ps-6 text-[12.5px] leading-snug xl:flex">
-      <div className="space-y-1">
-        <a
-          href={telHref(s.phone_e164)}
-          className="flex items-center gap-2 font-bold text-navy-900 hover:text-gold-600"
-        >
-          <Phone className="size-3.5 text-gold-500" aria-hidden />
-          <span dir="ltr">{s.phone_display}</span>
-        </a>
-        <p
-          className={cn(
-            "flex items-center gap-2 text-muted transition-all duration-500",
-            compact && "h-0 overflow-hidden opacity-0",
-          )}
-        >
-          <Clock className="size-3.5 text-gold-500" aria-hidden />
-          {pick(s.hours, lang)}
-        </p>
-      </div>
-      <div
-        className={cn(
-          "space-y-1 transition-all duration-500",
-          compact && "pointer-events-none w-0 overflow-hidden opacity-0",
-        )}
-      >
-        <a
-          href={mailHref(s.email)}
-          className="flex items-center gap-2 text-navy-900 hover:text-gold-600"
-        >
-          <Mail className="size-3.5 text-gold-500" aria-hidden />
-          {s.email}
-        </a>
-        <p className="flex items-center gap-2 text-muted">
-          <MapPin className="size-3.5 text-gold-500" aria-hidden />
-          {pick(s.address, lang)}
-        </p>
-      </div>
-    </div>
   );
 }
 
@@ -219,7 +173,6 @@ export function Header() {
           <div className="flex flex-1 items-center justify-end gap-4 lg:justify-center">
             <DesktopNav />
           </div>
-          <ContactBlock compact={compact} />
           <div className="flex items-center gap-1">
             <LanguageSwitcher />
             <button

@@ -5,7 +5,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { NAV_ITEMS } from "@/components/layout/navigation";
-import { DESTINATIONS } from "@/components/three/globe/geo";
 import { BRAND_LOGOS } from "@/data/brand-logos";
 import { DEMO_BRANDS } from "@/data/demo";
 import { GRANTABLE_SECTIONS } from "@/pages/admin/adminSections";
@@ -57,12 +56,6 @@ describe("content", () => {
         DEMO_BRANDS.map((b) => b.slug),
         `seed ${slug}`,
       ).toContain(slug);
-    }
-  });
-  it("globe destinations are real coordinates", () => {
-    for (const d of DESTINATIONS) {
-      expect(Math.abs(d.lat)).toBeLessThanOrEqual(90);
-      expect(Math.abs(d.lon)).toBeLessThanOrEqual(180);
     }
   });
   it("the browser Supabase client carries no custom global headers (CORS on edge functions)", () => {

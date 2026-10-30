@@ -10,7 +10,6 @@ const PLACEHOLDER_SITE_URL = "https://PLACEHOLDER-DOMAIN.tld";
 
 function vendorChunk(id: string): string | undefined {
   if (!id.includes("node_modules")) return undefined;
-  if (/[\\/](three|@react-three)[\\/]/.test(id)) return "three";
   if (/[\\/](gsap|lenis)[\\/]/.test(id)) return "scroll-fx";
   if (/[\\/]@supabase[\\/]/.test(id)) return "supabase";
   if (/[\\/](react|react-dom|scheduler|react-router)[\\/]/.test(id)) return "react";
