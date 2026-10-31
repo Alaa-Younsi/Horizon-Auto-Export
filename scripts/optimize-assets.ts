@@ -4,7 +4,7 @@
  * second run is a byte-identical no-op rather than a slow quality loss.
  *
  *   _brand/hero-photo-x4.png -> public/images/hero-{960,1600,2400}.webp (LCP image, srcset)
- *   _brand/about-x4.png   -> public/images/about-{640,756}.webp
+ *   _brand/about-x4/*.png -> public/images/about-<photo>-<width>.webp
  *   _brand/logo-*.png     -> src/assets/*.webp (bundled, hashed) + favicons + og-image
  *
  * Run after replacing a source (e.g. when the client sends the original hero
@@ -36,21 +36,32 @@ for (const width of [960, 1600, 2400]) {
   await report(out);
 }
 
-// The mock-up's about photo ends in a white gutter on the right.
-const about = await sharp("_brand/about-x4.png")
-  .extract({ left: 0, top: 0, width: 756, height: 512 })
-  .toBuffer();
-for (const width of [640, 756]) {
-  const out = `public/images/about-${width}.webp`;
-  await sharp(about).resize({ width }).webp({ quality: 80, effort: 6 }).toFile(out);
-  await report(out);
+// About photos: cut from the client's "À propos" mock-up (_brand/about-mockup.jpeg),
+// upscaled x4 with Real-ESRGAN into _brand/about-x4/. The headlight leads the
+// home page's About section (4:3); the other three illustrate the About page.
+const aboutPhotos: Array<[string, number[]]> = [
+  ["headlight", [720, 1200]],
+  ["fleet", [640, 960]],
+  ["road", [640, 960]],
+  ["wheel", [640, 960]],
+];
+for (const [name, widths] of aboutPhotos) {
+  for (const width of widths) {
+    const out = `public/images/about-${name}-${width}.webp`;
+    await sharp(`_brand/about-x4/${name}.png`)
+      .resize({ width })
+      .webp({ quality: 80, effort: 6 })
+      .toFile(out);
+    await report(out);
+  }
 }
 
 // ---- logos (bundled) ---------------------------------------------------------
-// ~2x the largest rendered size: header h-14 (56px) -> 120px, footer ~140px -> 300px.
+// ~2x the largest rendered size. The header shows the complete logo, tagline
+// included (the client wants it exact): rendered up to 88px tall -> 180px.
 const logos: Array<[string, string, number]> = [
-  ["_brand/logo-header.png", "src/assets/logo-header.webp", 132],
-  ["_brand/logo-header-light.png", "src/assets/logo-header-light.webp", 132],
+  ["_brand/logo-full.png", "src/assets/logo-header.webp", 180],
+  ["_brand/logo-full-light.png", "src/assets/logo-header-light.webp", 180],
   ["_brand/logo-full-light.png", "src/assets/logo-full-light.webp", 300],
   ["_brand/logo-mark.png", "src/assets/logo-mark.webp", 160],
   ["_brand/logo-mark-light.png", "src/assets/logo-mark-light.webp", 160],

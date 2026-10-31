@@ -74,14 +74,16 @@ export function AboutTeaser() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-navy-900 shadow-[0_50px_90px_-50px_rgb(4_14_36/0.7)]">
             <div data-about-photo className="absolute -inset-y-[10%] inset-x-0">
               <img
-                src={custom ?? "/images/about-756.webp"}
+                src={custom ?? "/images/about-headlight-720.webp"}
                 srcSet={
-                  custom ? undefined : "/images/about-640.webp 640w, /images/about-756.webp 756w"
+                  custom
+                    ? undefined
+                    : "/images/about-headlight-720.webp 720w, /images/about-headlight-1200.webp 1200w"
                 }
                 sizes="(min-width: 1024px) 40vw, 92vw"
                 alt={t("about.imageAlt")}
-                width={756}
-                height={512}
+                width={1200}
+                height={1092}
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover"
@@ -105,9 +107,9 @@ export function AboutTeaser() {
           </div>
           <div className="absolute -bottom-6 start-6 hidden rounded-lg bg-navy-900 px-5 py-4 text-white shadow-xl sm:block">
             <p className="font-wide text-[11px] font-bold tracking-[0.25em] text-gold-300 uppercase">
-              {t("export.origin")} · RO
+              {t("hero.eyebrow")}
             </p>
-            <p className="mt-1 text-sm text-white/70">B2B · EU</p>
+            <p className="mt-1 text-sm text-white/70">{t("hero.location")}</p>
           </div>
         </div>
 

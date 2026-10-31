@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useDeferredValue, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { PageHero } from "@/components/layout/PageHero";
-import { CtaBand } from "@/components/sections/CtaBand";
 import { ButtonLink } from "@/components/ui/Button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { VehicleFilters } from "@/components/vehicles/VehicleFilters";
@@ -123,7 +122,6 @@ export default function Vehicles() {
           )}
         </div>
       </section>
-      <CtaBand />
     </>
   );
 }

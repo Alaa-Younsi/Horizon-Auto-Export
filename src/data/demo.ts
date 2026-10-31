@@ -33,6 +33,8 @@ export const DEMO_BRANDS: BrandRow[] = [
   brand("cupra", "CUPRA", 50),
   brand("porsche", "Porsche", 60),
   brand("bmw", "BMW", 70),
+  brand("dacia", "Dacia", 80),
+  brand("renault", "Renault", 90),
 ];
 
 type DemoSeed = Partial<VehicleWithMedia> & Pick<VehicleWithMedia, "slug" | "title">;

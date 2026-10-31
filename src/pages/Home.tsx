@@ -1,6 +1,5 @@
 import { AboutTeaser } from "@/components/sections/home/AboutTeaser";
 import { BrandsMarquee } from "@/components/sections/home/BrandsMarquee";
-import { ExportStory } from "@/components/sections/home/ExportStory";
 import { FeaturedVehicles } from "@/components/sections/home/FeaturedVehicles";
 import { Hero } from "@/components/sections/home/Hero";
 import { ServicesStrip } from "@/components/sections/home/ServicesStrip";
@@ -18,7 +17,6 @@ export default function Home() {
       <ServicesStrip />
       <AboutTeaser />
       <WhyUs />
-      <ExportStory />
       <FeaturedVehicles />
       <BrandsMarquee />
     </>

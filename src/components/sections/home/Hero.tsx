@@ -135,7 +135,7 @@ export function Hero() {
     <section
       ref={root}
       aria-labelledby="hero-title"
-      className="relative isolate flex h-[calc(100svh-84px)] min-h-[620px] flex-col overflow-hidden bg-navy-950 text-white lg:h-[calc(100svh-92px)]"
+      className="relative isolate flex h-[calc(100svh-92px)] min-h-[620px] flex-col overflow-hidden bg-navy-950 text-white lg:h-[calc(100svh-108px)]"
     >
       {/* the horizon line the photo opens from */}
       <div

@@ -54,14 +54,15 @@ src/
   i18n/                      dictionaries (ro = source, typed), LanguageProvider (language lives in the URL)
   components/
     layout/                  Header, Footer (sunrise horizon), PublicLayout, PageHero
-    sections/home/           Hero, ServicesStrip, AboutTeaser, WhyUs, ExportStory, FeaturedVehicles, BrandsMarquee
+    sections/home/           Hero, ServicesStrip, AboutTeaser, WhyUs, FeaturedVehicles, BrandsMarquee
+    sections/about/          AboutStory (the client's À-propos layout)
     fx/                      SmoothScroll, RevealText, Reveal, DrawIcon, Magnetic, TiltCard, ScrollProgress
     vehicles/ forms/ ui/
   pages/                     Home, About, Services, Vehicles, VehicleDetail, Contact, Legal, NotFound
   pages/admin/               dashboard (own EN/RO dictionary, lazy-loaded, never linked from the site)
   lib/                       contact.ts (single source of contact details), vehicles.ts, image.ts, …
 supabase/
-  migrations/                0001 schema … 0007 seed (sequential; never edit one that may have run)
+  migrations/                0001 schema … 0008 seed (sequential; never edit one that may have run)
   functions/                 create-staff, set-staff-password, notify (self-contained Deno)
 middleware.ts                Vercel Edge: real link previews for shared vehicle URLs (social crawlers only)
 scripts/                     SEO files, DB tests, asset pipeline, map/brand generators
@@ -80,10 +81,10 @@ Romanian diacritics); display type runs extended to echo the wide HORIZON wordma
   gold horizon line draws across, the photo opens out of it (pure CSS — can't stall), the
   headline rises word by word, "B2B" catches a travelling gold sheen; contact details run along
   its top edge; on scroll it contracts into a rounded card; subtle cursor depth parallax.
-- **Services**: their own section right under the hero — five navy cards with the service icon
-  as a large watermark, rising in on the first scroll.
-- **Export file**: the four steps are sheets of an export dossier that stick and pile up as you
-  scroll, each stamped as it lands, while a truck drives the road Bucharest → Europe.
+- **Services**: their own section right under the hero — the two services the company offers
+  (passenger cars, commercial vehicles) as wide navy cards with their key points.
+- **About page**: the client's own layout — navy header with the full logo beside the headlight
+  photo, then three photo/text rows cut by the gold diagonal blade, and the motto band.
 - **Footer**: a sun rises out of a gold horizon line as the footer scrolls in.
 - Masked text reveals, self-drawing icons, scroll-scrubbed quote, route curtain transitions,
   Lenis smooth scroll, tilt/magnetic hovers (mouse only).
@@ -107,7 +108,7 @@ change with re-authentication, e-mail notifications).
 2. **Create the owner login first**: Authentication → Users → _Add user_ with the client's
    e-mail. Then check the e-mail in `supabase/migrations/0002_admin_permissions.sql`
    (seeded as `horizonautoexport@gmail.com`) matches it.
-3. **Run the migrations in order** (SQL editor, 0001 → 0007, or `bunx supabase db push` after
+3. **Run the migrations in order** (SQL editor, 0001 → 0008, or `bunx supabase db push` after
    `bunx supabase link`). Run `bun run test:db` first — it proves they all apply on a fresh DB.
    _After 0002 only seeded admins can write._ The `media` storage bucket is created by 0006.
 4. **Disable public sign-up**: Authentication → Sign In / Providers → turn off "Allow new users
@@ -140,9 +141,10 @@ change with re-authentication, e-mail notifications).
       painted out by `scripts/brand/clean_hero.py`, then upscaled ×4 with Real-ESRGAN
       (`_brand/hero-photo-x4.png`) and turned into web sizes by `bun run optimize:assets`.
       A text-free original from the designer would still be the cleanest source.
-    - ⚠ **Original "about" photo.** The current one was extracted from the WhatsApp mock-up
-      (591 px wide), cleaned and upscaled ×4. Upload the original in _Site settings → Images_
-      (no deploy needed), or replace `_brand/about-x4.png` and run `bun run optimize:assets`.
+    - **About photos**: cut from the client's "À propos" mock-up (`_brand/about-mockup.jpeg`,
+      946 px wide) and upscaled ×4 into `_brand/about-x4/`. Originals would be sharper: replace
+      the PNGs there and run `bun run optimize:assets` (the home one can also be uploaded in
+      _Site settings → Images_).
     - Trade register number (_Nr. Reg. Com._) — add it in _Site settings_.
     - Have a lawyer review `src/content/legal.ts` (privacy policy + terms).
 

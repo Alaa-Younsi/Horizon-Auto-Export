@@ -66,7 +66,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       className="grain fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-navy-950 px-6 pt-5 pb-8 text-white lg:hidden"
     >
       <div className="flex h-14 items-center justify-between">
-        <Logo tone="light" className="h-12" />
+        <Logo tone="light" className="h-14" />
         <button
           type="button"
           onClick={onClose}
@@ -161,13 +161,13 @@ export function Header() {
         <div
           className={cn(
             "container-x flex items-center gap-6 transition-[height] duration-500 ease-[var(--ease-out-expo)]",
-            compact ? "h-[68px]" : "h-[84px] lg:h-[92px]",
+            compact ? "h-[76px]" : "h-[92px] lg:h-[108px]",
           )}
         >
           <Logo
             className={cn(
               "transition-[height] duration-500 ease-[var(--ease-out-expo)]",
-              compact ? "h-12" : "h-14 lg:h-16",
+              compact ? "h-[60px]" : "h-[74px] lg:h-[88px]",
             )}
           />
           <div className="flex flex-1 items-center justify-end gap-4 lg:justify-center">

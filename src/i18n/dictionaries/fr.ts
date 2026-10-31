@@ -12,7 +12,7 @@ export const fr: Dictionary = {
     "Horizon Auto Export S.R.L. — société basée à Bucarest, spécialisée dans l'achat et la vente de véhicules d'occasion pour les professionnels.",
   "meta.services.title": "Services",
   "meta.services.desc":
-    "Voitures, véhicules utilitaires, véhicules accidentés, rachat B2B auprès de flottes et de sociétés de leasing, export dans toute l'Europe.",
+    "Voitures et véhicules utilitaires pour les professionnels : berlines, SUV, citadines, utilitaires légers et lourds, livrés dans toute l'Europe.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
     "Contactez Horizon Auto Export, Bucarest : téléphone, e-mail ou formulaire de demande. Nous répondons rapidement à chaque demande B2B.",
@@ -59,33 +59,11 @@ export const fr: Dictionary = {
   "svc.commercial.b1": "Utilitaires légers (N1) et lourds (N2/N3)",
   "svc.commercial.b2": "Frigorifiques, bennes, plateaux",
   "svc.commercial.b3": "Renouvellement complet de flottes",
-  "svc.damaged.title": "Véhicules accidentés",
-  "svc.damaged.short": "Expertise et revente",
-  "svc.damaged.long":
-    "Nous achetons et vendons des véhicules accidentés avec une évaluation honnête des dommages. Chaque défaut est décrit clairement, photos à l'appui, avant toute offre.",
-  "svc.damaged.b1": "Évaluation technique transparente",
-  "svc.damaged.b2": "Photos détaillées des dommages",
-  "svc.damaged.b3": "Enlèvement rapide auprès des assureurs et flottes",
-  "svc.b2b.title": "Rachat B2B",
-  "svc.b2b.short": "Sociétés, leasing, flottes et concessionnaires",
-  "svc.b2b.long":
-    "Nous rachetons des véhicules directement aux entreprises, sociétés de leasing, flottes et concessionnaires — à l'unité ou en lot. Estimation rapide, offre ferme et paiement sécurisé.",
-  "svc.b2b.b1": "Estimation sous 24 à 48 heures",
-  "svc.b2b.b2": "Paiement sécurisé par virement",
-  "svc.b2b.b3": "Nous gérons papiers et transport",
-  "svc.export.title": "Export international",
-  "svc.export.short": "Des partenaires de confiance dans toute l'Europe",
-  "svc.export.long":
-    "Nous livrons dans toute l'Europe avec des transporteurs de confiance et gérons les documents d'export, la facturation intracommunautaire et la logistique de A à Z.",
-  "svc.export.b1": "Facturation intracommunautaire, TVA récupérable",
-  "svc.export.b2": "Livraison par porte-voitures ou convoyage",
-  "svc.export.b3": "Documents d'export complets",
   "svc.eyebrow": "Ce que nous faisons",
   "svc.title": "Des services complets pour les professionnels de l'automobile",
   "svc.lead":
     "D'une seule voiture à des flottes entières : nous achetons, vendons et livrons des véhicules d'occasion pour concessionnaires, entreprises et partenaires dans toute l'Europe.",
   "svc.all": "Tous nos services",
-  "svc.more": "Détails",
 
   "about.eyebrow": "À propos",
   "about.title": "Votre partenaire de confiance pour l'export automobile",
@@ -97,8 +75,6 @@ export const fr: Dictionary = {
   "about.cta": "En savoir plus",
   "about.imageAlt": "Phare LED d'une voiture premium sombre",
   "about.mission.title": "Notre mission",
-  "about.mission.text":
-    "Rendre le commerce automobile entre professionnels simple et sûr : des véhicules décrits fidèlement, des prix clairs et des livraisons à l'heure, partout en Europe.",
   "about.values.title": "Nos valeurs",
   "about.value1.title": "Transparence",
   "about.value1.text":
@@ -109,31 +85,25 @@ export const fr: Dictionary = {
   "about.value3.title": "Réactivité",
   "about.value3.text":
     "Nous répondons vite et décidons vite, car en B2B le temps, c'est de l'argent.",
+  "about.page.title": "À propos de nous",
+  "about.who.title": "Qui sommes-nous ?",
+  "about.who.p1":
+    "Horizon Auto Export est une entreprise spécialisée dans l'achat et la vente de véhicules neufs et d'occasion.",
+  "about.who.p2":
+    "Nous proposons une sélection variée de modèles et de marques afin de répondre aux attentes et aux besoins de chaque client. Notre ambition est de proposer une offre automobile diversifiée, accompagnée d'un service sérieux et professionnel.",
+  "about.who.imageAlt": "Rangée de voitures premium sombres",
+  "about.vision.title": "Notre vision",
+  "about.vision.text":
+    "Notre objectif est de rendre l'achat automobile simple et accessible, en proposant des véhicules adaptés aux différents besoins et budgets.",
+  "about.vision.imageAlt": "SUV noir sur une route de montagne au coucher du soleil",
+  "about.care.title": "Votre satisfaction, notre priorité",
+  "about.care.text":
+    "Nous plaçons vos attentes au centre de notre démarche et mettons tout en œuvre pour vous offrir une expérience d'achat agréable et un service à la hauteur de vos attentes.",
+  "about.care.imageAlt": "Volant d'une voiture premium",
+  "about.motto": "L'automobile au cœur de nos engagements.",
   "about.company.title": "Informations société",
   "about.company.name": "Raison sociale",
   "about.company.seat": "Siège",
-
-  "export.eyebrow": "L'excellence au-delà des frontières",
-  "export.title": "De Bucarest vers toute l'Europe",
-  "export.lead":
-    "Nous travaillons avec des concessionnaires, des flottes et des entreprises dans toute l'Union européenne. Un seul partenaire pour la recherche, le contrôle, les papiers et le transport.",
-  "export.destination": "Europe",
-  "export.docTitle": "Dossier d'export",
-  "export.status": "Étape validée",
-  "export.origin": "Bucarest",
-  "export.step1.title": "Votre demande",
-  "export.step1.text":
-    "Dites-nous ce que vous cherchez ou vendez : marque, modèle, budget, quantité, destination.",
-  "export.step2.title": "Sélection et contrôle",
-  "export.step2.text":
-    "Nous trouvons les bons véhicules et vérifions historique, kilométrage et état technique.",
-  "export.step3.title": "Offre et documents",
-  "export.step3.text":
-    "Vous recevez une offre ferme. Nous gérons contrat, facturation et documents d'export.",
-  "export.step4.title": "Transport et livraison",
-  "export.step4.text":
-    "Nous organisons le transport jusqu'à destination, partout en Europe, à la date convenue.",
-  "export.stepLabel": "Étape {n}",
 
   "why.title": "Pourquoi nous choisir ?",
   "why.i1": "Sérieux et transparence",
@@ -148,10 +118,7 @@ export const fr: Dictionary = {
   "featured.all": "Tous les véhicules",
   "featured.drag": "Glisser",
 
-  "cta.tagline": "Ensemble pour de nouvelles opportunités sur le marché automobile international.",
-  "cta.title": "Un projet ? Parlons-en.",
-  "cta.text":
-    "Dites-nous ce que vous cherchez ou souhaitez vendre. Nous revenons vers vous avec une offre au plus vite.",
+  "cta.tagline": "Votre prochaine aventure automobile commence ici.",
   "cta.button": "Contactez-nous",
   "footer.rights": "Tous droits réservés.",
   "footer.terms": "Conditions générales",
@@ -159,7 +126,6 @@ export const fr: Dictionary = {
   "footer.vat": "N° TVA",
   "footer.reg": "N° Reg. Com.",
   "footer.explore": "Explorer",
-  "footer.contact": "Contact",
   "footer.backTop": "Retour en haut",
 
   "veh.eyebrow": "Stock actuel",

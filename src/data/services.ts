@@ -1,9 +1,9 @@
-import { CarFront, Handshake, type LucideIcon, Route, ShieldCheck, Van } from "lucide-react";
+import { CarFront, type LucideIcon, Van } from "lucide-react";
 import type { TranslationKey } from "@/i18n/dictionaries";
 
 export interface Service {
   /** Anchor on /services (#passenger …) and the stable key in every list. */
-  id: "passenger" | "commercial" | "damaged" | "b2b" | "export";
+  id: "passenger" | "commercial";
   icon: LucideIcon;
   title: TranslationKey;
   short: TranslationKey;
@@ -11,7 +11,7 @@ export interface Service {
   bullets: [TranslationKey, TranslationKey, TranslationKey];
 }
 
-/** The five services, in the mock-up's order. */
+/** What the company offers: passenger cars and commercial vehicles. */
 export const SERVICES: Service[] = [
   {
     id: "passenger",
@@ -28,29 +28,5 @@ export const SERVICES: Service[] = [
     short: "svc.commercial.short",
     long: "svc.commercial.long",
     bullets: ["svc.commercial.b1", "svc.commercial.b2", "svc.commercial.b3"],
-  },
-  {
-    id: "damaged",
-    icon: ShieldCheck,
-    title: "svc.damaged.title",
-    short: "svc.damaged.short",
-    long: "svc.damaged.long",
-    bullets: ["svc.damaged.b1", "svc.damaged.b2", "svc.damaged.b3"],
-  },
-  {
-    id: "b2b",
-    icon: Handshake,
-    title: "svc.b2b.title",
-    short: "svc.b2b.short",
-    long: "svc.b2b.long",
-    bullets: ["svc.b2b.b1", "svc.b2b.b2", "svc.b2b.b3"],
-  },
-  {
-    id: "export",
-    icon: Route,
-    title: "svc.export.title",
-    short: "svc.export.short",
-    long: "svc.export.long",
-    bullets: ["svc.export.b1", "svc.export.b2", "svc.export.b3"],
   },
 ];

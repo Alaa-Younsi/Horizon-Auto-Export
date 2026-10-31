@@ -1,9 +1,7 @@
 import { Gauge, type LucideIcon, ScanEye, ShieldCheck } from "lucide-react";
 import { DrawIcon } from "@/components/fx/DrawIcon";
 import { Reveal } from "@/components/fx/Reveal";
-import { PageHero } from "@/components/layout/PageHero";
-import { CtaBand } from "@/components/sections/CtaBand";
-import { AboutTeaser } from "@/components/sections/home/AboutTeaser";
+import { AboutStory } from "@/components/sections/about/AboutStory";
 import { WhyUs } from "@/components/sections/home/WhyUs";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useSiteSettings } from "@/hooks/usePublicData";
@@ -25,12 +23,7 @@ export default function About() {
 
   return (
     <>
-      <PageHero
-        eyebrow={t("about.eyebrow")}
-        title={t("about.title")}
-        lead={t("about.mission.text")}
-      />
-      <AboutTeaser />
+      <AboutStory />
 
       <section className="bg-paper py-20 lg:py-28">
         <div className="container-x">
@@ -92,8 +85,6 @@ export default function About() {
           </div>
         </section>
       )}
-
-      <CtaBand />
     </>
   );
 }

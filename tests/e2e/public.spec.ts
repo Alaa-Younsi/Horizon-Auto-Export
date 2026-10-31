@@ -23,7 +23,12 @@ test.describe("public site (production build, no database)", () => {
     await expect(page).toHaveURL(/\/(ro|en|fr)$/);
     await page.goto("/ro");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Vehicule rulate");
-    await expect(page.getByRole("link", { name: /Autoturisme/ }).first()).toBeVisible();
+    // exactly the two services the company offers
+    await expect(page.getByRole("heading", { level: 3, name: "Autoturisme" })).toBeAttached();
+    await expect(
+      page.getByRole("heading", { level: 3, name: "Vehicule comerciale" }),
+    ).toBeAttached();
+    await expect(page.getByRole("heading", { name: /Vehicule avariate/ })).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /Partenerul tău de încredere/ })).toBeAttached();
     await expect(page.getByRole("heading", { name: /De ce să ne alegi/ })).toBeAttached();
     await expect(page.getByRole("heading", { name: /Mărci disponibile/ })).toBeAttached();

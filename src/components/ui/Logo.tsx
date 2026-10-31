@@ -5,7 +5,7 @@ import { useI18n } from "@/i18n/LanguageProvider";
 import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 
-/** Header wordmark (mark + HORIZON + AUTO EXPORT), 214×132 source = 2x of its slot. */
+/** The complete logo (mark, HORIZON, AUTO EXPORT and the tagline), 2x of its slot. */
 export function Logo({
   tone = "dark",
   className,
@@ -19,8 +19,8 @@ export function Logo({
       <img
         src={tone === "dark" ? logoDark : logoLight}
         alt={BRAND_NAME}
-        width={214}
-        height={132}
+        width={230}
+        height={180}
         className="h-full w-auto"
         decoding="async"
       />

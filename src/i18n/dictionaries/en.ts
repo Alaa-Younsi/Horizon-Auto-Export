@@ -12,7 +12,7 @@ export const en: Dictionary = {
     "Horizon Auto Export S.R.L. — a Bucharest company specialised in buying and selling used vehicles for professional customers.",
   "meta.services.title": "Services",
   "meta.services.desc":
-    "Passenger cars, commercial vehicles, damaged vehicles, B2B purchasing from fleets and leasing, international export across Europe.",
+    "Passenger cars and commercial vehicles for professionals: saloons, SUVs, hatchbacks, light and heavy utility vehicles, delivered across Europe.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
     "Contact Horizon Auto Export, Bucharest: phone, e-mail or the inquiry form. We answer every B2B request quickly.",
@@ -59,33 +59,11 @@ export const en: Dictionary = {
   "svc.commercial.b1": "Light (N1) and heavy (N2/N3) vehicles",
   "svc.commercial.b2": "Refrigerated vans, tippers, flatbeds",
   "svc.commercial.b3": "Complete fleet renewals",
-  "svc.damaged.title": "Damaged vehicles",
-  "svc.damaged.short": "Assessment and resale",
-  "svc.damaged.long":
-    "We buy and sell damaged vehicles with an honest damage assessment. For repairers and exporters, every defect is described clearly, with photos, before any offer.",
-  "svc.damaged.b1": "Transparent technical assessment",
-  "svc.damaged.b2": "Detailed damage photography",
-  "svc.damaged.b3": "Fast collection from insurers and fleets",
-  "svc.b2b.title": "B2B purchasing",
-  "svc.b2b.short": "From companies, leasing, fleets and dealers",
-  "svc.b2b.long":
-    "We buy vehicles directly from companies, leasing firms, fleets and dealers — single units or whole batches. Quick valuation, firm offer and secure payment, with no admin headaches.",
-  "svc.b2b.b1": "Valuation within 24–48 hours",
-  "svc.b2b.b2": "Secure payment by bank transfer",
-  "svc.b2b.b3": "We handle paperwork and transport",
-  "svc.export.title": "International export",
-  "svc.export.short": "Trusted partners across Europe",
-  "svc.export.long":
-    "We deliver across Europe through trusted transport partners, handling export documents, intra-community invoicing and logistics from A to Z.",
-  "svc.export.b1": "Intra-community invoicing, VAT-deductible",
-  "svc.export.b2": "Car-transporter or driven delivery",
-  "svc.export.b3": "Complete export paperwork",
   "svc.eyebrow": "What we do",
   "svc.title": "Complete services for automotive professionals",
   "svc.lead":
     "From a single car to entire fleets: we buy, sell and deliver used vehicles for dealers, companies and partners across Europe.",
   "svc.all": "All services",
-  "svc.more": "Details",
 
   "about.eyebrow": "About us",
   "about.title": "Your trusted partner in automotive export",
@@ -97,8 +75,6 @@ export const en: Dictionary = {
   "about.cta": "Learn more",
   "about.imageAlt": "LED headlight of a dark premium car",
   "about.mission.title": "Our mission",
-  "about.mission.text":
-    "To make vehicle trading between professionals simple and safe: accurately described cars, clear prices and on-time delivery, anywhere in Europe.",
   "about.values.title": "Our values",
   "about.value1.title": "Transparency",
   "about.value1.text":
@@ -107,31 +83,25 @@ export const en: Dictionary = {
   "about.value2.text": "What we promise, we deliver. Agreed deadlines and terms are kept.",
   "about.value3.title": "Speed",
   "about.value3.text": "We answer fast and decide fast, because in B2B time is money.",
+  "about.page.title": "About us",
+  "about.who.title": "Who we are",
+  "about.who.p1":
+    "Horizon Auto Export is a company specialised in buying and selling new and used vehicles.",
+  "about.who.p2":
+    "We offer a varied selection of models and makes to meet the expectations and needs of every customer. Our ambition is to provide a diverse range of vehicles, backed by a reliable, professional service.",
+  "about.who.imageAlt": "A row of dark premium cars",
+  "about.vision.title": "Our vision",
+  "about.vision.text":
+    "Our goal is to make buying a car simple and accessible, with vehicles suited to different needs and budgets.",
+  "about.vision.imageAlt": "Black SUV on a mountain road at sunset",
+  "about.care.title": "Your satisfaction, our priority",
+  "about.care.text":
+    "We put your expectations at the centre of everything we do and make every effort to give you a pleasant buying experience and a service that lives up to them.",
+  "about.care.imageAlt": "Steering wheel of a premium car",
+  "about.motto": "Cars at the heart of our commitments.",
   "about.company.title": "Company details",
   "about.company.name": "Name",
   "about.company.seat": "Registered office",
-
-  "export.eyebrow": "Excellence beyond borders",
-  "export.title": "From Bucharest to all of Europe",
-  "export.lead":
-    "We work with dealers, fleets and companies across the European Union. One partner for sourcing, inspection, paperwork and transport.",
-  "export.destination": "Europe",
-  "export.docTitle": "Export file",
-  "export.status": "Step confirmed",
-  "export.origin": "Bucharest",
-  "export.step1.title": "Your request",
-  "export.step1.text":
-    "Tell us what you are looking for or selling: make, model, budget, quantity, destination.",
-  "export.step2.title": "Selection & inspection",
-  "export.step2.text":
-    "We find the right vehicles and check history, mileage and technical condition.",
-  "export.step3.title": "Offer & paperwork",
-  "export.step3.text":
-    "You receive a firm offer. We handle the contract, invoicing and export documents.",
-  "export.step4.title": "Transport & delivery",
-  "export.step4.text":
-    "We coordinate transport to the destination, anywhere in Europe, on the agreed date.",
-  "export.stepLabel": "Step {n}",
 
   "why.title": "Why choose us?",
   "why.i1": "Reliability and transparency",
@@ -146,10 +116,7 @@ export const en: Dictionary = {
   "featured.all": "All vehicles",
   "featured.drag": "Drag",
 
-  "cta.tagline": "Together for new opportunities in the international car market.",
-  "cta.title": "Have a project? Let's talk.",
-  "cta.text":
-    "Tell us what you are looking for or want to sell. We will come back with an offer as soon as possible.",
+  "cta.tagline": "Your next automotive adventure starts here.",
   "cta.button": "Contact us",
   "footer.rights": "All rights reserved.",
   "footer.terms": "Terms and conditions",
@@ -157,7 +124,6 @@ export const en: Dictionary = {
   "footer.vat": "VAT ID",
   "footer.reg": "Trade reg. no.",
   "footer.explore": "Explore",
-  "footer.contact": "Contact",
   "footer.backTop": "Back to top",
 
   "veh.eyebrow": "Current stock",

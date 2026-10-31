@@ -2,8 +2,6 @@ import { ArrowRight, Check } from "lucide-react";
 import { useRef } from "react";
 import { DrawIcon } from "@/components/fx/DrawIcon";
 import { PageHero } from "@/components/layout/PageHero";
-import { CtaBand } from "@/components/sections/CtaBand";
-import { ExportStory } from "@/components/sections/home/ExportStory";
 import { ButtonLink } from "@/components/ui/Button";
 import { SERVICES } from "@/data/services";
 import { useGsap } from "@/hooks/useGsap";
@@ -17,9 +15,6 @@ import { gsap } from "@/lib/gsap";
 const STOCK_FILTER: Record<string, string | null> = {
   passenger: "passenger",
   commercial: "commercial",
-  damaged: "damaged",
-  b2b: null,
-  export: null,
 };
 
 export default function Services() {
@@ -145,9 +140,6 @@ export default function Services() {
           );
         })}
       </div>
-
-      <ExportStory />
-      <CtaBand />
     </>
   );
 }

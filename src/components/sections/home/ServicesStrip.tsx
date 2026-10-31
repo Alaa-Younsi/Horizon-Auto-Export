@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { useRef } from "react";
 import { Link } from "react-router";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -9,11 +9,11 @@ import { useI18n } from "@/i18n/LanguageProvider";
 import { gsap } from "@/lib/gsap";
 
 /**
- * The mock-up's five services, in their own section right under the hero (it
- * fills the first screen, so these appear on the first scroll). Navy cards on
- * white: gold number and icon, the service's own icon as a large watermark.
- * Fully lit at rest; hover/focus lifts the card, fills the icon gold and warms
- * the glow — phones have no hover, so nothing depends on it.
+ * What the company offers — passenger cars and commercial vehicles — as two
+ * wide navy cards right under the hero (it fills the first screen, so these
+ * appear on the first scroll). Each card carries its service's three key
+ * points; the service icon sits large and faint in the corner. Lit at rest;
+ * hover only lifts the card and warms its glow.
  */
 export function ServicesStrip() {
   const { t, path } = useI18n();
@@ -24,20 +24,21 @@ export function ServicesStrip() {
     () => {
       const grid = root.current?.querySelector("[data-svc-grid]");
       if (reduced || !grid) return;
+      const trigger = { trigger: grid, start: "top 85%", once: true };
       gsap.from("[data-svc]", {
         y: 80,
         duration: 1.3,
-        stagger: 0.08,
+        stagger: 0.12,
         ease: "expo.out",
-        scrollTrigger: { trigger: grid, start: "top 88%", once: true },
+        scrollTrigger: trigger,
       });
       gsap.from("[data-svc-mark]", {
-        rotate: -25,
-        scale: 0.6,
+        rotate: -20,
+        scale: 0.7,
         duration: 1.8,
-        stagger: 0.08,
+        stagger: 0.12,
         ease: "expo.out",
-        scrollTrigger: { trigger: grid, start: "top 88%", once: true },
+        scrollTrigger: trigger,
       });
     },
     root,
@@ -59,10 +60,7 @@ export function ServicesStrip() {
           >
             <span className="relative">
               {t("svc.all")}
-              <span
-                aria-hidden
-                className="absolute inset-x-0 -bottom-1 h-px origin-left bg-gold-500 transition-transform duration-500 group-hover:scale-x-110"
-              />
+              <span aria-hidden className="absolute inset-x-0 -bottom-1 h-px bg-gold-500" />
             </span>
             <ArrowRight
               className="size-4 text-gold-600 transition-transform group-hover:translate-x-1"
@@ -71,56 +69,55 @@ export function ServicesStrip() {
           </Link>
         </div>
 
-        <div
-          data-svc-grid
-          className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-14 lg:grid-cols-5 lg:gap-5"
-        >
+        <div data-svc-grid className="mt-10 grid gap-5 lg:mt-14 lg:grid-cols-2 lg:gap-6">
           {SERVICES.map((s, i) => {
             const Icon = s.icon;
             return (
-              // GSAP moves the wrapper, CSS moves the card on hover: one
-              // element must never carry both, or a transform transition mid-
-              // flight is read back as the tween's end state and it freezes.
-              <div key={s.id} data-svc className="last:col-span-2 lg:last:col-span-1">
-                <Link
-                  to={`${path("/services")}#${s.id}`}
-                  className="group relative isolate flex min-h-[220px] flex-col overflow-hidden rounded-2xl bg-navy-900 p-4 sm:min-h-[280px] sm:p-6 text-white shadow-[0_30px_60px_-34px_rgb(4_14_36/0.7)] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 focus-visible:-translate-y-1.5 h-full lg:min-h-[340px]"
-                >
-                  {/* warm glow in the corner, brighter on hover */}
+              // GSAP moves the wrapper, CSS moves the card on hover: one element
+              // must never carry both, or a transform transition mid-flight is
+              // read back as the tween's end state and the card freezes.
+              <div key={s.id} data-svc>
+                <article className="group relative isolate flex h-full min-h-[360px] flex-col overflow-hidden rounded-3xl bg-navy-900 p-7 text-white shadow-[0_40px_80px_-44px_rgb(4_14_36/0.75)] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 sm:p-10">
                   <span
                     aria-hidden
-                    className="absolute -end-16 -top-16 -z-10 size-48 rounded-full bg-gold-500/20 blur-3xl transition-opacity duration-500 group-hover:opacity-100 lg:opacity-70"
+                    className="absolute -end-24 -top-24 -z-10 size-72 rounded-full bg-gold-500/20 blur-3xl transition-opacity duration-500 group-hover:opacity-100 lg:opacity-60"
                   />
-                  <span aria-hidden data-svc-mark className="absolute -end-8 -bottom-8 -z-10">
+                  <span aria-hidden data-svc-mark className="absolute -end-10 -bottom-12 -z-10">
                     <Icon
-                      className="size-28 text-white/[0.05] sm:size-44 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-6 group-hover:scale-110"
-                      strokeWidth={1}
+                      className="size-64 text-white/[0.05] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-6 group-hover:scale-105 sm:size-80"
+                      strokeWidth={0.9}
                     />
                   </span>
 
-                  <span className="flex items-center justify-between">
-                    <span className="grid size-10 place-items-center rounded-xl bg-gold-500/12 sm:size-12 text-gold-300 ring-1 ring-gold-400/30 transition-colors duration-500 group-hover:bg-gold-500 group-hover:text-navy-950 group-focus-visible:bg-gold-500 group-focus-visible:text-navy-950">
-                      <Icon className="size-[22px]" strokeWidth={1.7} aria-hidden />
+                  <div className="flex items-center justify-between">
+                    <span className="grid size-14 place-items-center rounded-2xl bg-gold-500 text-navy-950">
+                      <Icon className="size-7" strokeWidth={1.7} aria-hidden />
                     </span>
-                    <span className="font-wide text-[13px] font-black tracking-[0.1em] text-gold-300/80 tabular-nums">
-                      0{i + 1}
+                    <span className="font-wide text-[15px] font-black tracking-[0.1em] text-gold-300/80 tabular-nums">
+                      0{i + 1} / 0{SERVICES.length}
                     </span>
-                  </span>
+                  </div>
 
-                  <h3 className="font-display mt-auto pt-8 text-[16px] sm:pt-10 sm:text-[19px] leading-snug font-bold text-balance">
+                  <h3 className="font-display mt-auto pt-12 text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight font-bold">
                     {t(s.title)}
                   </h3>
-                  <p className="mt-2 text-[13px] leading-snug text-white/60 sm:text-[14px]">
-                    {t(s.short)}
-                  </p>
-                  <span className="mt-5 flex items-center gap-1.5 border-t border-white/10 pt-3.5 text-[11px] sm:mt-6 sm:pt-4 sm:text-[12px] font-bold tracking-[0.16em] text-gold-300 uppercase">
-                    {t("svc.more")}
-                    <ArrowUpRight
-                      aria-hidden
-                      className="size-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    />
-                  </span>
-                </Link>
+                  <p className="mt-2 text-[16px] font-semibold text-gold-300">{t(s.short)}</p>
+                  <ul className="mt-6 grid gap-3 border-t border-white/10 pt-6 sm:grid-cols-3 sm:gap-4">
+                    {s.bullets.map((b) => (
+                      <li
+                        key={b}
+                        className="flex items-start gap-2.5 text-[14px] leading-snug text-white/75"
+                      >
+                        <Check
+                          className="mt-0.5 size-4 shrink-0 text-gold-400"
+                          strokeWidth={2.5}
+                          aria-hidden
+                        />
+                        {t(b)}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
               </div>
             );
           })}

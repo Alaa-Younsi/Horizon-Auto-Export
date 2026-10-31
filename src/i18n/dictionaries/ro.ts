@@ -16,7 +16,7 @@ export const ro = {
     "Horizon Auto Export S.R.L. — companie din București specializată în achiziția și vânzarea de vehicule rulate pentru clienți profesioniști.",
   "meta.services.title": "Servicii",
   "meta.services.desc":
-    "Autoturisme, vehicule comerciale, vehicule avariate, achiziții B2B de la flote și leasing, export internațional în toată Europa.",
+    "Autoturisme și vehicule comerciale pentru profesioniști: sedan, SUV, hatchback, utilitare ușoare și grele, cu livrare în toată Europa.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
     "Contactați Horizon Auto Export, București: telefon, e-mail sau formularul de cerere. Răspundem rapid oricărei cereri B2B.",
@@ -66,33 +66,11 @@ export const ro = {
   "svc.commercial.b1": "Utilitare ușoare (N1) și grele (N2/N3)",
   "svc.commercial.b2": "Dube frigorifice, basculante, platforme",
   "svc.commercial.b3": "Reînnoire completă de flote",
-  "svc.damaged.title": "Vehicule avariate",
-  "svc.damaged.short": "Evaluare și revânzare",
-  "svc.damaged.long":
-    "Cumpărăm și vindem vehicule avariate cu o evaluare onestă a daunelor. Pentru reparatori și exportatori, descriem clar fiecare avarie, cu fotografii, înainte de orice ofertă.",
-  "svc.damaged.b1": "Evaluare tehnică transparentă",
-  "svc.damaged.b2": "Fotografii detaliate ale daunelor",
-  "svc.damaged.b3": "Preluare rapidă de la asiguratori și flote",
-  "svc.b2b.title": "Achiziții B2B",
-  "svc.b2b.short": "De la companii, leasing, flote și dealeri",
-  "svc.b2b.long":
-    "Preluăm vehicule direct de la companii, firme de leasing, flote și dealeri — individual sau în lot. Evaluare rapidă, ofertă fermă și plată sigură, fără bătăi de cap administrative.",
-  "svc.b2b.b1": "Evaluare în 24–48 de ore",
-  "svc.b2b.b2": "Plată sigură prin transfer bancar",
-  "svc.b2b.b3": "Ne ocupăm de documente și transport",
-  "svc.export.title": "Export internațional",
-  "svc.export.short": "Parteneri de încredere în toată Europa",
-  "svc.export.long":
-    "Livrăm în toată Europa prin parteneri de transport de încredere. Gestionăm documentele de export, facturarea intracomunitară și coordonarea logistică de la A la Z.",
-  "svc.export.b1": "Facturare intracomunitară, TVA deductibil",
-  "svc.export.b2": "Transport pe platformă sau cu șofer",
-  "svc.export.b3": "Documente de export complete",
   "svc.eyebrow": "Ce facem",
   "svc.title": "Servicii complete pentru profesioniștii din auto",
   "svc.lead":
     "De la o singură mașină până la flote întregi: cumpărăm, vindem și livrăm vehicule rulate pentru dealeri, companii și parteneri din toată Europa.",
   "svc.all": "Toate serviciile",
-  "svc.more": "Detalii",
 
   // ---- about ----------------------------------------------------------------
   "about.eyebrow": "Despre noi",
@@ -105,8 +83,6 @@ export const ro = {
   "about.cta": "Află mai multe",
   "about.imageAlt": "Far LED al unui autoturism premium închis la culoare",
   "about.mission.title": "Misiunea noastră",
-  "about.mission.text":
-    "Să facem comerțul auto între profesioniști simplu și sigur: vehicule descrise corect, prețuri clare și livrări la termen, oriunde în Europa.",
   "about.values.title": "Valorile noastre",
   "about.value1.title": "Transparență",
   "about.value1.text":
@@ -115,32 +91,25 @@ export const ro = {
   "about.value2.text": "Ce promitem, livrăm. Termenele și condițiile convenite se respectă.",
   "about.value3.title": "Rapiditate",
   "about.value3.text": "Răspundem repede și decidem repede, pentru că în B2B timpul înseamnă bani.",
+  "about.page.title": "Despre noi",
+  "about.who.title": "Cine suntem?",
+  "about.who.p1":
+    "Horizon Auto Export este o companie specializată în achiziția și vânzarea de vehicule noi și rulate.",
+  "about.who.p2":
+    "Vă propunem o selecție variată de modele și mărci, pentru a răspunde așteptărilor și nevoilor fiecărui client. Ambiția noastră este să oferim o gamă auto diversificată, însoțită de un serviciu serios și profesionist.",
+  "about.who.imageAlt": "Rând de autoturisme premium închise la culoare",
+  "about.vision.title": "Viziunea noastră",
+  "about.vision.text":
+    "Obiectivul nostru este să facem achiziția unei mașini simplă și accesibilă, cu vehicule potrivite pentru nevoi și bugete diferite.",
+  "about.vision.imageAlt": "SUV negru pe un drum de munte la apus",
+  "about.care.title": "Satisfacția dumneavoastră, prioritatea noastră",
+  "about.care.text":
+    "Punem așteptările dumneavoastră în centrul a tot ce facem și depunem toate eforturile pentru a vă oferi o experiență de cumpărare plăcută și un serviciu pe măsura așteptărilor.",
+  "about.care.imageAlt": "Volanul unui autoturism premium",
+  "about.motto": "Automobilul, în centrul angajamentelor noastre.",
   "about.company.title": "Date companie",
   "about.company.name": "Denumire",
   "about.company.seat": "Sediu",
-
-  // ---- export story (dossier) ------------------------------------------------
-  "export.eyebrow": "Excelență dincolo de granițe",
-  "export.title": "Din București, către toată Europa",
-  "export.lead":
-    "Lucrăm cu dealeri, flote și companii din întreaga Uniune Europeană. Un singur partener pentru căutare, verificare, documente și transport.",
-  "export.destination": "Europa",
-  "export.docTitle": "Dosar de export",
-  "export.status": "Etapă confirmată",
-  "export.origin": "București",
-  "export.step1.title": "Cererea dumneavoastră",
-  "export.step1.text":
-    "Ne spuneți ce căutați sau ce vindeți: marcă, model, buget, cantitate, destinație.",
-  "export.step2.title": "Selecție și verificare",
-  "export.step2.text":
-    "Identificăm vehiculele potrivite și verificăm istoricul, kilometrajul și starea tehnică.",
-  "export.step3.title": "Ofertă și documente",
-  "export.step3.text":
-    "Primiți o ofertă fermă. Ne ocupăm de contract, facturare și documentele de export.",
-  "export.step4.title": "Transport și livrare",
-  "export.step4.text":
-    "Coordonăm transportul până la destinație, oriunde în Europa, la termenul convenit.",
-  "export.stepLabel": "Etapa {n}",
 
   // ---- why us ---------------------------------------------------------------
   "why.title": "De ce să ne alegi?",
@@ -158,9 +127,7 @@ export const ro = {
   "featured.drag": "Trage",
 
   // ---- CTA / footer ---------------------------------------------------------
-  "cta.tagline": "Împreună pentru noi oportunități pe piața auto internațională.",
-  "cta.title": "Aveți un proiect? Să vorbim.",
-  "cta.text": "Spuneți-ne ce căutați sau ce doriți să vindeți. Revenim cu o ofertă cât mai repede.",
+  "cta.tagline": "Următoarea ta aventură auto începe aici.",
   "cta.button": "Contactează-ne",
   "footer.rights": "Toate drepturile rezervate.",
   "footer.terms": "Termeni și condiții",
@@ -168,7 +135,6 @@ export const ro = {
   "footer.vat": "CUI / TVA",
   "footer.reg": "Nr. Reg. Com.",
   "footer.explore": "Explorează",
-  "footer.contact": "Contact",
   "footer.backTop": "Înapoi sus",
 
   // ---- vehicles -------------------------------------------------------------
