@@ -1,21 +1,16 @@
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { DrawIcon } from "@/components/fx/DrawIcon";
 import { PageHero } from "@/components/layout/PageHero";
 import { ButtonLink } from "@/components/ui/Button";
-import { SERVICES } from "@/data/services";
+import { PAGE_SERVICES } from "@/data/services";
 import { useGsap } from "@/hooks/useGsap";
 import { useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSeo } from "@/hooks/useSeo";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
-
-/** Where each service's "see stock" link points (b2b/export have no stock filter). */
-const STOCK_FILTER: Record<string, string | null> = {
-  passenger: "passenger",
-  commercial: "commercial",
-};
 
 export default function Services() {
   const { t, path } = useI18n();
@@ -54,11 +49,14 @@ export default function Services() {
 
   return (
     <>
-      <PageHero eyebrow={t("svc.eyebrow")} title={t("svc.title")} lead={t("svc.lead")} />
+      <PageHero
+        eyebrow={t("svcPage.eyebrow")}
+        title={t("svcPage.title")}
+        lead={t("svcPage.lead")}
+      />
 
       <div ref={root} className="py-12 lg:py-20">
-        {SERVICES.map((s, i) => {
-          const filter = STOCK_FILTER[s.id];
+        {PAGE_SERVICES.map((s, i) => {
           return (
             <section
               key={s.id}
@@ -73,7 +71,7 @@ export default function Services() {
                   i % 2 === 1 && "lg:[&>*:first-child]:order-2",
                 )}
               >
-                <div className="relative grid aspect-[5/4] place-items-center overflow-hidden rounded-2xl bg-navy-900 text-gold-300">
+                <div className="relative grid aspect-[16/11] place-items-center overflow-hidden rounded-2xl bg-navy-900 text-gold-300">
                   <div
                     aria-hidden
                     className="absolute inset-0 bg-[radial-gradient(70%_70%_at_30%_25%,rgb(36_68_125/0.9),transparent_70%)]"
@@ -104,32 +102,19 @@ export default function Services() {
                   >
                     {t(s.title)}
                   </h2>
-                  <p data-svc-anim className="mt-2 text-[15px] font-semibold text-gold-700">
-                    {t(s.short)}
+                  <p data-svc-anim className="mt-5 max-w-xl text-[17px] leading-relaxed text-muted">
+                    {t(s.text)}
                   </p>
-                  <p data-svc-anim className="mt-5 text-[17px] leading-relaxed text-muted">
-                    {t(s.long)}
-                  </p>
-                  <ul className="mt-7 space-y-3">
-                    {s.bullets.map((b) => (
-                      <li key={b} data-svc-anim className="flex items-start gap-3 text-navy-900">
-                        <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-gold-500 text-white">
-                          <Check className="size-3" strokeWidth={3} aria-hidden />
-                        </span>
-                        {t(b)}
-                      </li>
-                    ))}
-                  </ul>
                   <div data-svc-anim className="mt-9 flex flex-wrap gap-3">
-                    <ButtonLink to={path("/contact")}>
+                    <ButtonLink to={`${path("/contact")}?kind=${s.kind}`}>
                       {t("hero.cta")}
                       <ArrowRight
                         className="size-4 transition-transform group-hover/btn:translate-x-1"
                         aria-hidden
                       />
                     </ButtonLink>
-                    {filter && (
-                      <ButtonLink to={`${path("/vehicles")}?category=${filter}`} variant="outline">
+                    {s.stock && (
+                      <ButtonLink to={path("/vehicles")} variant="outline">
                         {t("hero.ctaSecondary")}
                       </ButtonLink>
                     )}
@@ -140,6 +125,12 @@ export default function Services() {
           );
         })}
       </div>
+
+      <p className="container-x flex items-center gap-5 pb-20 text-center text-[clamp(1rem,1.6vw,1.2rem)] text-navy-900/80 italic lg:pb-28">
+        <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-gold-500" />
+        {BRAND_NAME} — Excellence Beyond Borders.
+        <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-gold-500" />
+      </p>
     </>
   );
 }

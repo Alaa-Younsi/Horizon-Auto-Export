@@ -136,12 +136,10 @@ describe("exports", () => {
 
 describe("inquiry schema (mirrors submit_inquiry)", () => {
   const ok = {
-    kind: "sourcing",
+    kind: "availability",
     name: "Andrei Popescu",
-    company: "",
     email: "andrei@example.ro",
     phone: "+40 721 000 000",
-    country: "",
     message: "Caut 5 autoturisme pentru flotă.",
     consent: true,
     website: "",

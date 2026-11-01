@@ -12,6 +12,8 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Localized = { [K in Lang]?: string };
 
 export const VEHICLE_CATEGORIES = ["passenger", "commercial", "damaged"] as const;
+/** The categories the public site offers (the company sells passenger + commercial). */
+export const PUBLIC_CATEGORIES = ["passenger", "commercial"] as const;
 export type VehicleCategory = (typeof VEHICLE_CATEGORIES)[number];
 
 export const BODY_TYPES = [
@@ -57,8 +59,12 @@ export type Currency = (typeof CURRENCIES)[number];
 export const INQUIRY_STATUSES = ["new", "contacted", "negotiating", "won", "lost", "spam"] as const;
 export type InquiryStatus = (typeof INQUIRY_STATUSES)[number];
 
-export const INQUIRY_KINDS = ["general", "vehicle", "sourcing", "sell", "export"] as const;
+/** The subjects the contact form offers (0009_inquiry_subjects.sql). */
+export const INQUIRY_KINDS = ["general", "vehicle", "availability", "delivery"] as const;
 export type InquiryKind = (typeof INQUIRY_KINDS)[number];
+/** Subjects of the first version of the form; old rows may still carry them. */
+export const LEGACY_INQUIRY_KINDS = ["sourcing", "sell", "export"] as const;
+export type StoredInquiryKind = InquiryKind | (typeof LEGACY_INQUIRY_KINDS)[number];
 
 type Rel<FK extends string, Col extends string, Ref extends string> = {
   foreignKeyName: FK;
@@ -143,7 +149,7 @@ export type VehiclePrivateRow = {
 export type InquiryRow = {
   id: string;
   reference: string;
-  kind: InquiryKind;
+  kind: StoredInquiryKind;
   vehicle_id: string | null;
   vehicle_label: string | null;
   name: string;

@@ -360,7 +360,7 @@ function NotAvailable() {
         <p className="mt-3 text-muted">{t("veh.notFound.text")}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <ButtonLink to={path("/vehicles")}>{t("featured.all")}</ButtonLink>
-          <ButtonLink to={`${path("/contact")}?kind=sourcing`} variant="outline">
+          <ButtonLink to={`${path("/contact")}?kind=availability`} variant="outline">
             {t("veh.empty.cta")}
           </ButtonLink>
         </div>

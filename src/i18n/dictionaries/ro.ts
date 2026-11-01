@@ -7,16 +7,16 @@ export const ro = {
   "meta.home.title":
     "Vehicule rulate B2B — achiziție, vânzare și export auto | Horizon Auto Export",
   "meta.home.desc":
-    "Horizon Auto Export, București: achiziție și vânzare de mașini second-hand pentru profesioniști. Autoturisme, vehicule comerciale și avariate, livrare în toată Europa.",
+    "Horizon Auto Export, București: vânzare de autoturisme și vehicule comerciale noi și rulate, consiliere la achiziție și livrare în toată Europa.",
   "meta.vehicles.title": "Vehicule disponibile",
   "meta.vehicles.desc":
-    "Stocul actual de autoturisme, vehicule comerciale și avariate pentru clienți profesioniști. Prețuri B2B, TVA deductibil, livrare în Europa.",
+    "Stocul actual de autoturisme și vehicule comerciale, noi și rulate. Consiliere, sprijin administrativ și livrare în Europa.",
   "meta.about.title": "Despre noi",
   "meta.about.desc":
     "Horizon Auto Export S.R.L. — companie din București specializată în achiziția și vânzarea de vehicule rulate pentru clienți profesioniști.",
   "meta.services.title": "Servicii",
   "meta.services.desc":
-    "Autoturisme și vehicule comerciale pentru profesioniști: sedan, SUV, hatchback, utilitare ușoare și grele, cu livrare în toată Europa.",
+    "Vânzare de vehicule noi și rulate, consiliere și asistență la achiziție, livrare și asistență administrativă.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
     "Contactați Horizon Auto Export, București: telefon, e-mail sau formularul de cerere. Răspundem rapid oricărei cereri B2B.",
@@ -68,9 +68,23 @@ export const ro = {
   "svc.commercial.b3": "Reînnoire completă de flote",
   "svc.eyebrow": "Ce facem",
   "svc.title": "Servicii complete pentru profesioniștii din auto",
-  "svc.lead":
-    "De la o singură mașină până la flote întregi: cumpărăm, vindem și livrăm vehicule rulate pentru dealeri, companii și parteneri din toată Europa.",
   "svc.all": "Toate serviciile",
+  "svcPage.eyebrow": "Serviciile noastre",
+  "svcPage.title": "Servicii gândite pentru achiziția dumneavoastră auto",
+  "svcPage.lead":
+    "Descoperiți serviciile prin care vă însoțim în alegerea și achiziția vehiculului dumneavoastră.",
+  "svcPage.sale.title": "Vânzare de vehicule noi și rulate",
+  "svcPage.sale.text":
+    "Descoperiți o selecție de vehicule de diferite mărci și categorii, potrivite nevoilor și bugetului dumneavoastră.",
+  "svcPage.advice.title": "Consiliere și asistență la achiziție",
+  "svcPage.advice.text":
+    "Fiecare achiziție auto este un proiect important. Suntem alături de dumneavoastră pentru a vă oferi informațiile necesare despre vehiculele noastre și pentru a vă sprijini în luarea deciziei.",
+  "svcPage.delivery.title": "Livrarea vehiculelor",
+  "svcPage.delivery.text":
+    "Pentru a vă simplifica viața, vă oferim soluții de livrare adaptate destinației dumneavoastră. Obiectivul nostru este să vă facilităm recepția vehiculului și să vă facem experiența de cumpărare mai plăcută.",
+  "svcPage.paperwork.title": "Asistență administrativă",
+  "svcPage.paperwork.text":
+    "Vă sprijinim în demersurile administrative legate de achiziție, pentru a vă ajuta să pregătiți documentele necesare și să finalizați achiziția în cele mai bune condiții.",
 
   // ---- about ----------------------------------------------------------------
   "about.eyebrow": "Despre noi",
@@ -132,7 +146,8 @@ export const ro = {
   "footer.rights": "Toate drepturile rezervate.",
   "footer.terms": "Termeni și condiții",
   "footer.privacy": "Politica de confidențialitate",
-  "footer.vat": "CUI / TVA",
+  "footer.vat": "Cod TVA",
+  "footer.cui": "CUI",
   "footer.reg": "Nr. Reg. Com.",
   "footer.explore": "Explorează",
   "footer.backTop": "Înapoi sus",
@@ -141,7 +156,7 @@ export const ro = {
   "veh.eyebrow": "Stoc actual",
   "veh.title": "Vehicule disponibile",
   "veh.lead":
-    "Autoturisme, vehicule comerciale și avariate pentru clienți profesioniști. Stocul se schimbă des — dacă nu găsiți ce căutați, vi-l căutăm noi.",
+    "Autoturisme și vehicule comerciale, noi și rulate. Stocul se schimbă des — dacă nu găsiți ce căutați, scrieți-ne.",
   "veh.filter.all": "Toate",
   "veh.filter.category": "Categorie",
   "veh.filter.brand": "Marcă",
@@ -149,6 +164,9 @@ export const ro = {
   "veh.filter.fuel": "Combustibil",
   "veh.filter.anyFuel": "Orice combustibil",
   "veh.filter.transmission": "Transmisie",
+  "veh.filter.year": "An fabricație",
+  "veh.filter.yearMin": "An minim",
+  "veh.filter.yearMax": "An maxim",
   "veh.filter.anyTransmission": "Orice transmisie",
   "veh.filter.search": "Caută marcă, model…",
   "veh.filter.sort": "Sortează",
@@ -162,12 +180,6 @@ export const ro = {
   "veh.sort.mileageAsc": "Kilometraj (cel mai mic)",
   "veh.results": "{n} vehicule",
   "veh.results.one": "1 vehicul",
-  "veh.empty.title": "Niciun vehicul pentru aceste filtre",
-  "veh.empty.text":
-    "Încercați alte filtre sau spuneți-ne ce căutați — găsim noi vehiculul potrivit.",
-  "veh.empty.stockTitle": "Stocul se actualizează",
-  "veh.empty.stockText":
-    "Lucrăm mai ales la comandă. Spuneți-ne marca, modelul și bugetul, iar noi vă trimitem ofertele potrivite.",
   "veh.empty.cta": "Trimite o cerere",
   "veh.loading": "Se încarcă vehiculele…",
   "veh.loadError": "Nu am putut încărca vehiculele. Reîncercați în câteva momente.",
@@ -260,9 +272,9 @@ export const ro = {
 
   // ---- contact --------------------------------------------------------------
   "contact.eyebrow": "Contact",
-  "contact.title": "Să construim următorul parteneriat",
+  "contact.title": "Să vorbim despre următorul dumneavoastră proiect auto.",
   "contact.lead":
-    "Completați formularul sau contactați-ne direct. Răspundem tuturor cererilor în cel mai scurt timp, în zilele lucrătoare.",
+    "Completați formularul sau contactați-ne direct. Răspundem fiecărei solicitări în cel mai scurt timp.",
   "contact.phone": "Telefon",
   "contact.email": "E-mail",
   "contact.address": "Adresă",
@@ -273,17 +285,15 @@ export const ro = {
 
   "form.kind": "Subiect",
   "form.kind.general": "Întrebare generală",
-  "form.kind.vehicle": "Un vehicul din stoc",
-  "form.kind.sourcing": "Caut un vehicul / o flotă",
-  "form.kind.sell": "Vând vehicule (companie, leasing, flotă)",
-  "form.kind.export": "Export / transport internațional",
+  "form.kind.availability": "Verificare disponibilitate",
+  "form.kind.delivery": "Solicitare de livrare",
+  "form.kind.vehicle": "Solicitare de informații despre un vehicul",
   "form.name": "Nume și prenume",
-  "form.company": "Companie",
   "form.email": "E-mail",
   "form.phone": "Telefon",
-  "form.country": "Țară",
   "form.message": "Mesaj",
-  "form.messagePlaceholder": "Marcă, model, an, buget, cantitate, destinație…",
+  "form.messagePlaceholder":
+    "Descrieți solicitarea sau puneți-ne o întrebare. Echipa noastră vă va răspunde cât mai curând.",
   "form.optional": "opțional",
   "form.consent":
     "Sunt de acord cu prelucrarea datelor mele pentru a primi un răspuns, conform {link}.",

@@ -10,7 +10,7 @@ import { useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { BRAND_NAME } from "@/lib/brand";
-import { mailHref, telHref, whatsappHref } from "@/lib/contact";
+import { cuiOf, mailHref, telHref, whatsappHref } from "@/lib/contact";
 import { gsap } from "@/lib/gsap";
 import { pick } from "@/lib/localized";
 import { NAV_ITEMS } from "./navigation";
@@ -209,8 +209,13 @@ export function Footer() {
               {companyName.endsWith(".") ? "" : "."} {t("footer.rights")}
             </span>
             {s?.vat_id && (
-              <span>
+              <span className="text-white/70">
                 {t("footer.vat")}: {s.vat_id}
+              </span>
+            )}
+            {cuiOf(s?.vat_id) && (
+              <span className="text-white/70">
+                {t("footer.cui")}: {cuiOf(s?.vat_id)}
               </span>
             )}
             {s?.trade_register && (

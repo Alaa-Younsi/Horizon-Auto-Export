@@ -51,7 +51,10 @@ async function sendEmail(to: string, subject: string, html: string, replyTo: str
 
 const KIND_LABEL: Record<string, string> = {
   general: "Întrebare generală",
-  vehicle: "Vehicul din stoc",
+  vehicle: "Informații despre un vehicul",
+  availability: "Verificare disponibilitate",
+  delivery: "Solicitare de livrare",
+  // subjects of the first form version (older rows)
   sourcing: "Căutare vehicul / flotă",
   sell: "Vânzare către noi",
   export: "Export / transport",

@@ -8,6 +8,7 @@ import { useSiteSettings } from "@/hooks/usePublicData";
 import { useSeo } from "@/hooks/useSeo";
 import type { TranslationKey } from "@/i18n/dictionaries";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { cuiOf } from "@/lib/contact";
 import { pick } from "@/lib/localized";
 
 const VALUES: Array<{ icon: LucideIcon; title: TranslationKey; text: TranslationKey }> = [
@@ -69,6 +70,7 @@ export default function About() {
                   [t("about.company.name"), s.company_name],
                   [t("about.company.seat"), pick(s.address, lang)],
                   [t("footer.vat"), s.vat_id],
+                  [t("footer.cui"), cuiOf(s.vat_id)],
                   [t("footer.reg"), s.trade_register],
                   [t("contact.phone"), s.phone_display],
                   [t("contact.email"), s.email],

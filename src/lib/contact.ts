@@ -7,7 +7,7 @@ import type { SiteSettingsRow } from "@/types/db";
  * (blank columns keep these values). Never run them through i18n: a phone
  * number is the same in every language, and a translated copy is one that drifts.
  *
- * Source: the client's approved mock-up (Oct 2026).
+ * Source: the client's approved mock-up (Oct 2026); street address Nov 2026.
  */
 export const CONTACT_FALLBACK: SiteSettingsRow = {
   id: true,
@@ -17,7 +17,11 @@ export const CONTACT_FALLBACK: SiteSettingsRow = {
   phone_e164: "+40759145041",
   whatsapp_e164: "+40759145041",
   email: "horizonautoexport@gmail.com",
-  address: { ro: "București, România", en: "Bucharest, Romania", fr: "Bucarest, Roumanie" },
+  address: {
+    ro: "Str. Ilioara, Nr. 54, Sectorul 3, București",
+    en: "Str. Ilioara, Nr. 54, Sector 3, Bucharest, Romania",
+    fr: "Str. Ilioara, Nr. 54, Secteur 3, Bucarest, Roumanie",
+  },
   hours: {
     ro: "Luni – Vineri: 09:00 – 18:00",
     en: "Monday – Friday: 09:00 – 18:00",
@@ -25,12 +29,23 @@ export const CONTACT_FALLBACK: SiteSettingsRow = {
   },
   vat_id: "RO55177825",
   trade_register: null,
-  map_url: "https://www.google.com/maps/search/?api=1&query=Bucure%C8%99ti%2C%20Rom%C3%A2nia",
+  map_url:
+    "https://www.google.com/maps/search/?api=1&query=Strada%20Ilioara%2054%2C%20Sector%203%2C%20Bucure%C8%99ti",
   hero_image_url: null,
   about_image_url: null,
   socials: {},
   updated_at: "",
 };
+
+/**
+ * The Romanian company ID (CUI). For a VAT-registered company it is the VAT
+ * number without the "RO" prefix (RO55177825 -> 55177825), so it is derived
+ * rather than typed twice.
+ */
+export function cuiOf(vatId: string | null | undefined): string | null {
+  const digits = vatId?.trim().replace(/^RO\s*/i, "") ?? "";
+  return /^[0-9]{2,10}$/.test(digits) ? digits : null;
+}
 
 export function telHref(e164: string | null | undefined): string | undefined {
   return e164 ? `tel:${e164}` : undefined;

@@ -3,16 +3,16 @@ import type { Dictionary } from "./ro";
 export const en: Dictionary = {
   "meta.home.title": "Used vehicles B2B — sourcing, sales & export | Horizon Auto Export",
   "meta.home.desc":
-    "Horizon Auto Export, Bucharest: buying and selling used cars for professionals. Passenger cars, commercial and damaged vehicles, delivery across Europe.",
+    "Horizon Auto Export, Bucharest: new and used passenger cars and commercial vehicles, purchase advice and delivery across Europe.",
   "meta.vehicles.title": "Available vehicles",
   "meta.vehicles.desc":
-    "Current stock of passenger cars, commercial and damaged vehicles for trade buyers. B2B prices, VAT-deductible, delivery across Europe.",
+    "Current stock of new and used passenger cars and commercial vehicles. Advice, paperwork support and delivery across Europe.",
   "meta.about.title": "About us",
   "meta.about.desc":
     "Horizon Auto Export S.R.L. — a Bucharest company specialised in buying and selling used vehicles for professional customers.",
   "meta.services.title": "Services",
   "meta.services.desc":
-    "Passenger cars and commercial vehicles for professionals: saloons, SUVs, hatchbacks, light and heavy utility vehicles, delivered across Europe.",
+    "Sale of new and used vehicles, purchase advice and support, delivery and administrative support.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
     "Contact Horizon Auto Export, Bucharest: phone, e-mail or the inquiry form. We answer every B2B request quickly.",
@@ -61,9 +61,22 @@ export const en: Dictionary = {
   "svc.commercial.b3": "Complete fleet renewals",
   "svc.eyebrow": "What we do",
   "svc.title": "Complete services for automotive professionals",
-  "svc.lead":
-    "From a single car to entire fleets: we buy, sell and deliver used vehicles for dealers, companies and partners across Europe.",
   "svc.all": "All services",
+  "svcPage.eyebrow": "Our services",
+  "svcPage.title": "Services designed around your car purchase",
+  "svcPage.lead": "Discover how we support you in choosing and buying your vehicle.",
+  "svcPage.sale.title": "Sale of new and used vehicles",
+  "svcPage.sale.text":
+    "Discover a selection of vehicles of different makes and categories, suited to your needs and your budget.",
+  "svcPage.advice.title": "Purchase advice and support",
+  "svcPage.advice.text":
+    "Every car purchase is an important project. We are here to give you the information you need about our vehicles and to support you in your decision.",
+  "svcPage.delivery.title": "Vehicle delivery",
+  "svcPage.delivery.text":
+    "To make life easier, we offer delivery solutions adapted to your destination. Our aim is to make receiving your vehicle simple and your buying experience more pleasant.",
+  "svcPage.paperwork.title": "Administrative support",
+  "svcPage.paperwork.text":
+    "We guide you through the paperwork that comes with your purchase, helping you prepare the necessary documents and complete it under the best conditions.",
 
   "about.eyebrow": "About us",
   "about.title": "Your trusted partner in automotive export",
@@ -121,7 +134,8 @@ export const en: Dictionary = {
   "footer.rights": "All rights reserved.",
   "footer.terms": "Terms and conditions",
   "footer.privacy": "Privacy policy",
-  "footer.vat": "VAT ID",
+  "footer.vat": "VAT no.",
+  "footer.cui": "CUI",
   "footer.reg": "Trade reg. no.",
   "footer.explore": "Explore",
   "footer.backTop": "Back to top",
@@ -129,7 +143,7 @@ export const en: Dictionary = {
   "veh.eyebrow": "Current stock",
   "veh.title": "Available vehicles",
   "veh.lead":
-    "Passenger cars, commercial and damaged vehicles for trade buyers. Stock changes often — if you can't find it here, we will source it for you.",
+    "New and used passenger cars and commercial vehicles. Stock changes often — if you can't find what you're looking for, write to us.",
   "veh.filter.all": "All",
   "veh.filter.category": "Category",
   "veh.filter.brand": "Make",
@@ -137,6 +151,9 @@ export const en: Dictionary = {
   "veh.filter.fuel": "Fuel",
   "veh.filter.anyFuel": "Any fuel",
   "veh.filter.transmission": "Gearbox",
+  "veh.filter.year": "Model year",
+  "veh.filter.yearMin": "Year from",
+  "veh.filter.yearMax": "Year to",
   "veh.filter.anyTransmission": "Any gearbox",
   "veh.filter.search": "Search make, model…",
   "veh.filter.sort": "Sort",
@@ -150,11 +167,6 @@ export const en: Dictionary = {
   "veh.sort.mileageAsc": "Mileage (lowest)",
   "veh.results": "{n} vehicles",
   "veh.results.one": "1 vehicle",
-  "veh.empty.title": "No vehicles match these filters",
-  "veh.empty.text": "Try other filters or tell us what you need — we will find the right vehicle.",
-  "veh.empty.stockTitle": "Stock is being updated",
-  "veh.empty.stockText":
-    "We mostly work to order. Tell us the make, model and budget and we will send you matching offers.",
   "veh.empty.cta": "Send a request",
   "veh.loading": "Loading vehicles…",
   "veh.loadError": "We couldn't load the vehicles. Please try again in a moment.",
@@ -246,9 +258,9 @@ export const en: Dictionary = {
   "body.other": "Other body",
 
   "contact.eyebrow": "Contact",
-  "contact.title": "Let's build the next partnership",
+  "contact.title": "Let's talk about your next automotive project.",
   "contact.lead":
-    "Fill in the form or contact us directly. We answer every request as quickly as possible on working days.",
+    "Fill in the form or contact us directly. We answer every request as quickly as possible.",
   "contact.phone": "Phone",
   "contact.email": "E-mail",
   "contact.address": "Address",
@@ -259,17 +271,15 @@ export const en: Dictionary = {
 
   "form.kind": "Subject",
   "form.kind.general": "General question",
-  "form.kind.vehicle": "A vehicle in stock",
-  "form.kind.sourcing": "I'm looking for a vehicle / a fleet",
-  "form.kind.sell": "I'm selling vehicles (company, leasing, fleet)",
-  "form.kind.export": "Export / international transport",
+  "form.kind.availability": "Availability request",
+  "form.kind.delivery": "Delivery request",
+  "form.kind.vehicle": "Information about a vehicle",
   "form.name": "Full name",
-  "form.company": "Company",
   "form.email": "E-mail",
   "form.phone": "Phone",
-  "form.country": "Country",
   "form.message": "Message",
-  "form.messagePlaceholder": "Make, model, year, budget, quantity, destination…",
+  "form.messagePlaceholder":
+    "Describe your request or ask us a question. Our team will get back to you as soon as possible.",
   "form.optional": "optional",
   "form.consent":
     "I agree to my data being processed so that you can reply, as described in the {link}.",

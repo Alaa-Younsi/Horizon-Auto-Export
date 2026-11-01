@@ -8,7 +8,7 @@ import { WorldDots } from "@/components/ui/WorldDots";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import { useSeo } from "@/hooks/useSeo";
 import { useI18n } from "@/i18n/LanguageProvider";
-import { mailHref, telHref, whatsappHref } from "@/lib/contact";
+import { cuiOf, mailHref, telHref, whatsappHref } from "@/lib/contact";
 import { pick } from "@/lib/localized";
 import { INQUIRY_KINDS, type InquiryKind } from "@/types/db";
 
@@ -117,6 +117,7 @@ export default function Contact() {
               {s.vat_id && (
                 <p className="px-2 pt-2 text-sm text-muted">
                   {s.company_name} · {t("footer.vat")}: {s.vat_id}
+                  {cuiOf(s.vat_id) && ` · ${t("footer.cui")}: ${cuiOf(s.vat_id)}`}
                 </p>
               )}
             </Reveal>

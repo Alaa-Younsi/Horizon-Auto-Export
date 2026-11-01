@@ -16,7 +16,6 @@ const msg = (key: TranslationKey) => ({ message: key });
 export const inquirySchema = z.object({
   kind: z.enum(INQUIRY_KINDS),
   name: z.string().trim().min(2, msg("form.err.name")).max(100, msg("form.err.tooLong")),
-  company: z.string().trim().max(120, msg("form.err.tooLong")),
   email: z
     .string()
     .trim()
@@ -27,7 +26,6 @@ export const inquirySchema = z.object({
     .string()
     .trim()
     .refine((v) => v === "" || /^\+?[0-9][0-9 ().\-/]{5,22}$/.test(v), msg("form.err.phone")),
-  country: z.string().trim().max(80, msg("form.err.tooLong")),
   message: z.string().trim().min(10, msg("form.err.message")).max(4000, msg("form.err.tooLong")),
   consent: z.boolean().refine((v) => v, msg("form.err.consent")),
   /** Honeypot: must stay empty. */

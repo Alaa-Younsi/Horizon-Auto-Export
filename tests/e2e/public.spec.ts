@@ -41,7 +41,7 @@ test.describe("public site (production build, no database)", () => {
     await page.getByRole("button", { name: /Limba/ }).click();
     await page.getByRole("button", { name: "English" }).click();
     await expect(page).toHaveURL(/\/en\/services$/);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Complete services");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Services designed around");
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await page.getByRole("button", { name: /Language/ }).click();
     await page.getByRole("button", { name: "Français" }).click();
@@ -56,15 +56,20 @@ test.describe("public site (production build, no database)", () => {
     await expect(page.getByRole("heading", { name: "Road closed" })).toBeVisible();
   });
 
-  test("no stock is invented in production: the vehicles page offers sourcing instead", async ({
+  test("no stock is invented in production, and only the two offered categories exist", async ({
     page,
   }) => {
     await page.goto("/en/vehicles");
-    await expect(page.getByText("Stock is being updated")).toBeVisible();
+    await expect(page.getByText("0 vehicles")).toBeVisible();
     await expect(page.getByText("Demo example")).toHaveCount(0);
-    await page.getByRole("link", { name: "Send a request" }).click();
-    await expect(page).toHaveURL(/\/en\/contact\?kind=sourcing$/);
-    await expect(page.getByLabel(/Subject/)).toHaveValue("sourcing");
+    await expect(page.getByRole("tab")).toHaveText(["All", "Passenger cars", "Commercial"]);
+    // a service link pre-selects its subject in the contact form
+    await page.goto("/en/services");
+    await page.locator("#delivery").getByRole("link", { name: "Contact us" }).click();
+    await expect(page).toHaveURL(/\/en\/contact\?kind=delivery$/);
+    await expect(page.getByLabel(/Subject/)).toHaveValue("delivery");
+    await expect(page.getByLabel(/Company/)).toHaveCount(0);
+    await expect(page.getByLabel(/Country/)).toHaveCount(0);
   });
 
   test("contact form validates in the visitor's language and explains a missing database", async ({

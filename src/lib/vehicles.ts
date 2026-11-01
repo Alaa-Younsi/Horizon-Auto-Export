@@ -2,9 +2,9 @@ import type { Lang } from "@/i18n/languages";
 import {
   FUELS,
   type Fuel,
+  PUBLIC_CATEGORIES,
   TRANSMISSIONS,
   type Transmission,
-  VEHICLE_CATEGORIES,
   type VehicleCategory,
   type VehicleWithMedia,
 } from "@/types/db";
@@ -26,9 +26,31 @@ export interface VehicleFilters {
   brand: string | null;
   fuel: Fuel | null;
   transmission: Transmission | null;
+  /** Model year range, inclusive; either end may be open. */
+  yearMin: number | null;
+  yearMax: number | null;
   q: string;
   sort: Sort;
   sold: boolean;
+}
+
+export const EMPTY_FILTERS: VehicleFilters = {
+  category: null,
+  brand: null,
+  fuel: null,
+  transmission: null,
+  yearMin: null,
+  yearMax: null,
+  q: "",
+  sort: "newest",
+  sold: false,
+};
+
+/** A plausible model year (4 digits, 1950 .. next year), else null. */
+export function parseYear(v: string | null): number | null {
+  if (!v || !/^[0-9]{4}$/.test(v)) return null;
+  const y = Number(v);
+  return y >= 1950 && y <= new Date().getFullYear() + 1 ? y : null;
 }
 
 function oneOf<T extends string>(list: readonly T[], v: string | null): T | null {
@@ -38,7 +60,7 @@ function oneOf<T extends string>(list: readonly T[], v: string | null): T | null
 /** URL search params are hostile input: anything unknown falls back to "no filter". */
 export function parseFilters(params: URLSearchParams): VehicleFilters {
   return {
-    category: oneOf(VEHICLE_CATEGORIES, params.get("category")),
+    category: oneOf(PUBLIC_CATEGORIES, params.get("category")),
     brand:
       params
         .get("brand")
@@ -46,6 +68,8 @@ export function parseFilters(params: URLSearchParams): VehicleFilters {
         .slice(0, 60) || null,
     fuel: oneOf(FUELS, params.get("fuel")),
     transmission: oneOf(TRANSMISSIONS, params.get("transmission")),
+    yearMin: parseYear(params.get("yearMin")),
+    yearMax: parseYear(params.get("yearMax")),
     q: (params.get("q") ?? "").slice(0, 80),
     sort: oneOf(SORTS, params.get("sort")) ?? "newest",
     sold: params.get("sold") === "1",
@@ -58,6 +82,8 @@ export function filtersToParams(f: VehicleFilters): URLSearchParams {
   if (f.brand) p.set("brand", f.brand);
   if (f.fuel) p.set("fuel", f.fuel);
   if (f.transmission) p.set("transmission", f.transmission);
+  if (f.yearMin) p.set("yearMin", String(f.yearMin));
+  if (f.yearMax) p.set("yearMax", String(f.yearMax));
   if (f.q.trim()) p.set("q", f.q.trim());
   if (f.sort !== "newest") p.set("sort", f.sort);
   if (f.sold) p.set("sold", "1");
@@ -84,6 +110,9 @@ export function applyFilters(list: VehicleWithMedia[], f: VehicleFilters, lang: 
     if (f.brand && v.brand?.slug !== f.brand) return false;
     if (f.fuel && v.fuel !== f.fuel) return false;
     if (f.transmission && v.transmission !== f.transmission) return false;
+    // a vehicle without a year can't satisfy a year range
+    if (f.yearMin && (v.year ?? 0) < f.yearMin) return false;
+    if (f.yearMax && (v.year === null || v.year > f.yearMax)) return false;
     if (terms.length) {
       const hay = fold(
         [vehicleTitle(v, lang), v.brand?.name, v.model, v.year, v.color, v.location].join(" "),
@@ -110,9 +139,16 @@ export function applyFilters(list: VehicleWithMedia[], f: VehicleFilters, lang: 
 }
 
 export function activeFilterCount(f: VehicleFilters): number {
-  return [f.category, f.brand, f.fuel, f.transmission, f.q.trim() || null, f.sold || null].filter(
-    Boolean,
-  ).length;
+  return [
+    f.category,
+    f.brand,
+    f.fuel,
+    f.transmission,
+    f.yearMin,
+    f.yearMax,
+    f.q.trim() || null,
+    f.sold || null,
+  ].filter(Boolean).length;
 }
 
 /** Same category first, then same make, then nearest year — excluding the vehicle itself. */

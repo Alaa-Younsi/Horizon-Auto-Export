@@ -1,11 +1,52 @@
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { motion } from "motion/react";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Select } from "@/components/ui/Field";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/cn";
-import { activeFilterCount, type VehicleFilters as Filters, SORTS } from "@/lib/vehicles";
-import { type BrandRow, FUELS, TRANSMISSIONS, VEHICLE_CATEGORIES } from "@/types/db";
+import {
+  activeFilterCount,
+  EMPTY_FILTERS,
+  type VehicleFilters as Filters,
+  parseYear,
+  SORTS,
+} from "@/lib/vehicles";
+import { type BrandRow, FUELS, PUBLIC_CATEGORIES, TRANSMISSIONS } from "@/types/db";
+
+/**
+ * A model-year box. Typing "20" on the way to "2018" must not filter (or be
+ * wiped by the URL round-trip), so the text is local and only a complete year
+ * (or an empty box) is committed.
+ */
+function YearInput({
+  value,
+  onCommit,
+  label,
+}: {
+  value: number | null;
+  onCommit: (year: number | null) => void;
+  label: string;
+}) {
+  const [text, setText] = useState(value ? String(value) : "");
+  useEffect(() => setText(value ? String(value) : ""), [value]);
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      maxLength={4}
+      value={text}
+      placeholder={label}
+      aria-label={label}
+      onChange={(e) => {
+        const next = e.target.value.replace(/[^0-9]/g, "");
+        setText(next);
+        if (next === "") onCommit(null);
+        else if (next.length === 4 && parseYear(next)) onCommit(Number(next));
+      }}
+      className="h-12 w-full min-w-0 rounded-md border border-line bg-white px-3.5 text-[15px] text-navy-900 tabular-nums placeholder:text-muted/80 focus:border-navy-900 focus:outline-none"
+    />
+  );
+}
 
 export function VehicleFilters({
   value,
@@ -21,7 +62,7 @@ export function VehicleFilters({
   const [open, setOpen] = useState(false);
   const set = <K extends keyof Filters>(key: K, v: Filters[K]) => onChange({ ...value, [key]: v });
   const count = activeFilterCount(value);
-  const categories = [null, ...VEHICLE_CATEGORIES] as const;
+  const categories = [null, ...PUBLIC_CATEGORIES] as const;
 
   return (
     <div className="rounded-xl bg-white p-3 shadow-[0_20px_50px_-36px_rgb(4_14_36/0.6)] ring-1 ring-navy-900/8 sm:p-4">
@@ -93,7 +134,7 @@ export function VehicleFilters({
       <div
         id={`${uid}-more`}
         className={cn(
-          "mt-3 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid lg:grid-cols-[repeat(4,minmax(0,1fr))_auto]",
+          "mt-3 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.3fr)_minmax(0,1fr)_auto]",
           open ? "grid" : "hidden",
         )}
       >
@@ -133,6 +174,22 @@ export function VehicleFilters({
             </option>
           ))}
         </Select>
+        <fieldset className="flex min-w-0 items-center gap-2">
+          <legend className="sr-only">{t("veh.filter.year")}</legend>
+          <YearInput
+            value={value.yearMin}
+            label={t("veh.filter.yearMin")}
+            onCommit={(y) => set("yearMin", y)}
+          />
+          <span aria-hidden className="text-muted">
+            –
+          </span>
+          <YearInput
+            value={value.yearMax}
+            label={t("veh.filter.yearMax")}
+            onCommit={(y) => set("yearMax", y)}
+          />
+        </fieldset>
         <Select
           aria-label={t("veh.filter.sort")}
           value={value.sort}
@@ -157,17 +214,7 @@ export function VehicleFilters({
           {count > 0 && (
             <button
               type="button"
-              onClick={() =>
-                onChange({
-                  category: null,
-                  brand: null,
-                  fuel: null,
-                  transmission: null,
-                  q: "",
-                  sort: value.sort,
-                  sold: false,
-                })
-              }
+              onClick={() => onChange({ ...EMPTY_FILTERS, sort: value.sort })}
               className="flex items-center gap-1.5 text-[13.5px] font-semibold whitespace-nowrap text-gold-700 hover:text-gold-600"
             >
               <X className="size-3.5" aria-hidden />

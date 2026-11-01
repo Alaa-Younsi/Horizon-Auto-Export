@@ -17,7 +17,7 @@ import { supabase } from "@/lib/supabase";
 import { INQUIRY_KINDS, type InquiryKind } from "@/types/db";
 
 interface InquiryFormProps {
-  /** Pre-select a subject (e.g. "sell" from a services link). */
+  /** Pre-select a subject (e.g. "delivery" from a services link). */
   defaultKind?: InquiryKind;
   /** When set, the inquiry is about this vehicle (the subject picker is hidden). */
   vehicle?: { id: string; label: string };
@@ -28,9 +28,8 @@ interface InquiryFormProps {
 const KIND_LABEL: Record<InquiryKind, TranslationKey> = {
   general: "form.kind.general",
   vehicle: "form.kind.vehicle",
-  sourcing: "form.kind.sourcing",
-  sell: "form.kind.sell",
-  export: "form.kind.export",
+  availability: "form.kind.availability",
+  delivery: "form.kind.delivery",
 };
 
 /**
@@ -61,10 +60,8 @@ export function InquiryForm({
     defaultValues: {
       kind: vehicle ? "vehicle" : defaultKind,
       name: "",
-      company: "",
       email: "",
       phone: "",
-      country: "",
       message: "",
       consent: false,
       website: "",
@@ -97,10 +94,8 @@ export function InquiryForm({
         kind: vehicle ? "vehicle" : values.kind,
         vehicle_id: vehicle && !vehicle.id.startsWith("demo-") ? vehicle.id : null,
         name: values.name,
-        company: values.company,
         email: values.email,
         phone: values.phone,
-        country: values.country,
         message: values.message,
         consent: values.consent,
         language: lang,
@@ -172,7 +167,7 @@ export function InquiryForm({
                   {t("form.kind")}
                 </Label>
                 <Select id={id("kind")} {...register("kind")}>
-                  {INQUIRY_KINDS.filter((k) => k !== "vehicle").map((k) => (
+                  {INQUIRY_KINDS.map((k) => (
                     <option key={k} value={k}>
                       {t(KIND_LABEL[k])}
                     </option>
@@ -182,7 +177,7 @@ export function InquiryForm({
             )}
 
             <div className={cn("grid gap-5", !compact && "sm:grid-cols-2")}>
-              <div>
+              <div className={cn(!compact && "sm:col-span-2")}>
                 <Label htmlFor={id("name")} required>
                   {t("form.name")}
                 </Label>
@@ -193,18 +188,6 @@ export function InquiryForm({
                   {...aria("name")}
                 />
                 <FieldError id={id("name-err")} message={err("name")} />
-              </div>
-              <div>
-                <Label htmlFor={id("company")} optional>
-                  {t("form.company")}
-                </Label>
-                <Input
-                  id={id("company")}
-                  autoComplete="organization"
-                  {...register("company")}
-                  {...aria("company")}
-                />
-                <FieldError id={id("company-err")} message={err("company")} />
               </div>
               <div>
                 <Label htmlFor={id("email")} required>
@@ -236,20 +219,6 @@ export function InquiryForm({
                 />
                 <FieldError id={id("phone-err")} message={err("phone")} />
               </div>
-              {!compact && (
-                <div className="sm:col-span-2">
-                  <Label htmlFor={id("country")} optional>
-                    {t("form.country")}
-                  </Label>
-                  <Input
-                    id={id("country")}
-                    autoComplete="country-name"
-                    {...register("country")}
-                    {...aria("country")}
-                  />
-                  <FieldError id={id("country-err")} message={err("country")} />
-                </div>
-              )}
             </div>
 
             <div>

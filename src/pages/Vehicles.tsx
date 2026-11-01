@@ -1,9 +1,8 @@
-import { ArrowRight, CarFront, RotateCw } from "lucide-react";
+import { RotateCw } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useDeferredValue, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { PageHero } from "@/components/layout/PageHero";
-import { ButtonLink } from "@/components/ui/Button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { VehicleFilters } from "@/components/vehicles/VehicleFilters";
 import { useReducedMotion } from "@/hooks/useMediaFlags";
@@ -36,7 +35,7 @@ function SkeletonGrid() {
 }
 
 export default function Vehicles() {
-  const { t, lang, path } = useI18n();
+  const { t, lang } = useI18n();
   const [params, setParams] = useSearchParams();
   const filters = useMemo(() => parseFilters(params), [params]);
   const deferred = useDeferredValue(filters);
@@ -86,23 +85,7 @@ export default function Vehicles() {
                 {t("veh.retry")}
               </button>
             </div>
-          ) : list.length === 0 ? (
-            <div className="grid place-items-center rounded-2xl bg-white px-6 py-16 text-center ring-1 ring-navy-900/8">
-              <span className="grid size-16 place-items-center rounded-full bg-navy-900 text-gold-300">
-                <CarFront className="size-7" aria-hidden />
-              </span>
-              <h2 className="font-display mt-6 text-2xl font-bold text-navy-900">
-                {all.length === 0 ? t("veh.empty.stockTitle") : t("veh.empty.title")}
-              </h2>
-              <p className="mt-3 max-w-md text-muted">
-                {all.length === 0 ? t("veh.empty.stockText") : t("veh.empty.text")}
-              </p>
-              <ButtonLink to={`${path("/contact")}?kind=sourcing`} className="mt-8">
-                {t("veh.empty.cta")}
-                <ArrowRight className="size-4" aria-hidden />
-              </ButtonLink>
-            </div>
-          ) : (
+          ) : list.length === 0 ? null : (
             <motion.ul layout={!reduced} className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
               <AnimatePresence mode="popLayout" initial={false}>
                 {list.map((v, i) => (

@@ -3,16 +3,16 @@ import type { Dictionary } from "./ro";
 export const fr: Dictionary = {
   "meta.home.title": "Véhicules d'occasion B2B — achat, vente et export | Horizon Auto Export",
   "meta.home.desc":
-    "Horizon Auto Export, Bucarest : achat et vente de voitures d'occasion pour les professionnels. Voitures, utilitaires et véhicules accidentés, livraison dans toute l'Europe.",
+    "Horizon Auto Export, Bucarest : vente de voitures et de véhicules utilitaires neufs et d'occasion, conseil à l'achat et livraison dans toute l'Europe.",
   "meta.vehicles.title": "Véhicules disponibles",
   "meta.vehicles.desc":
-    "Stock actuel de voitures, utilitaires et véhicules accidentés pour les professionnels. Prix B2B, TVA récupérable, livraison en Europe.",
+    "Stock actuel de voitures et de véhicules utilitaires neufs et d'occasion. Conseil, accompagnement administratif et livraison en Europe.",
   "meta.about.title": "À propos",
   "meta.about.desc":
     "Horizon Auto Export S.R.L. — société basée à Bucarest, spécialisée dans l'achat et la vente de véhicules d'occasion pour les professionnels.",
   "meta.services.title": "Services",
   "meta.services.desc":
-    "Voitures et véhicules utilitaires pour les professionnels : berlines, SUV, citadines, utilitaires légers et lourds, livrés dans toute l'Europe.",
+    "Vente de véhicules neufs et d'occasion, conseil et accompagnement à l'achat, livraison et accompagnement administratif.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
     "Contactez Horizon Auto Export, Bucarest : téléphone, e-mail ou formulaire de demande. Nous répondons rapidement à chaque demande B2B.",
@@ -61,9 +61,23 @@ export const fr: Dictionary = {
   "svc.commercial.b3": "Renouvellement complet de flottes",
   "svc.eyebrow": "Ce que nous faisons",
   "svc.title": "Des services complets pour les professionnels de l'automobile",
-  "svc.lead":
-    "D'une seule voiture à des flottes entières : nous achetons, vendons et livrons des véhicules d'occasion pour concessionnaires, entreprises et partenaires dans toute l'Europe.",
   "svc.all": "Tous nos services",
+  "svcPage.eyebrow": "Nos services",
+  "svcPage.title": "Des services pensés pour votre achat automobile",
+  "svcPage.lead":
+    "Découvrez nos services pour vous accompagner dans le choix et l'achat de votre véhicule.",
+  "svcPage.sale.title": "Vente de véhicules neufs et d'occasion",
+  "svcPage.sale.text":
+    "Découvrez une sélection de véhicules de différentes marques et catégories, adaptés à vos besoins et à votre budget.",
+  "svcPage.advice.title": "Conseil et accompagnement à l'achat",
+  "svcPage.advice.text":
+    "Chaque achat automobile est un projet important. Nous sommes à votre écoute pour vous fournir les informations nécessaires sur nos véhicules et vous accompagner dans votre décision.",
+  "svcPage.delivery.title": "Livraison de véhicules",
+  "svcPage.delivery.text":
+    "Pour vous simplifier la vie, nous proposons des solutions de livraison adaptées à votre destination. Notre objectif est de faciliter la réception de votre véhicule et de rendre votre expérience d'achat plus agréable.",
+  "svcPage.paperwork.title": "Accompagnement administratif",
+  "svcPage.paperwork.text":
+    "Nous vous accompagnons dans les démarches administratives liées à votre achat, afin de vous aider à préparer les documents nécessaires et à finaliser votre acquisition dans les meilleures conditions.",
 
   "about.eyebrow": "À propos",
   "about.title": "Votre partenaire de confiance pour l'export automobile",
@@ -124,6 +138,7 @@ export const fr: Dictionary = {
   "footer.terms": "Conditions générales",
   "footer.privacy": "Politique de confidentialité",
   "footer.vat": "N° TVA",
+  "footer.cui": "CUI",
   "footer.reg": "N° Reg. Com.",
   "footer.explore": "Explorer",
   "footer.backTop": "Retour en haut",
@@ -131,7 +146,7 @@ export const fr: Dictionary = {
   "veh.eyebrow": "Stock actuel",
   "veh.title": "Véhicules disponibles",
   "veh.lead":
-    "Voitures, utilitaires et véhicules accidentés pour les professionnels. Le stock évolue vite — si vous ne trouvez pas votre véhicule ici, nous le cherchons pour vous.",
+    "Voitures et véhicules utilitaires, neufs et d'occasion. Le stock évolue vite — si vous ne trouvez pas votre véhicule ici, écrivez-nous.",
   "veh.filter.all": "Tous",
   "veh.filter.category": "Catégorie",
   "veh.filter.brand": "Marque",
@@ -139,6 +154,9 @@ export const fr: Dictionary = {
   "veh.filter.fuel": "Carburant",
   "veh.filter.anyFuel": "Tout carburant",
   "veh.filter.transmission": "Boîte",
+  "veh.filter.year": "Année-Modèle",
+  "veh.filter.yearMin": "Année min.",
+  "veh.filter.yearMax": "Année max.",
   "veh.filter.anyTransmission": "Toute boîte",
   "veh.filter.search": "Rechercher marque, modèle…",
   "veh.filter.sort": "Trier",
@@ -152,12 +170,6 @@ export const fr: Dictionary = {
   "veh.sort.mileageAsc": "Kilométrage (faible)",
   "veh.results": "{n} véhicules",
   "veh.results.one": "1 véhicule",
-  "veh.empty.title": "Aucun véhicule pour ces filtres",
-  "veh.empty.text":
-    "Essayez d'autres filtres ou dites-nous ce que vous cherchez — nous trouverons le bon véhicule.",
-  "veh.empty.stockTitle": "Le stock est en cours de mise à jour",
-  "veh.empty.stockText":
-    "Nous travaillons surtout sur commande. Indiquez la marque, le modèle et le budget, nous vous enverrons des offres adaptées.",
   "veh.empty.cta": "Envoyer une demande",
   "veh.loading": "Chargement des véhicules…",
   "veh.loadError": "Impossible de charger les véhicules. Réessayez dans un instant.",
@@ -249,9 +261,9 @@ export const fr: Dictionary = {
   "body.other": "Autre carrosserie",
 
   "contact.eyebrow": "Contact",
-  "contact.title": "Construisons le prochain partenariat",
+  "contact.title": "Parlons de votre prochain projet automobile.",
   "contact.lead":
-    "Remplissez le formulaire ou contactez-nous directement. Nous répondons à chaque demande au plus vite, les jours ouvrés.",
+    "Remplissez le formulaire ou contactez-nous directement. Nous répondons à chacune de vos demandes dans les meilleurs délais.",
   "contact.phone": "Téléphone",
   "contact.email": "E-mail",
   "contact.address": "Adresse",
@@ -262,17 +274,15 @@ export const fr: Dictionary = {
 
   "form.kind": "Objet",
   "form.kind.general": "Question générale",
-  "form.kind.vehicle": "Un véhicule en stock",
-  "form.kind.sourcing": "Je cherche un véhicule / une flotte",
-  "form.kind.sell": "Je vends des véhicules (société, leasing, flotte)",
-  "form.kind.export": "Export / transport international",
+  "form.kind.availability": "Demande de disponibilité",
+  "form.kind.delivery": "Demande de livraison",
+  "form.kind.vehicle": "Demande d'informations sur un véhicule",
   "form.name": "Nom et prénom",
-  "form.company": "Société",
   "form.email": "E-mail",
   "form.phone": "Téléphone",
-  "form.country": "Pays",
   "form.message": "Message",
-  "form.messagePlaceholder": "Marque, modèle, année, budget, quantité, destination…",
+  "form.messagePlaceholder":
+    "Décrivez votre demande ou posez-nous votre question. Notre équipe vous répondra dans les meilleurs délais.",
   "form.optional": "facultatif",
   "form.consent":
     "J'accepte le traitement de mes données afin de recevoir une réponse, conformément à la {link}.",

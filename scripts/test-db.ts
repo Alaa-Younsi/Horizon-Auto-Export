@@ -86,12 +86,10 @@ const CAR_DRAFT = "33333333-3333-4333-8333-333333333333";
 function inquiry(overrides: Record<string, unknown> = {}) {
   return JSON.stringify({
     name: "Andrei Popescu",
-    company: "Fleet SRL",
     email: "andrei@example.ro",
     phone: "+40 721 000 000",
-    country: "România",
-    message: "Bună ziua, caut 5 autoturisme pentru flotă.",
-    kind: "sourcing",
+    message: "Bună ziua, este disponibil autoturismul?",
+    kind: "availability",
     language: "ro",
     consent: true,
     elapsed_ms: 9000,
@@ -184,7 +182,13 @@ async function main() {
   const ref = await submit();
   check("valid inquiry returns a reference", /^HAE-\d{6}-[0-9A-F]{10}$/.test(ref), ref);
   const saved = await rows("select * from inquiries where reference = $1", [ref]);
-  check("inquiry stored as new", saved[0]?.status === "new" && saved[0]?.kind === "sourcing");
+  check("inquiry stored as new", saved[0]?.status === "new" && saved[0]?.kind === "availability");
+  check(
+    "retired subjects are refused for new inquiries",
+    (await submitError({ email: "old@example.ro", kind: "sourcing" })).includes(
+      "ERR_INVALID_INPUT",
+    ),
+  );
   check("email normalised", saved[0]?.email === "andrei@example.ro");
   check("consent timestamp stored", saved[0]?.consent_at !== null);
 
