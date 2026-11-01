@@ -1,11 +1,11 @@
 import { requireSupabase } from "./supabase";
 
 export const MEDIA_BUCKET = "media";
-const MAX_EDGE = 2000;
+const MAX_EDGE = 1600;
 const QUALITY = 0.84;
 
 /**
- * Downscale to ~2000px and re-encode as WebP before upload; keep whichever of
+ * Downscale to ~1600px and re-encode as WebP before upload; keep whichever of
  * original/WebP is smaller and fall back to the original on any failure. Never
  * upload a phone's raw 8 MB photo — every visitor would download it.
  */
@@ -78,7 +78,15 @@ export function renderUrl(src: string, width: number, quality = 72): string {
   return `${base}${base.includes("?") ? "&" : "?"}width=${width}&resize=contain&quality=${quality}`;
 }
 
+/**
+ * Supabase's render endpoint ("Image Transformations") is a paid-plan feature:
+ * on a project without it every render URL answers 403 FeatureNotEnabled and
+ * the photo shows as broken. Off unless the project has it and sets
+ * VITE_SUPABASE_IMAGE_TRANSFORMS=true; without it the original file is served.
+ */
+const TRANSFORMS = import.meta.env.VITE_SUPABASE_IMAGE_TRANSFORMS === "true";
+
 export function storageSrcSet(src: string): string | undefined {
-  if (!isStorageUrl(src)) return undefined;
+  if (!TRANSFORMS || !isStorageUrl(src)) return undefined;
   return WIDTHS.map((w) => `${renderUrl(src, w)} ${w}w`).join(", ");
 }

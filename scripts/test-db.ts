@@ -373,6 +373,25 @@ async function main() {
     (await errorOf(`insert into vehicles (slug, title) values ('Bad Slug!', '{"ro":"x"}')`)) !== "",
   );
   check(
+    "vehicle options take catalogue keys, month and accident-free",
+    (await errorOf(
+      `insert into vehicles (slug, title, options, registration_month, accident_free)
+       values ('opt-ok', '{"ro":"x"}', '{abs,led_headlights}', 3, true)`,
+    )) === "",
+  );
+  check(
+    "vehicle options reject free text",
+    (await errorOf(
+      `insert into vehicles (slug, title, options) values ('opt-bad', '{"ro":"x"}', '{"Toute option"}')`,
+    )) !== "",
+  );
+  check(
+    "registration month must be 1-12",
+    (await errorOf(
+      `insert into vehicles (slug, title, registration_month) values ('m13', '{"ro":"x"}', 13)`,
+    )) !== "",
+  );
+  check(
     "site settings stay a singleton",
     (await errorOf("insert into site_settings (id) values (false)")) !== "",
   );

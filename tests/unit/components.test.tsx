@@ -40,7 +40,7 @@ describe("<VehicleCard>", () => {
     const link = screen.getByRole("link");
     expect(link).toHaveAttribute("href", `/fr/vehicles/${v.slug}`);
     expect(screen.getByText(v.title.fr ?? "")).toBeInTheDocument();
-    expect(screen.getByText("TVA récupérable")).toBeInTheDocument();
+    expect(screen.getByText("TVA déductible")).toBeInTheDocument();
     expect(screen.getByText("Diesel")).toBeInTheDocument();
   });
 

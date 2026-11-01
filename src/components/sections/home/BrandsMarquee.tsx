@@ -4,7 +4,7 @@ import { useBrands } from "@/hooks/usePublicData";
 import { useI18n } from "@/i18n/LanguageProvider";
 
 /**
- * "Mărci disponibile (exemple)": an endless, slow marquee of the makes we trade.
+ * "Mărci disponibile": an endless, slow marquee of the makes we trade.
  * Each mark links to the vehicles page filtered by that make. Marks are navy at
  * rest (fully "lit"), gold on hover/focus. Pauses on hover; static under reduced
  * motion (the global rule stops the animation).
@@ -23,7 +23,7 @@ export function BrandsMarquee() {
     <section aria-labelledby="brands-title" className="border-y border-line bg-paper/60">
       <div className="container-x flex flex-col gap-6 py-8 lg:flex-row lg:items-center lg:gap-10">
         <h2 id="brands-title" className="shrink-0 text-[15px] font-bold text-navy-900">
-          {t("brands.title")} <span className="font-medium text-muted">{t("brands.note")}</span>
+          {t("brands.title")}
         </h2>
         <div className="group/marquee relative min-w-0 flex-1 overflow-hidden mask-fade-x">
           <ul className="flex w-max animate-marquee items-center [--marquee-duration:46s] group-hover/marquee:[animation-play-state:paused]">

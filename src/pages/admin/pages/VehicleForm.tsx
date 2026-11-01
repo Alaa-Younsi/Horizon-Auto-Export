@@ -11,10 +11,13 @@ import {
 import { type ReactNode, useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { Input, Select } from "@/components/ui/Field";
+import { OPTION_GROUPS, sortOptions } from "@/data/vehicle-options";
+import { cn } from "@/lib/cn";
 import { formatPrice, slugify } from "@/lib/format";
 import { deleteUploadedImage, uploadImage } from "@/lib/image";
 import { cleanLocalized, pick } from "@/lib/localized";
 import { requireSupabase } from "@/lib/supabase";
+import { netFromGross, VAT_PERCENT } from "@/lib/vat";
 import {
   BODY_TYPES,
   type BodyType,
@@ -80,6 +83,10 @@ interface FormState {
   brand_id: string;
   model: string;
   year: string;
+  /** "" or "1".."12" */
+  registration_month: string;
+  accident_free: "" | "yes" | "no";
+  options: string[];
   mileage_km: string;
   fuel: Fuel | "";
   transmission: Transmission | "";
@@ -116,6 +123,9 @@ const EMPTY: FormState = {
   brand_id: "",
   model: "",
   year: "",
+  registration_month: "",
+  accident_free: "",
+  options: [],
   mileage_km: "",
   fuel: "",
   transmission: "",
@@ -158,6 +168,14 @@ function toFormState(row: VehicleRow, priv: VehiclePrivateRow | null): FormState
     brand_id: row.brand_id ?? "",
     model: row.model ?? "",
     year: str(row.year),
+    registration_month: str(row.registration_month),
+    accident_free:
+      row.accident_free === null || row.accident_free === undefined
+        ? ""
+        : row.accident_free
+          ? "yes"
+          : "no",
+    options: row.options ?? [],
     mileage_km: str(row.mileage_km),
     fuel: row.fuel ?? "",
     transmission: row.transmission ?? "",
@@ -205,13 +223,17 @@ function toPayload(f: FormState, brandName: string | undefined): Omit<Editable, 
   return {
     title: effectiveTitle(f, brandName),
     description: cleanLocalized(f.description),
-    equipment: cleanLocalized(f.equipment),
+    // the checklist replaces the old free text: saving clears it
+    equipment: {},
     damage_notes: f.category === "damaged" ? cleanLocalized(f.damage_notes) : {},
     category: f.category,
     body_type: f.body_type,
     brand_id: f.brand_id || null,
     model: text(f.model),
     year: int(f.year),
+    registration_month: f.year.trim() ? int(f.registration_month) : null,
+    accident_free: f.accident_free === "" ? null : f.accident_free === "yes",
+    options: sortOptions(f.options),
     mileage_km: int(f.mileage_km),
     fuel: f.fuel || null,
     transmission: f.transmission || null,
@@ -418,6 +440,69 @@ function Photos({ vehicleId, images }: { vehicleId: string; images: VehicleWithM
 
 /* ---------------------------------------------------------------- form */
 
+const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+/** The options as a checklist, grouped like the catalogue (Confort, Multimédia…). */
+function OptionsChecklist({
+  value,
+  legacy,
+  onChange,
+}: {
+  value: string[];
+  legacy: string;
+  onChange: (v: string[]) => void;
+}) {
+  const { t, lang } = useAdminT();
+  const picked = new Set(value);
+  const toggle = (key: string) => {
+    const next = new Set(picked);
+    if (next.has(key)) next.delete(key);
+    else next.add(key);
+    onChange([...next]);
+  };
+  return (
+    <div className="space-y-6">
+      <p className="text-sm text-muted">{t("veh.options.hint", { n: picked.size })}</p>
+      {legacy.trim() && (
+        <p className="rounded-xl bg-gold-50 p-3 text-xs text-navy-900 ring-1 ring-gold-200">
+          {t("veh.options.legacy")} <span className="font-semibold">{legacy}</span>
+        </p>
+      )}
+      {OPTION_GROUPS.map((g) => (
+        <fieldset key={g.id}>
+          <legend className="mb-2 text-xs font-bold tracking-[0.14em] text-gold-700 uppercase">
+            {g.label[lang]}
+          </legend>
+          <div className="grid gap-2 sm:grid-cols-2 2xl:grid-cols-3">
+            {g.options.map((o) => {
+              const on = picked.has(o.key);
+              return (
+                <label
+                  key={o.key}
+                  className={cn(
+                    "flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm ring-1 transition-colors",
+                    on
+                      ? "bg-navy-900/[0.04] font-medium text-navy-900 ring-navy-900/40"
+                      : "text-navy-900/80 ring-line hover:bg-paper",
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={on}
+                    onChange={() => toggle(o.key)}
+                    className="size-4 shrink-0 accent-gold-500"
+                  />
+                  {o.label[lang]}
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
+      ))}
+    </div>
+  );
+}
+
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return <Panel title={title}>{children}</Panel>;
 }
@@ -613,7 +698,31 @@ function Editor({
 
           <Section title={t("veh.section.specs")}>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {num("year", "veh.f.year")}
+              <FormField id="v-year" label={t("veh.f.firstReg")}>
+                <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-2">
+                  <Select
+                    id="v-regmonth"
+                    aria-label={t("veh.f.regMonth")}
+                    value={f.registration_month}
+                    onChange={(e) => set("registration_month", e.target.value)}
+                  >
+                    <option value="">MM</option>
+                    {MONTHS.map((m) => (
+                      <option key={m} value={String(m)}>
+                        {String(m).padStart(2, "0")}
+                      </option>
+                    ))}
+                  </Select>
+                  <Input
+                    id="v-year"
+                    inputMode="numeric"
+                    maxLength={4}
+                    placeholder={t("veh.f.regYear")}
+                    value={f.year}
+                    onChange={(e) => set("year", e.target.value.replace(/[^0-9]/g, ""))}
+                  />
+                </div>
+              </FormField>
               {num("mileage_km", "veh.f.mileage")}
               <FormField id="v-fuel" label={t("veh.f.fuel")}>
                 <Select
@@ -676,6 +785,19 @@ function Editor({
                   onChange={(e) => set("euro_norm", e.target.value)}
                 />
               </FormField>
+              <FormField id="v-accident" label={t("veh.f.accidentFree")}>
+                <Select
+                  id="v-accident"
+                  value={f.accident_free}
+                  onChange={(e) =>
+                    set("accident_free", e.target.value as FormState["accident_free"])
+                  }
+                >
+                  <option value="">—</option>
+                  <option value="yes">{t("yes")}</option>
+                  <option value="no">{t("no")}</option>
+                </Select>
+              </FormField>
               <FormField id="v-loc" label={t("veh.f.location")}>
                 <Input
                   id="v-loc"
@@ -695,14 +817,6 @@ function Editor({
                 value={f.description}
                 onChange={(v) => set("description", v)}
               />
-              <LocalizedInput
-                id="v-equip"
-                label={t("veh.f.equipment")}
-                hint={t("veh.f.equipmentHint")}
-                multiline
-                value={f.equipment}
-                onChange={(v) => set("equipment", v)}
-              />
               {f.category === "damaged" && (
                 <LocalizedInput
                   id="v-damage"
@@ -713,6 +827,14 @@ function Editor({
                 />
               )}
             </div>
+          </Section>
+
+          <Section title={t("veh.section.options")}>
+            <OptionsChecklist
+              value={f.options}
+              legacy={pick(f.equipment, lang)}
+              onChange={(v) => set("options", v)}
+            />
           </Section>
 
           <Section title={t("veh.section.photos")}>
@@ -757,6 +879,14 @@ function Editor({
                 onChange={(v) => set("vat_deductible", v)}
                 label={t("veh.f.vat")}
               />
+              {f.vat_deductible && money(f.price) !== null && (
+                <p className="-mt-2 text-xs text-muted">
+                  {t("veh.f.vatNet", {
+                    net: formatPrice(netFromGross(money(f.price) ?? 0), f.currency, lang),
+                    rate: VAT_PERCENT,
+                  })}
+                </p>
+              )}
               <FormField id="v-status" label={t("veh.f.status")}>
                 <Select
                   id="v-status"

@@ -16,7 +16,7 @@ export const CONTACT_FALLBACK: SiteSettingsRow = {
   // E.164, so a tap on a phone actually dials.
   phone_e164: "+40759145041",
   whatsapp_e164: "+40759145041",
-  email: "horizonautoexport@gmail.com",
+  email: "contact@horizonautoexport.com",
   address: {
     ro: "Str. Ilioara, Nr. 54, Sectorul 3, București",
     en: "Str. Ilioara, Nr. 54, Sector 3, Bucharest, Romania",

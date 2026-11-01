@@ -105,7 +105,13 @@ export type VehicleRow = {
   body_type: BodyType;
   brand_id: string | null;
   model: string | null;
+  /** Year of first registration (with registration_month, the "first registration date"). */
   year: number | null;
+  registration_month: number | null;
+  /** "Accident-free history": true / false, null = not stated. */
+  accident_free: boolean | null;
+  /** Ticked option keys (src/data/vehicle-options.ts). */
+  options: string[];
   mileage_km: number | null;
   fuel: Fuel | null;
   transmission: Transmission | null;

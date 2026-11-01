@@ -16,6 +16,7 @@ import {
   Phone,
   Settings2,
   Share2,
+  ShieldCheck,
   TriangleAlert,
   Users,
   Zap,
@@ -28,13 +29,15 @@ import { ButtonAnchor, ButtonLink } from "@/components/ui/Button";
 import { Price } from "@/components/ui/Price";
 import { Gallery } from "@/components/vehicles/Gallery";
 import { StatusBadge, VehicleCard } from "@/components/vehicles/VehicleCard";
+import { optionLabel, sortOptions } from "@/data/vehicle-options";
 import { useSiteSettings, useVehicle, useVehicles } from "@/hooks/usePublicData";
 import { useSeo } from "@/hooks/useSeo";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { telHref, whatsappHref } from "@/lib/contact";
 import { SITE_URL } from "@/lib/env";
-import { formatKm, formatNumber } from "@/lib/format";
+import { formatKm, formatNumber, formatPrice } from "@/lib/format";
 import { pick, pickLines } from "@/lib/localized";
+import { netFromGross, VAT_PERCENT } from "@/lib/vat";
 import { relatedVehicles, vehicleTitle } from "@/lib/vehicles";
 import type { VehicleWithMedia } from "@/types/db";
 
@@ -63,7 +66,22 @@ function SpecItem({
 function useSpecs(v: VehicleWithMedia) {
   const { t, lang } = useI18n();
   const rows: Array<[LucideIcon, string, string | null]> = [
-    [Calendar, t("spec.year"), v.year ? String(v.year) : null],
+    [
+      Calendar,
+      t("spec.year"),
+      v.year
+        ? v.registration_month
+          ? `${String(v.registration_month).padStart(2, "0")}/${v.year}`
+          : String(v.year)
+        : null,
+    ],
+    [
+      ShieldCheck,
+      t("spec.accidentFree"),
+      v.accident_free === null || v.accident_free === undefined
+        ? null
+        : t(v.accident_free ? "spec.yes" : "spec.no"),
+    ],
     [Gauge, t("spec.mileage"), v.mileage_km !== null ? formatKm(v.mileage_km, lang) : null],
     [Fuel, t("spec.fuel"), v.fuel ? t(`fuel.${v.fuel}`) : null],
     [Cog, t("spec.transmission"), v.transmission ? t(`trans.${v.transmission}`) : null],
@@ -119,7 +137,11 @@ function Detail({ v }: { v: VehicleWithMedia }) {
   const title = vehicleTitle(v, lang);
   const specs = useSpecs(v);
   const description = pick(v.description, lang);
-  const equipment = pickLines(v.equipment, lang);
+  const options = sortOptions(v.options ?? [])
+    .map((k) => optionLabel(k, lang))
+    .filter((x): x is string => Boolean(x));
+  // listings saved before the checklist keep their free-text equipment
+  const equipment = options.length ? options : pickLines(v.equipment, lang);
   const damage = pick(v.damage_notes, lang);
   const url = `${SITE_URL}${path(`/vehicles/${v.slug}`)}`;
   const related = relatedVehicles(all, v);
@@ -218,6 +240,15 @@ function Detail({ v }: { v: VehicleWithMedia }) {
                       {t("veh.vatDeductible")}
                     </p>
                   )}
+                  {v.vat_deductible && v.price !== null && (
+                    // HT + HT x 21 % = TTC: the listed price is TTC, so show HT under it
+                    <p className="mt-1.5 text-sm text-muted tabular-nums">
+                      {t("veh.netPrice", {
+                        net: formatPrice(netFromGross(v.price), v.currency, lang),
+                        rate: VAT_PERCENT,
+                      })}
+                    </p>
+                  )}
                 </div>
                 <div className="mt-7 grid gap-3">
                   <ButtonAnchor href="#inquiry" size="lg">
@@ -277,13 +308,18 @@ function Detail({ v }: { v: VehicleWithMedia }) {
                   <h2 className="font-display text-2xl font-bold text-navy-900">
                     {t("veh.equipment")}
                   </h2>
-                  <ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+                  <ul className="mt-5 overflow-hidden rounded-xl ring-1 ring-line sm:columns-2 sm:gap-0">
                     {equipment.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-navy-900">
-                        <span className="mt-1 grid size-4 shrink-0 place-items-center rounded-full bg-gold-500 text-white">
-                          <Check className="size-2.5" strokeWidth={3.5} aria-hidden />
-                        </span>
+                      <li
+                        key={item}
+                        className="flex break-inside-avoid items-center justify-between gap-4 border-b border-line bg-white px-5 py-3.5 text-[15px] font-medium text-navy-900 odd:bg-paper/70"
+                      >
                         {item}
+                        <Check
+                          className="size-4 shrink-0 text-gold-600"
+                          strokeWidth={2.5}
+                          aria-hidden
+                        />
                       </li>
                     ))}
                   </ul>
