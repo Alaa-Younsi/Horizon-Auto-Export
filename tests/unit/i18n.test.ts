@@ -3,6 +3,7 @@ import { LEGAL } from "@/content/legal";
 import { DICTIONARIES } from "@/i18n/dictionaries";
 import { SITE_LANGS } from "@/i18n/languages";
 import { adminEn } from "@/pages/admin/i18n/en";
+import { adminFr } from "@/pages/admin/i18n/fr";
 import { adminRo } from "@/pages/admin/i18n/ro";
 
 const placeholders = (s: string) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
@@ -34,9 +35,12 @@ describe("site dictionaries", () => {
 });
 
 describe("admin dictionaries", () => {
-  it("Romanian covers every English key with the same placeholders", () => {
-    expect(Object.keys(adminRo).sort()).toEqual(Object.keys(adminEn).sort());
-    for (const [k, v] of Object.entries(adminRo)) {
+  it.each([
+    ["Romanian", adminRo],
+    ["French", adminFr],
+  ])("%s covers every English key with the same placeholders", (_name, dict) => {
+    expect(Object.keys(dict).sort()).toEqual(Object.keys(adminEn).sort());
+    for (const [k, v] of Object.entries(dict)) {
       expect(v.trim(), k).not.toBe("");
       expect(placeholders(v), k).toEqual(placeholders(adminEn[k as keyof typeof adminEn]));
     }

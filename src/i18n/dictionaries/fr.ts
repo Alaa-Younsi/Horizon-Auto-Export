@@ -34,9 +34,14 @@ export const fr: Dictionary = {
   "hero.eyebrow": "Horizon Auto Export",
   "hero.location": "Bucarest · Toute l'Europe",
   "hero.scroll": "Découvrir nos services",
-  "hero.title": "Véhicules d'occasion",
-  "hero.titleAccent": "B2B",
-  "hero.subtitle": "Achat et vente de voitures d'occasion pour les professionnels",
+  "hero.title": "L'excellence automobile",
+  "hero.titleAccent": "à votre portée.",
+  "hero.subtitle":
+    "Découvrez notre sélection de véhicules neufs et d'occasion à des prix compétitifs.",
+  "hero.discover": "Découvrir nos véhicules",
+  "hero.point1": "Véhicules sélectionnés",
+  "hero.point2": "Prix compétitifs",
+  "hero.point3": "Livraison dans toute l'Europe",
   "hero.cta": "Contactez-nous",
   "hero.ctaSecondary": "Voir les véhicules",
   "hero.imageAlt":
@@ -76,13 +81,10 @@ export const fr: Dictionary = {
   "svcPage.paperwork.text":
     "Nous vous accompagnons dans les démarches administratives liées à votre achat, afin de vous aider à préparer les documents nécessaires et à finaliser votre acquisition dans les meilleures conditions.",
 
-  "about.eyebrow": "À propos",
-  "about.title": "Votre partenaire de confiance pour l'export automobile",
+  "about.eyebrow": "À propos de nous",
+  "about.title": "Une vision de l'automobile tournée vers vos envies.",
   "about.p1":
-    "Horizon Auto Export S.R.L. est une société récemment créée, basée à Bucarest, spécialisée dans l'achat et la vente de véhicules d'occasion pour une clientèle professionnelle.",
-  "about.p2":
-    "Nous proposons des solutions rapides, sûres et avantageuses à nos partenaires en Roumanie et à l'étranger, en misant sur la transparence, le sérieux et le respect des délais.",
-  "about.quote": "De bonnes voitures. Des partenariats solides. Sans frontières.",
+    "Chez Horizon Auto Export, nous mettons notre passion de l'automobile au service de vos projets. Nous vous proposons une gamme de véhicules neufs et d'occasion, avec une attention particulière portée à la qualité, au choix et à votre satisfaction.",
   "about.cta": "En savoir plus",
   "about.imageAlt": "Phare LED d'une voiture premium sombre",
   "about.mission.title": "Notre mission",
@@ -97,7 +99,7 @@ export const fr: Dictionary = {
   "about.value3.text":
     "Nous répondons vite et décidons vite, car en B2B le temps, c'est de l'argent.",
   "about.page.title": "À propos de nous",
-  "about.who.title": "Qui sommes-nous ?",
+  "about.who.title": "Qui sommes-nous ?",
   "about.who.p1":
     "Horizon Auto Export est une entreprise spécialisée dans l'achat et la vente de véhicules neufs et d'occasion.",
   "about.who.p2":
@@ -116,7 +118,7 @@ export const fr: Dictionary = {
   "about.company.name": "Raison sociale",
   "about.company.seat": "Siège",
 
-  "why.title": "Pourquoi nous choisir ?",
+  "why.title": "Pourquoi nous choisir ?",
   "why.i1": "Sérieux et transparence",
   "why.i2": "Expérience du secteur",
   "why.i3": "Réponse rapide et suivi constant",

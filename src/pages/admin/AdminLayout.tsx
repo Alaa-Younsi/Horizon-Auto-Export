@@ -5,9 +5,10 @@ import { Link, Navigate, NavLink, Outlet, useLocation } from "react-router";
 import markLight from "@/assets/logo-mark-light.webp";
 import { useAuth } from "@/auth/AuthProvider";
 import { useIsDesktop } from "@/hooks/useMediaFlags";
+import { LANG_META } from "@/i18n/languages";
 import { cn } from "@/lib/cn";
 import { ADMIN_SECTIONS, type AdminSection, routeToSection } from "./adminSections";
-import { type AdminLang, useAdminT } from "./i18n/AdminI18n";
+import { ADMIN_LANGS, useAdminT } from "./i18n/AdminI18n";
 import { Spinner } from "./ui/kit";
 import { AdminToastProvider } from "./ui/Toast";
 import { useAdminProfile } from "./useAdminProfile";
@@ -73,7 +74,6 @@ function NavItems({ sections }: { sections: AdminSection[] }) {
 
 function SidebarFooter({ onSignOut }: { onSignOut: () => void }) {
   const { t, lang, setLang } = useAdminT();
-  const other: AdminLang = lang === "ro" ? "en" : "ro";
   const item =
     "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/65 hover:bg-white/5 hover:text-white";
   return (
@@ -82,10 +82,29 @@ function SidebarFooter({ onSignOut }: { onSignOut: () => void }) {
         <ExternalLink className="size-[18px]" aria-hidden />
         {t("backToSite")}
       </a>
-      <button type="button" onClick={() => setLang(other)} className={item}>
-        <Languages className="size-[18px]" aria-hidden />
-        {other === "ro" ? "Română" : "English"}
-      </button>
+      <fieldset className="flex items-center gap-3 px-3 py-1.5">
+        <legend className="sr-only">{t("lang")}</legend>
+        <Languages className="size-[18px] shrink-0 text-white/65" aria-hidden />
+        <div className="flex gap-1">
+          {ADMIN_LANGS.map((l) => (
+            <button
+              key={l}
+              type="button"
+              onClick={() => setLang(l)}
+              aria-pressed={lang === l}
+              title={LANG_META[l].native}
+              className={cn(
+                "h-8 rounded-md px-2.5 text-xs font-bold tracking-wide transition-colors",
+                lang === l
+                  ? "bg-gold-500 text-navy-950"
+                  : "text-white/65 ring-1 ring-white/15 hover:text-white",
+              )}
+            >
+              {LANG_META[l].short}
+            </button>
+          ))}
+        </div>
+      </fieldset>
       <button type="button" onClick={onSignOut} className={item}>
         <LogOut className="size-[18px]" aria-hidden />
         {t("signOut")}
@@ -243,7 +262,7 @@ export function AdminLayout() {
           <span className="font-semibold text-navy-900">Horizon · {t("appName")}</span>
         </header>
         <AdminToastProvider>
-          <main ref={mainRef} className="min-w-0 flex-1 overflow-y-auto scrollbar-brand">
+          <main ref={mainRef} className="relative min-w-0 flex-1 overflow-y-auto scrollbar-brand">
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
               {/* Suspense scoped to the Outlet ONLY: a lazy page suspending must
                   never tear down the layout (and a half-closed drawer) above it. */}

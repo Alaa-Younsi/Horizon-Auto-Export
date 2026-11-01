@@ -34,9 +34,13 @@ export const en: Dictionary = {
   "hero.eyebrow": "Horizon Auto Export",
   "hero.location": "Bucharest · All of Europe",
   "hero.scroll": "Discover our services",
-  "hero.title": "Used vehicles",
-  "hero.titleAccent": "B2B",
-  "hero.subtitle": "Buying and selling second-hand cars for professionals",
+  "hero.title": "Automotive excellence",
+  "hero.titleAccent": "within your reach.",
+  "hero.subtitle": "Discover our selection of new and used vehicles at competitive prices.",
+  "hero.discover": "Discover our vehicles",
+  "hero.point1": "Selected vehicles",
+  "hero.point2": "Competitive prices",
+  "hero.point3": "Delivery across Europe",
   "hero.cta": "Contact us",
   "hero.ctaSecondary": "View vehicles",
   "hero.imageAlt":
@@ -76,12 +80,9 @@ export const en: Dictionary = {
     "We guide you through the paperwork that comes with your purchase, helping you prepare the necessary documents and complete it under the best conditions.",
 
   "about.eyebrow": "About us",
-  "about.title": "Your trusted partner in automotive export",
+  "about.title": "A vision of motoring shaped around what you want.",
   "about.p1":
-    "Horizon Auto Export S.R.L. is a newly founded company based in Bucharest, specialised in buying and selling used vehicles for professional customers.",
-  "about.p2":
-    "We focus on fast, safe and advantageous solutions for our partners in Romania and abroad, with an emphasis on transparency, reliability and meeting deadlines.",
-  "about.quote": "Good cars. Solid partnerships. No borders.",
+    "At Horizon Auto Export, we put our passion for cars at the service of your plans. We offer a range of new and used vehicles, with particular care for quality, choice and your satisfaction.",
   "about.cta": "Learn more",
   "about.imageAlt": "LED headlight of a dark premium car",
   "about.mission.title": "Our mission",

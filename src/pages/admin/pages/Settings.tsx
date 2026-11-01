@@ -152,6 +152,7 @@ function SettingsForm({ row }: { row: SiteSettingsRow | null }) {
           <div className="mt-4 space-y-4">
             <LocalizedInput
               id="s-address"
+              stacked
               label={t("set.address")}
               value={f.address}
               placeholder={fb.address ?? undefined}
@@ -159,6 +160,7 @@ function SettingsForm({ row }: { row: SiteSettingsRow | null }) {
             />
             <LocalizedInput
               id="s-hours"
+              stacked
               label={t("set.hours")}
               value={f.hours}
               placeholder={fb.hours ?? undefined}

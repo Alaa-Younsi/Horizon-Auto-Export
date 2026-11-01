@@ -40,7 +40,7 @@ function DailyChart({ data }: { data: Array<{ day: string; count: number }> }) {
       </div>
       <svg
         viewBox={`0 0 ${W} ${H + 18}`}
-        className="h-48 w-full"
+        className="aspect-[600/178] h-auto w-full"
         role="img"
         aria-label={t("dash.chart")}
         onPointerLeave={() => setHover(null)}

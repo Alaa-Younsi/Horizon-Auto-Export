@@ -1,12 +1,19 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Coins, ShieldCheck, Truck } from "lucide-react";
 import { useRef } from "react";
 import { Link } from "react-router";
 import { RevealText } from "@/components/fx/RevealText";
 import { useGsap } from "@/hooks/useGsap";
 import { useFinePointer, useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
+import type { TranslationKey } from "@/i18n/dictionaries";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { gsap } from "@/lib/gsap";
+
+const POINTS: Array<{ key: TranslationKey; icon: typeof ShieldCheck }> = [
+  { key: "hero.point1", icon: ShieldCheck },
+  { key: "hero.point2", icon: Coins },
+  { key: "hero.point3", icon: Truck },
+];
 
 const HERO_SRCSET =
   "/images/hero-960.webp 960w, /images/hero-1600.webp 1600w, /images/hero-2400.webp 2400w";
@@ -119,52 +126,44 @@ export function Hero() {
         data-hero-copy
         className="container-x relative z-10 flex flex-1 flex-col justify-center pt-10 pb-24"
       >
-        <p className="rise inline-flex w-fit items-center gap-3 rounded-full bg-white/[0.06] p-1.5 sm:pe-4 text-[12px] font-semibold tracking-[0.14em] text-white/80 uppercase ring-1 ring-white/12 backdrop-blur-md [--rise-delay:1.25s]">
-          <span className="rounded-full bg-gold-500 px-2.5 py-1 text-[10.5px] tracking-[0.16em] text-navy-950">
-            {t("hero.eyebrow")}
-          </span>
-          <span className="hidden sm:inline">{t("hero.location")}</span>
-        </p>
-
         <RevealText
           as="h1"
           id="hero-title"
           trigger="mount"
           delay={1.35}
-          className="font-display mt-7 text-[clamp(2.7rem,6vw,5.4rem)] leading-[0.95] font-extrabold tracking-[-0.025em]"
+          className="font-display max-w-4xl text-[clamp(2.5rem,5.6vw,5rem)] leading-[1.02] font-extrabold tracking-[-0.025em]"
         >
           {t("hero.title")} <span className="text-gold-sheen block">{t("hero.titleAccent")}</span>
         </RevealText>
 
-        <p className="rise mt-7 max-w-md border-s-2 border-gold-500 ps-5 text-pretty text-[clamp(1rem,1.35vw,1.15rem)] leading-relaxed text-white/80 [--rise-delay:1.7s]">
+        <p className="rise mt-6 max-w-lg text-pretty text-[clamp(1rem,1.35vw,1.2rem)] leading-relaxed text-white/85 [--rise-delay:1.7s]">
           {t("hero.subtitle")}
         </p>
 
-        <div className="rise mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 [--rise-delay:1.95s]">
-          <Link
-            to={path("/contact")}
-            className="group inline-flex h-14 items-center gap-4 rounded-full bg-gold-500 ps-7 pe-2 text-[15px] font-semibold text-white shadow-[0_18px_40px_-16px_rgb(167_124_56/0.95)] transition-[background-color,box-shadow] duration-300 hover:bg-gold-400 hover:shadow-[0_22px_48px_-14px_rgb(191_150_83/1)]"
-          >
-            {t("hero.cta")}
-            <span className="grid size-10 place-items-center overflow-hidden rounded-full bg-navy-950 text-gold-300">
-              <ArrowRight
-                className="size-4 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-0.5"
-                aria-hidden
-              />
-            </span>
-          </Link>
+        {/* the three promises, split by thin gold rules */}
+        <ul className="rise mt-9 flex max-w-xl divide-x divide-gold-500/50 [--rise-delay:1.85s] rtl:divide-x-reverse">
+          {POINTS.map(({ key, icon: Icon }) => (
+            <li
+              key={key}
+              className="flex flex-1 flex-col gap-2.5 px-4 first:ps-0 last:pe-0 sm:px-6"
+            >
+              <Icon className="size-7 text-gold-400 sm:size-8" strokeWidth={1.4} aria-hidden />
+              <span className="text-[13px] leading-snug font-medium text-white/90 sm:text-[14.5px]">
+                {t(key)}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="rise mt-10 [--rise-delay:2s]">
           <Link
             to={path("/vehicles")}
-            className="group relative inline-flex items-center gap-2 py-2 text-[15px] font-semibold text-white"
+            className="group inline-flex h-14 items-center gap-4 rounded-md bg-gold-500 ps-7 pe-6 text-[15px] font-semibold text-white shadow-[0_18px_40px_-16px_rgb(167_124_56/0.95)] transition-[background-color,box-shadow] duration-300 hover:bg-gold-400 hover:shadow-[0_22px_48px_-14px_rgb(191_150_83/1)]"
           >
-            {t("hero.ctaSecondary")}
-            <ArrowUpRight
-              className="size-4 text-gold-300 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            {t("hero.discover")}
+            <ArrowRight
+              className="size-4 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
               aria-hidden
-            />
-            <span
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-px origin-left bg-white/30 transition-colors group-hover:bg-gold-400"
             />
           </Link>
         </div>

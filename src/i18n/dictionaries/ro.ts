@@ -40,9 +40,14 @@ export const ro = {
   "hero.eyebrow": "Horizon Auto Export",
   "hero.location": "București · Toată Europa",
   "hero.scroll": "Descoperă serviciile",
-  "hero.title": "Vehicule rulate",
-  "hero.titleAccent": "B2B",
-  "hero.subtitle": "Achiziție și vânzare de mașini second-hand pentru profesioniști",
+  "hero.title": "Excelența auto",
+  "hero.titleAccent": "la îndemâna dumneavoastră.",
+  "hero.subtitle":
+    "Descoperiți selecția noastră de vehicule noi și rulate, la prețuri competitive.",
+  "hero.discover": "Descoperiți vehiculele noastre",
+  "hero.point1": "Vehicule selectate",
+  "hero.point2": "Prețuri competitive",
+  "hero.point3": "Livrare în toată Europa",
   "hero.cta": "Contactează-ne",
   "hero.ctaSecondary": "Vezi vehiculele",
   "hero.imageAlt":
@@ -85,12 +90,9 @@ export const ro = {
 
   // ---- about ----------------------------------------------------------------
   "about.eyebrow": "Despre noi",
-  "about.title": "Partenerul tău de încredere în exportul auto",
+  "about.title": "O viziune asupra automobilului, construită în jurul dorințelor dumneavoastră.",
   "about.p1":
-    "Horizon Auto Export S.R.L. este o companie nou înființată, cu sediul în București, specializată în achiziția și vânzarea de vehicule rulate, pentru clienți profesioniști.",
-  "about.p2":
-    "Ne concentrăm pe oferirea de soluții rapide, sigure și avantajoase pentru partenerii noștri din România și din străinătate, punând accent pe transparență, seriozitate și respectarea termenelor.",
-  "about.quote": "Mașini bune. Parteneriate solide. Fără granițe.",
+    "La Horizon Auto Export, ne punem pasiunea pentru automobile în slujba proiectelor dumneavoastră. Vă oferim o gamă de vehicule noi și rulate, cu o atenție deosebită acordată calității, diversității și satisfacției dumneavoastră.",
   "about.cta": "Află mai multe",
   "about.imageAlt": "Far LED al unui autoturism premium închis la culoare",
   "about.mission.title": "Misiunea noastră",

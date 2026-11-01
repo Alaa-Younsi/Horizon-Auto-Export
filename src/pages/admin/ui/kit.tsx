@@ -119,7 +119,7 @@ export function Toggle({
   return (
     <label
       className={cn(
-        "inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-navy-900",
+        "flex w-fit cursor-pointer items-center gap-3 text-sm font-medium text-navy-900",
         disabled && "opacity-50",
       )}
     >
@@ -337,12 +337,15 @@ export function LocalizedInput({
   error,
   hint,
   placeholder,
+  stacked,
 }: {
   id: string;
   label: string;
   value: Localized;
   onChange: (v: Localized) => void;
   multiline?: boolean;
+  /** One language per row — for narrow panels, where three columns truncate the text. */
+  stacked?: boolean;
   required?: boolean;
   error?: string;
   hint?: string;
@@ -356,7 +359,9 @@ export function LocalizedInput({
         {label}
         {required && <span className="ms-1 text-gold-600">*</span>}
       </legend>
-      <div className={cn("grid gap-3", multiline ? "lg:grid-cols-3" : "sm:grid-cols-3")}>
+      <div
+        className={cn("grid gap-3", stacked ? "" : multiline ? "lg:grid-cols-3" : "sm:grid-cols-3")}
+      >
         {SITE_LANGS.map((lang) => {
           const fieldId = `${id}-${lang}`;
           const common = {

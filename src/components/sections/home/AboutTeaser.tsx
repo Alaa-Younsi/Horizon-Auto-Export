@@ -7,20 +7,20 @@ import { useGsap } from "@/hooks/useGsap";
 import { useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import { useI18n } from "@/i18n/LanguageProvider";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 
 /**
  * "Despre noi" from the mock-up: the headlight photo behind a white + gold
  * diagonal blade, copy on the right over a faint world map. The photo drifts
- * inside its frame, the blade slices in, and the quote's words light up as the
- * visitor scrolls past it.
+ * inside its frame and the blade slices in as the visitor scrolls past it.
  */
 export function AboutTeaser() {
-  const { t, path, lang } = useI18n();
+  const { t, path } = useI18n();
   const { data: settings } = useSiteSettings();
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const custom = settings?.about_image_url;
+  const title = t("about.title");
 
   useGsap(
     () => {
@@ -47,23 +47,9 @@ export function AboutTeaser() {
         ease: "expo.inOut",
         scrollTrigger: { trigger: root.current, start: "top 75%", once: true },
       });
-      const quote = root.current?.querySelector<HTMLElement>("[data-quote]");
-      if (!quote) return;
-      const split = SplitText.create(quote, { type: "words" });
-      gsap.fromTo(
-        split.words,
-        { opacity: 0.22 },
-        {
-          opacity: 1,
-          stagger: 0.1,
-          ease: "none",
-          scrollTrigger: { trigger: quote, start: "top 85%", end: "top 45%", scrub: true },
-        },
-      );
-      return () => split.revert();
     },
     root,
-    [reduced, lang],
+    [reduced],
   );
 
   return (
@@ -114,20 +100,21 @@ export function AboutTeaser() {
         </div>
 
         <div>
-          <SectionHeading eyebrow={t("about.eyebrow")} title={t("about.title")} />
-          <div className="mt-6 space-y-4 text-[16.5px] leading-relaxed text-muted">
-            <p>{t("about.p1")}</p>
-            <p>{t("about.p2")}</p>
-          </div>
-          <blockquote className="mt-8 border-s-2 border-gold-500 ps-5">
-            <p
-              key={lang}
-              data-quote
-              className="font-display text-[clamp(1.3rem,2.2vw,1.7rem)] leading-snug font-semibold text-navy-900"
-            >
-              {t("about.quote")}
-            </p>
-          </blockquote>
+          <SectionHeading
+            eyebrow={t("about.eyebrow")}
+            title={
+              // the mock-up's gold full stop
+              title.endsWith(".") ? (
+                <>
+                  {title.slice(0, -1)}
+                  <span className="text-gold-500">.</span>
+                </>
+              ) : (
+                title
+              )
+            }
+          />
+          <p className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-muted">{t("about.p1")}</p>
           <ButtonLink to={path("/about")} className="mt-9">
             {t("about.cta")}
             <ArrowRight

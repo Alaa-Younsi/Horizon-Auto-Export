@@ -3,11 +3,13 @@ import { DICTIONARIES, type TranslationKey } from "@/i18n/dictionaries";
 import { interpolate, type Vars } from "@/i18n/interpolate";
 import { LANG_META } from "@/i18n/languages";
 import { type AdminKey, adminEn } from "./en";
+import { adminFr } from "./fr";
 import { adminRo } from "./ro";
 
-export type AdminLang = "ro" | "en";
+export const ADMIN_LANGS = ["ro", "en", "fr"] as const;
+export type AdminLang = (typeof ADMIN_LANGS)[number];
 const KEY = "hae-admin-lang";
-const ADMIN_DICTS = { ro: adminRo, en: adminEn } as const;
+const ADMIN_DICTS = { ro: adminRo, en: adminEn, fr: adminFr } as const;
 
 interface AdminI18nValue {
   lang: AdminLang;
@@ -22,11 +24,11 @@ const Ctx = createContext<AdminI18nValue | null>(null);
 function initial(): AdminLang {
   try {
     const v = localStorage.getItem(KEY);
-    if (v === "ro" || v === "en") return v;
+    if (v === "ro" || v === "en" || v === "fr") return v;
   } catch {
     // ignore
   }
-  // The owner is Romanian; staff can switch to English from the sidebar.
+  // Romanian by default; staff can switch to English or French from the sidebar.
   return "ro";
 }
 

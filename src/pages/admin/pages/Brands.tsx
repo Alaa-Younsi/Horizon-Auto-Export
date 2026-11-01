@@ -213,7 +213,7 @@ export default function Brands() {
                   !b.active && "opacity-60",
                 )}
               >
-                <span className="grid h-12 w-16 shrink-0 place-items-center text-navy-900">
+                <span className="grid h-12 w-16 shrink-0 place-items-center overflow-hidden text-[10px] text-navy-900">
                   <span className="h-8">
                     <BrandMark brand={b} />
                   </span>
