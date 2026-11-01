@@ -43,9 +43,6 @@ export const ro = {
   "hero.title": "Vehicule rulate",
   "hero.titleAccent": "B2B",
   "hero.subtitle": "Achiziție și vânzare de mașini second-hand pentru profesioniști",
-  "hero.point1": "Mașini verificate",
-  "hero.point2": "Prețuri competitive",
-  "hero.point3": "Livrare în toată Europa",
   "hero.cta": "Contactează-ne",
   "hero.ctaSecondary": "Vezi vehiculele",
   "hero.imageAlt":

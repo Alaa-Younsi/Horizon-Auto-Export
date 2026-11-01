@@ -29,7 +29,9 @@ function productionHeaders(): Record<string, string> {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
-  process.env.VITE_SITE_URL = (env.VITE_SITE_URL || PLACEHOLDER_SITE_URL).replace(/\/+$/, "");
+  // a value still holding the .env.local "<...>" placeholder counts as unset
+  const site = env.VITE_SITE_URL?.includes("<") ? "" : env.VITE_SITE_URL;
+  process.env.VITE_SITE_URL = (site || PLACEHOLDER_SITE_URL).replace(/\/+$/, "");
 
   return {
     plugins: [react(), tailwindcss()],

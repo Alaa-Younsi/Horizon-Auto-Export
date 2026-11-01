@@ -13,9 +13,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { SEO_LANGS, STATIC_ROUTES } from "./seo-routes";
 
 const PLACEHOLDER = "https://PLACEHOLDER-DOMAIN.tld";
-const SITE = (process.env.VITE_SITE_URL || PLACEHOLDER).replace(/\/+$/, "");
-const SUPABASE_URL = (process.env.VITE_SUPABASE_URL ?? "").replace(/\/+$/, "");
-const ANON = process.env.VITE_SUPABASE_ANON_KEY ?? "";
+/** A value still holding the .env.local "<...>" placeholder counts as unset. */
+const filled = (v: string | undefined) => (v?.includes("<") ? "" : (v ?? ""));
+const SITE = (filled(process.env.VITE_SITE_URL) || PLACEHOLDER).replace(/\/+$/, "");
+const SUPABASE_URL = filled(process.env.VITE_SUPABASE_URL).replace(/\/+$/, "");
+const ANON = filled(process.env.VITE_SUPABASE_ANON_KEY);
 const LANGS = SEO_LANGS;
 
 async function vehicleSlugs(): Promise<Array<{ slug: string; updated_at: string }>> {

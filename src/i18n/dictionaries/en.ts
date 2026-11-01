@@ -37,9 +37,6 @@ export const en: Dictionary = {
   "hero.title": "Used vehicles",
   "hero.titleAccent": "B2B",
   "hero.subtitle": "Buying and selling second-hand cars for professionals",
-  "hero.point1": "Inspected vehicles",
-  "hero.point2": "Competitive prices",
-  "hero.point3": "Delivery across Europe",
   "hero.cta": "Contact us",
   "hero.ctaSecondary": "View vehicles",
   "hero.imageAlt":

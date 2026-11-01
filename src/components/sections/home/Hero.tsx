@@ -1,14 +1,4 @@
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Clock,
-  Coins,
-  Mail,
-  MapPin,
-  Phone,
-  ShieldCheck,
-  Truck,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import { Link } from "react-router";
 import { RevealText } from "@/components/fx/RevealText";
@@ -16,62 +6,13 @@ import { useGsap } from "@/hooks/useGsap";
 import { useFinePointer, useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import { useI18n } from "@/i18n/LanguageProvider";
-import { cn } from "@/lib/cn";
-import { mailHref, telHref } from "@/lib/contact";
 import { gsap } from "@/lib/gsap";
-import { pick } from "@/lib/localized";
-
-// Static class strings so Tailwind can see them (no inline styles).
-const POINT_DELAYS = ["[--rise-delay:2.15s]", "[--rise-delay:2.25s]", "[--rise-delay:2.35s]"];
-const POINT_ICONS = [ShieldCheck, Coins, Truck];
 
 const HERO_SRCSET =
   "/images/hero-960.webp 960w, /images/hero-1600.webp 1600w, /images/hero-2400.webp 2400w";
 // The photo is 16:9 and covers the hero: on a portrait screen it is drawn at
 // roughly 1.8x the viewport height wide, not at the viewport width.
 const HERO_SIZES = "(orientation: portrait) 180vh, 100vw";
-
-/** Phone, e-mail, address and hours along the hero's top edge, over the sky. */
-function ContactRail() {
-  const { lang } = useI18n();
-  const { data: s } = useSiteSettings();
-  if (!s) return null;
-  const item = "flex items-center gap-2.5 whitespace-nowrap";
-  const icon = "size-4 shrink-0 text-gold-300";
-  return (
-    <div className="rise border-b border-white/10 [--rise-delay:2.4s]">
-      <ul className="container-x flex h-12 items-center gap-x-6 overflow-hidden text-[13px] text-white/80 lg:gap-x-0 lg:divide-x lg:divide-gold-400/35">
-        <li className="lg:pe-6">
-          <a
-            href={telHref(s.phone_e164)}
-            className={cn(item, "font-semibold text-white hover:text-gold-200")}
-          >
-            <Phone className={icon} aria-hidden />
-            <span dir="ltr">{s.phone_display}</span>
-          </a>
-        </li>
-        <li className="hidden sm:block lg:px-6">
-          <a href={mailHref(s.email)} className={cn(item, "hover:text-white")}>
-            <Mail className={icon} aria-hidden />
-            {s.email}
-          </a>
-        </li>
-        <li className="hidden lg:block lg:px-6">
-          <p className={item}>
-            <MapPin className={icon} aria-hidden />
-            {pick(s.address, lang)}
-          </p>
-        </li>
-        <li className="hidden xl:block xl:ps-6">
-          <p className={item}>
-            <Clock className={icon} aria-hidden />
-            {pick(s.hours, lang)}
-          </p>
-        </li>
-      </ul>
-    </div>
-  );
-}
 
 /**
  * Signature moment, on the client's sunset photo. Intro (pure CSS, so it can
@@ -129,8 +70,6 @@ export function Hero() {
     [reduced, fine],
   );
 
-  const points = [t("hero.point1"), t("hero.point2"), t("hero.point3")];
-
   return (
     <section
       ref={root}
@@ -174,10 +113,6 @@ export function Hero() {
         <div aria-hidden className="absolute inset-0 overflow-hidden mix-blend-soft-light">
           <div className="hero-sweep absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/45 to-transparent" />
         </div>
-      </div>
-
-      <div className="relative z-10">
-        <ContactRail />
       </div>
 
       <div
@@ -233,24 +168,6 @@ export function Hero() {
             />
           </Link>
         </div>
-
-        <ul className="mt-12 flex flex-wrap gap-x-7 gap-y-3">
-          {points.map((p, i) => {
-            const Icon = POINT_ICONS[i] ?? ShieldCheck;
-            return (
-              <li
-                key={p}
-                className={cn(
-                  "rise flex items-center gap-2.5 text-[13.5px] font-medium text-white/75",
-                  POINT_DELAYS[i],
-                )}
-              >
-                <Icon className="size-[18px] text-gold-300" strokeWidth={1.6} aria-hidden />
-                {p}
-              </li>
-            );
-          })}
-        </ul>
       </div>
 
       {/* scroll cue: the services start right below the fold */}

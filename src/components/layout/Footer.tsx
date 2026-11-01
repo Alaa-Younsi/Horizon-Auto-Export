@@ -1,10 +1,11 @@
-import { ArrowRight, ArrowUp, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowUp } from "lucide-react";
 import { type ReactNode, useRef } from "react";
 import { Link } from "react-router";
 import logoFullLight from "@/assets/logo-full-light.webp";
 import { RevealText } from "@/components/fx/RevealText";
 import { useLenis } from "@/components/fx/SmoothScroll";
 import { ButtonLink } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { useGsap } from "@/hooks/useGsap";
 import { useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
@@ -122,7 +123,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex h-14 items-center gap-2.5 rounded-md px-6 text-[15px] font-semibold text-white ring-1 ring-white/25 transition-colors hover:bg-white/5 hover:ring-gold-400"
               >
-                <MessageCircle className="size-4 text-gold-300" aria-hidden />
+                <WhatsAppIcon className="size-4 text-[#25D366]" />
                 WhatsApp
               </a>
             )}

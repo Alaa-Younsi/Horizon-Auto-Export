@@ -1,9 +1,9 @@
-import { MessageCircle } from "lucide-react";
 import { Suspense, useLayoutEffect, useRef, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ScrollProgress } from "@/components/fx/ScrollProgress";
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import { LanguageProvider, useI18n } from "@/i18n/LanguageProvider";
 import { type Lang, preferredLang } from "@/i18n/languages";
@@ -72,10 +72,10 @@ function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t("contact.whatsapp")}
-      className="group fixed end-4 bottom-4 z-40 grid size-14 place-items-center rounded-full bg-navy-900 text-gold-300 shadow-[0_18px_40px_-14px_rgb(4_14_36/0.8)] ring-1 ring-gold-500/40 transition-transform duration-300 hover:scale-105 sm:end-6 sm:bottom-6"
+      className="group fixed end-4 bottom-4 z-40 grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_18px_40px_-14px_rgb(4_14_36/0.8)] ring-1 ring-white/30 transition-transform duration-300 hover:scale-105 sm:end-6 sm:bottom-6"
     >
-      <span className="absolute inset-0 animate-pulse-ring rounded-full ring-1 ring-gold-400/50" />
-      <MessageCircle className="size-6" aria-hidden />
+      <span className="absolute inset-0 animate-pulse-ring rounded-full ring-1 ring-[#25D366]/60" />
+      <WhatsAppIcon className="size-7" />
     </a>
   );
 }

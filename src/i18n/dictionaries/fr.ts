@@ -37,9 +37,6 @@ export const fr: Dictionary = {
   "hero.title": "Véhicules d'occasion",
   "hero.titleAccent": "B2B",
   "hero.subtitle": "Achat et vente de voitures d'occasion pour les professionnels",
-  "hero.point1": "Véhicules contrôlés",
-  "hero.point2": "Prix compétitifs",
-  "hero.point3": "Livraison dans toute l'Europe",
   "hero.cta": "Contactez-nous",
   "hero.ctaSecondary": "Voir les véhicules",
   "hero.imageAlt":
