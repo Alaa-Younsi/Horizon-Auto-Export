@@ -44,9 +44,9 @@ describe("format", () => {
     expect(slugify("???")).toBe("");
   });
   it("formats prices per locale with the currency", () => {
-    expect(formatPrice(23900, "EUR", "en")).toMatch(/€\s?23,900/);
-    // ro-RO ICU prints the ISO code: "23.900 EUR".
-    expect(formatPrice(23900, "EUR", "ro")).toMatch(/23\.900\s?(€|EUR)/);
+    // the ISO code, never the symbol: "EUR 23,900" / "23.900 EUR"
+    expect(formatPrice(23900, "EUR", "en")).toMatch(/EUR\s?23,900/);
+    expect(formatPrice(23900, "EUR", "ro")).toMatch(/23\.900\s?EUR/);
     expect(formatPrice(23900, "RON", "fr")).toMatch(/23\s?900/);
   });
   it("treats bare dates as local calendar days", () => {

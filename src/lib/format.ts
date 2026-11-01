@@ -9,6 +9,8 @@ export function formatPrice(value: number, currency: Currency, lang: Lang): stri
   return new Intl.NumberFormat(LANG_META[lang].locale, {
     style: "currency",
     currency,
+    // "11.000 EUR", as the client writes prices (not "11.000 €")
+    currencyDisplay: "code",
     maximumFractionDigits: 0,
     numberingSystem: "latn",
   }).format(value);

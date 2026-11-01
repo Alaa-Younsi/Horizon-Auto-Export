@@ -699,7 +699,7 @@ function Editor({
           <Section title={t("veh.section.specs")}>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <FormField id="v-year" label={t("veh.f.firstReg")}>
-                <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <Select
                     id="v-regmonth"
                     aria-label={t("veh.f.regMonth")}

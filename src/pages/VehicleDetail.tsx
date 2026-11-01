@@ -41,24 +41,12 @@ import { netFromGross, VAT_PERCENT } from "@/lib/vat";
 import { relatedVehicles, vehicleTitle } from "@/lib/vehicles";
 import type { VehicleWithMedia } from "@/types/db";
 
-function SpecItem({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-}) {
+/** One characteristic as a row: grey label on the left, the value on the right. */
+function SpecItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center gap-3.5 rounded-lg bg-white p-4 ring-1 ring-navy-900/6">
-      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gold-50 text-gold-600">
-        <Icon className="size-[18px]" strokeWidth={1.6} aria-hidden />
-      </span>
-      <div className="min-w-0">
-        <dt className="text-[11.5px] font-semibold tracking-wide text-muted uppercase">{label}</dt>
-        <dd className="truncate font-semibold text-navy-900">{value}</dd>
-      </div>
+    <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-baseline gap-4 px-5 py-4 odd:bg-paper/60">
+      <dt className="text-[15px] text-muted">{label}</dt>
+      <dd className="text-[15.5px] font-semibold text-navy-900">{value}</dd>
     </div>
   );
 }
@@ -242,7 +230,7 @@ function Detail({ v }: { v: VehicleWithMedia }) {
                   )}
                   {v.vat_deductible && v.price !== null && (
                     // HT + HT x 21 % = TTC: the listed price is TTC, so show HT under it
-                    <p className="mt-1.5 text-sm text-muted tabular-nums">
+                    <p className="mt-1.5 text-[15px] text-muted tabular-nums">
                       {t("veh.netPrice", {
                         net: formatPrice(netFromGross(v.price), v.currency, lang),
                         rate: VAT_PERCENT,
@@ -285,9 +273,9 @@ function Detail({ v }: { v: VehicleWithMedia }) {
             <div className="space-y-12">
               <Reveal>
                 <h2 className="font-display text-2xl font-bold text-navy-900">{t("veh.specs")}</h2>
-                <dl className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                  {specs.map(([icon, label, value]) => (
-                    <SpecItem key={label} icon={icon} label={label} value={value} />
+                <dl className="mt-6 overflow-hidden rounded-xl bg-white ring-1 ring-line">
+                  {specs.map(([, label, value]) => (
+                    <SpecItem key={label} label={label} value={value} />
                   ))}
                 </dl>
               </Reveal>
@@ -308,16 +296,16 @@ function Detail({ v }: { v: VehicleWithMedia }) {
                   <h2 className="font-display text-2xl font-bold text-navy-900">
                     {t("veh.equipment")}
                   </h2>
-                  <ul className="mt-5 overflow-hidden rounded-xl ring-1 ring-line sm:columns-2 sm:gap-0">
+                  <ul className="mt-5 overflow-hidden rounded-xl bg-white ring-1 ring-line">
                     {equipment.map((item) => (
                       <li
                         key={item}
-                        className="flex break-inside-avoid items-center justify-between gap-4 border-b border-line bg-white px-5 py-3.5 text-[15px] font-medium text-navy-900 odd:bg-paper/70"
+                        className="flex items-center justify-between gap-4 px-5 py-4 text-[16.5px] font-semibold text-navy-900 odd:bg-paper"
                       >
                         {item}
                         <Check
-                          className="size-4 shrink-0 text-gold-600"
-                          strokeWidth={2.5}
+                          className="size-5 shrink-0 text-navy-900"
+                          strokeWidth={2}
                           aria-hidden
                         />
                       </li>

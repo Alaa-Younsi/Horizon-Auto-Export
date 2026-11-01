@@ -208,7 +208,7 @@ export const en: Dictionary = {
   "spec.accidentFree": "Accident-free history",
   "spec.yes": "Yes",
   "spec.no": "No",
-  "veh.netPrice": "{net} net, VAT {rate}%",
+  "veh.netPrice": "Net {net}",
   "spec.mileage": "Mileage",
   "spec.fuel": "Fuel",
   "spec.transmission": "Gearbox",

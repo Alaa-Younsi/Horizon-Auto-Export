@@ -222,7 +222,7 @@ export const ro = {
   "spec.accidentFree": "Fără accident în istoric",
   "spec.yes": "Da",
   "spec.no": "Nu",
-  "veh.netPrice": "{net} Net, TVA {rate}%",
+  "veh.netPrice": "Net {net}",
   "spec.mileage": "Kilometraj",
   "spec.fuel": "Combustibil",
   "spec.transmission": "Transmisie",

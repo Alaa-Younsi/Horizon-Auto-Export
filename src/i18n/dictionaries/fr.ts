@@ -212,7 +212,7 @@ export const fr: Dictionary = {
   "spec.accidentFree": "Historique sans accident",
   "spec.yes": "Oui",
   "spec.no": "Non",
-  "veh.netPrice": "{net} Net, TVA {rate} %",
+  "veh.netPrice": "Net {net}",
   "spec.mileage": "Kilométrage",
   "spec.fuel": "Carburant",
   "spec.transmission": "Boîte",
