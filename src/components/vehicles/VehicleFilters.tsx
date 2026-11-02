@@ -144,11 +144,13 @@ export function VehicleFilters({
           onChange={(e) => set("brand", e.target.value || null)}
         >
           <option value="">{t("veh.filter.anyBrand")}</option>
-          {brands.map((b) => (
-            <option key={b.id} value={b.slug}>
-              {b.name}
-            </option>
-          ))}
+          {[...brands]
+            .sort((a, b) => a.name.localeCompare(b.name, "fr", { sensitivity: "base" }))
+            .map((b) => (
+              <option key={b.id} value={b.slug}>
+                {b.name}
+              </option>
+            ))}
         </Select>
         <Select
           aria-label={t("veh.filter.fuel")}

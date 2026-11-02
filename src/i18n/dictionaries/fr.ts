@@ -209,7 +209,7 @@ export const fr: Dictionary = {
   "veh.ref": "Réf.",
 
   "spec.year": "Date de première immatriculation",
-  "spec.accidentFree": "Historique sans accident",
+  "spec.accidentFree": "Sans accident dans l'historique",
   "spec.yes": "Oui",
   "spec.no": "Non",
   "veh.netPrice": "Net {net}",

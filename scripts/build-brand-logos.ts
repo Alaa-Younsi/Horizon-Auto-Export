@@ -4,30 +4,52 @@
  * say which makes we source) into a typed module, so the brands strip can
  * recolour them with CSS (navy at rest, gold on hover) without one request each.
  *
- * Makes simple-icons doesn't carry (e.g. CUPRA, Mercedes-Benz) render as a
+ * Makes simple-icons doesn't carry (e.g. CUPRA, Mercedes-Benz, Alfa Romeo) render as a
  * styled wordmark instead; admins can also upload a logo per brand.
  *
  * Run: bun run build:brands
  */
 import { readFileSync, writeFileSync } from "node:fs";
 
-const SLUGS = [
-  "volkswagen",
-  "audi",
-  "skoda",
-  "seat",
-  "porsche",
-  "bmw",
-  "renault",
-  "dacia",
-  "ford",
-  "toyota",
-  "volvo",
-  "peugeot",
+/** [brand slug in the database, simple-icons file] — the same unless noted. */
+const SLUGS: Array<[string, string]> = [
+  ...[
+    "volkswagen",
+    "audi",
+    "skoda",
+    "seat",
+    "porsche",
+    "bmw",
+    "renault",
+    "dacia",
+    "ford",
+    "toyota",
+    "volvo",
+    "peugeot",
+    "bentley",
+    "bugatti",
+    "citroen",
+    "ferrari",
+    "fiat",
+    "iveco",
+    "lamborghini",
+    "maserati",
+    "mclaren",
+    "man",
+    "mini",
+    "opel",
+    "polestar",
+    "smart",
+    "scania",
+    "daf",
+  ].map((s): [string, string] => [s, s]),
+  ["aston-martin", "astonmartin"],
+  ["rolls-royce", "rollsroyce"],
+  ["ds", "dsautomobiles"],
 ];
 
-const entries = SLUGS.map((slug) => {
-  const svg = readFileSync(`node_modules/simple-icons/icons/${slug}.svg`, "utf8");
+const entries = SLUGS.map(([slug, icon]) => {
+  const svg = readFileSync(`node_modules/simple-icons/icons/${icon}.svg`, "utf8");
   const path = /<path d="([^"]+)"/.exec(svg)?.[1];
   const title = /<title>([^<]+)<\/title>/.exec(svg)?.[1];
   if (!path || !title) throw new Error(`unexpected svg for ${slug}`);

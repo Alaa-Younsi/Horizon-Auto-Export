@@ -123,7 +123,11 @@ async function main() {
     }
   }
   // Every migration must also be re-runnable where it says so (seed).
-  for (const seed of ["0007_seed.sql", "0008_seed_dacia_renault.sql"]) {
+  for (const seed of [
+    "0007_seed.sql",
+    "0008_seed_dacia_renault.sql",
+    "0012_seed_european_brands.sql",
+  ]) {
     check(
       `seed migration ${seed} is re-runnable`,
       (await errorOf(readFileSync(join(MIGRATIONS, seed), "utf8"))) === "",

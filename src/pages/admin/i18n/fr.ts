@@ -121,7 +121,7 @@ export const adminFr: AdminDictionary = {
   "veh.f.firstReg": "Date de première immatriculation",
   "veh.f.regMonth": "Mois",
   "veh.f.regYear": "Année",
-  "veh.f.accidentFree": "Historique sans accident",
+  "veh.f.accidentFree": "Sans accident dans l'historique",
   "veh.f.vatNet": "Prix HT : {net} · TVA {rate} %",
   "veh.section.options": "Options",
   "veh.options.hint":

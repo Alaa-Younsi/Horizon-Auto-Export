@@ -62,7 +62,7 @@ src/
   pages/admin/               dashboard (own EN/RO dictionary, lazy-loaded, never linked from the site)
   lib/                       contact.ts (single source of contact details), vehicles.ts, image.ts, …
 supabase/
-  migrations/                0001 schema … 0011 vehicle details (sequential; never edit one that may have run)
+  migrations/                0001 schema … 0012 European makes (sequential; never edit one that may have run)
   functions/                 create-staff, set-staff-password, notify (self-contained Deno)
 middleware.ts                Vercel Edge: real link previews for shared vehicle URLs (social crawlers only)
 scripts/                     SEO files, DB tests, asset pipeline, map/brand generators
@@ -108,7 +108,7 @@ change with re-authentication, e-mail notifications).
 2. **Create the owner login first**: Authentication → Users → _Add user_ with the client's
    e-mail. Then check the e-mail in `supabase/migrations/0002_admin_permissions.sql`
    (placeholder) — the real owner login, `admin@horizon.com`, is seeded by `0010_owner_admin_email.sql`.
-3. **Run the migrations in order** (SQL editor, 0001 → 0011, or `bunx supabase db push` after
+3. **Run the migrations in order** (SQL editor, 0001 → 0012, or `bunx supabase db push` after
    `bunx supabase link`). Run `bun run test:db` first — it proves they all apply on a fresh DB.
    _After 0002 only seeded admins can write._ The `media` storage bucket is created by 0006.
 4. **Disable public sign-up**: Authentication → Sign In / Providers → turn off "Allow new users
