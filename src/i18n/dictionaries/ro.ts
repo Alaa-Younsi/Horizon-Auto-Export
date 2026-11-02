@@ -4,8 +4,7 @@
  */
 export const ro = {
   // ---- meta -----------------------------------------------------------------
-  "meta.home.title":
-    "Vehicule rulate B2B — achiziție, vânzare și export auto | Horizon Auto Export",
+  "meta.home.title": "Horizon Auto Export — autoturisme noi și rulate, livrare în toată Europa",
   "meta.home.desc":
     "Horizon Auto Export, București: vânzare de autoturisme și vehicule comerciale noi și rulate, consiliere la achiziție și livrare în toată Europa.",
   "meta.vehicles.title": "Vehicule disponibile",
@@ -13,13 +12,13 @@ export const ro = {
     "Stocul actual de autoturisme și vehicule comerciale, noi și rulate. Consiliere, sprijin administrativ și livrare în Europa.",
   "meta.about.title": "Despre noi",
   "meta.about.desc":
-    "Horizon Auto Export S.R.L. — companie din București specializată în achiziția și vânzarea de vehicule rulate pentru clienți profesioniști.",
+    "Horizon Auto Export S.R.L., București: vânzare de vehicule noi și rulate, consiliere la achiziție și o selecție variată de modele și mărci.",
   "meta.services.title": "Servicii",
   "meta.services.desc":
     "Vânzare de vehicule noi și rulate, consiliere și asistență la achiziție, livrare și asistență administrativă.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
-    "Contactați Horizon Auto Export, București: telefon, e-mail sau formularul de cerere. Răspundem rapid oricărei cereri B2B.",
+    "Contactați Horizon Auto Export, București: telefon, WhatsApp, e-mail sau formularul de contact. Răspundem fiecărei solicitări în cel mai scurt timp.",
   "meta.privacy.title": "Politica de confidențialitate",
   "meta.terms.title": "Termeni și condiții",
   "meta.notFound.title": "Pagina nu a fost găsită",

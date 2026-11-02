@@ -14,8 +14,16 @@
  *   curl -A "facebookexternalhit/1.1" https://<domain>/ro/vehicles/<slug>
  */
 import { next } from "@vercel/edge";
+import { buildSitemap, fetchVehicleSlugs } from "./scripts/sitemap-xml";
 
-export const config = { matcher: ["/:lang(ro|en|fr)/vehicles/:slug*"] };
+export const config = { matcher: ["/sitemap.xml", "/:lang(ro|en|fr)/vehicles/:slug*"] };
+
+/** The official domain; VITE_SITE_URL overrides it. A "<...>" placeholder counts as unset. */
+const DEFAULT_SITE = "https://horizonautoexport.com";
+const env = (k: string) => {
+  const v = (process.env[k] ?? "").trim();
+  return v.includes("<") ? "" : v.replace(/\/+$/, "");
+};
 
 // Social link-preview scrapers only. Search engines (Googlebot, Bingbot) run JS
 // and get the real page — serving them something else would edge toward cloaking.
@@ -56,13 +64,31 @@ function pick(v: Localized | null | undefined, lang: Lang): string {
   return (v?.[lang] || v?.ro || v?.en || v?.fr || "").trim();
 }
 
+/**
+ * /sitemap.xml, live from the database: a vehicle published in the admin is in
+ * the sitemap within the hour, no redeploy. If the database can't be reached,
+ * fall through to the static copy written at build time.
+ */
+async function sitemap(): Promise<Response> {
+  const vehicles = await fetchVehicleSlugs(env("VITE_SUPABASE_URL"), env("VITE_SUPABASE_ANON_KEY"));
+  if (vehicles === null) return next();
+  return new Response(buildSitemap(env("VITE_SITE_URL") || DEFAULT_SITE, vehicles), {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+    },
+  });
+}
+
 export default async function middleware(request: Request): Promise<Response> {
+  if (new URL(request.url).pathname === "/sitemap.xml") return sitemap();
+
   const ua = request.headers.get("user-agent") ?? "";
   if (!CRAWLERS.test(ua)) return next();
 
-  const supabaseUrl = (process.env.VITE_SUPABASE_URL ?? "").replace(/\/+$/, "");
-  const anonKey = process.env.VITE_SUPABASE_ANON_KEY ?? "";
-  const siteUrl = (process.env.VITE_SITE_URL ?? new URL(request.url).origin).replace(/\/+$/, "");
+  const supabaseUrl = env("VITE_SUPABASE_URL");
+  const anonKey = env("VITE_SUPABASE_ANON_KEY");
+  const siteUrl = env("VITE_SITE_URL") || DEFAULT_SITE;
   if (!supabaseUrl || !anonKey) return next();
 
   const url = new URL(request.url);

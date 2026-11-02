@@ -5,7 +5,12 @@
 //
 // Deploy:  supabase functions deploy notify
 // Secrets: supabase secrets set RESEND_API_KEY=re_...
-//          [RESEND_FROM=Horizon Auto Export <noreply@your-domain>]  [SITE_ADMIN_URL=https://your-domain/admin]
+//          RESEND_FROM=Horizon Auto Export <noreply@horizonautoexport.com>   (domain verified in Resend)
+//          [INQUIRY_EMAIL=contact@horizonautoexport.com]  [SITE_ADMIN_URL=https://horizonautoexport.com/admin]
+//
+// Recipients: the business address (site settings e-mail, else INQUIRY_EMAIL,
+// else contact@horizonautoexport.com) + every active staff member who switched
+// on e-mail notifications in "My account". Duplicates are sent once.
 //
 // Safety: each inquiry is CLAIMED at most once (claim_inquiry_notification,
 // 0005_notifications.sql), so a replay or a guessed reference gets "nothing to
@@ -111,7 +116,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     return json({ ok: true });
   }
 
-  const adminUrl = (Deno.env.get("SITE_ADMIN_URL") ?? "").replace(/\/+$/, "");
+  const adminUrl = (Deno.env.get("SITE_ADMIN_URL") || "https://horizonautoexport.com/admin").replace(/\/+$/, "");
   const subject = `Cerere nouă — ${row.name}${row.company ? ` (${row.company})` : ""} · ${KIND_LABEL[row.kind] ?? row.kind}`;
   const lines: Array<[string, string | null]> = [
     ["Referință", row.reference],
@@ -144,11 +149,17 @@ Deno.serve(async (req: Request): Promise<Response> => {
     console.info("[notify] recipients query failed", recipientsError.message);
     return json({ ok: false }, 500);
   }
+  // The business address shown on the website always gets every inquiry.
+  const { data: settings } = await admin.from("site_settings").select("email").maybeSingle();
+  const business =
+    (settings as { email: string | null } | null)?.email?.trim() ||
+    Deno.env.get("INQUIRY_EMAIL")?.trim() ||
+    "contact@horizonautoexport.com";
   const emails = [
     ...new Set(
-      (recipients ?? [])
-        .map((r) => (r as { notify_email: string | null }).notify_email)
-        .filter((e): e is string => Boolean(e)),
+      [business, ...(recipients ?? []).map((r) => (r as { notify_email: string | null }).notify_email)]
+        .filter((e): e is string => Boolean(e))
+        .map((e) => e.toLowerCase()),
     ),
   ];
   if (emails.length === 0) {
@@ -161,5 +172,6 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const sent = results.filter((r) => r.status === "fulfilled").length;
   for (const r of results) if (r.status === "rejected") console.info("[notify] send failed:", String(r.reason));
   console.info(`[notify] sent ${sent}/${emails.length}`);
-  return json({ ok: true, sent });
+  // counts only (no addresses, no provider message) — enough to spot a broken setup
+  return json({ ok: true, sent, failed: emails.length - sent });
 });

@@ -1,7 +1,7 @@
 import type { Dictionary } from "./ro";
 
 export const en: Dictionary = {
-  "meta.home.title": "Used vehicles B2B — sourcing, sales & export | Horizon Auto Export",
+  "meta.home.title": "Horizon Auto Export — new and used cars, delivery across Europe",
   "meta.home.desc":
     "Horizon Auto Export, Bucharest: new and used passenger cars and commercial vehicles, purchase advice and delivery across Europe.",
   "meta.vehicles.title": "Available vehicles",
@@ -9,13 +9,13 @@ export const en: Dictionary = {
     "Current stock of new and used passenger cars and commercial vehicles. Advice, paperwork support and delivery across Europe.",
   "meta.about.title": "About us",
   "meta.about.desc":
-    "Horizon Auto Export S.R.L. — a Bucharest company specialised in buying and selling used vehicles for professional customers.",
+    "Horizon Auto Export S.R.L., Bucharest: new and used vehicles, purchase advice and a wide choice of models and makes.",
   "meta.services.title": "Services",
   "meta.services.desc":
     "Sale of new and used vehicles, purchase advice and support, delivery and administrative support.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
-    "Contact Horizon Auto Export, Bucharest: phone, e-mail or the inquiry form. We answer every B2B request quickly.",
+    "Contact Horizon Auto Export, Bucharest: phone, WhatsApp, e-mail or the contact form. We answer every request as quickly as possible.",
   "meta.privacy.title": "Privacy policy",
   "meta.terms.title": "Terms and conditions",
   "meta.notFound.title": "Page not found",

@@ -1,7 +1,8 @@
 import type { Dictionary } from "./ro";
 
 export const fr: Dictionary = {
-  "meta.home.title": "Véhicules d'occasion B2B — achat, vente et export | Horizon Auto Export",
+  "meta.home.title":
+    "Horizon Auto Export — voitures neuves et d'occasion, livraison dans toute l'Europe",
   "meta.home.desc":
     "Horizon Auto Export, Bucarest : vente de voitures et de véhicules utilitaires neufs et d'occasion, conseil à l'achat et livraison dans toute l'Europe.",
   "meta.vehicles.title": "Véhicules disponibles",
@@ -9,13 +10,13 @@ export const fr: Dictionary = {
     "Stock actuel de voitures et de véhicules utilitaires neufs et d'occasion. Conseil, accompagnement administratif et livraison en Europe.",
   "meta.about.title": "À propos",
   "meta.about.desc":
-    "Horizon Auto Export S.R.L. — société basée à Bucarest, spécialisée dans l'achat et la vente de véhicules d'occasion pour les professionnels.",
+    "Horizon Auto Export S.R.L., Bucarest : vente de véhicules neufs et d'occasion, conseil à l'achat et un large choix de modèles et de marques.",
   "meta.services.title": "Services",
   "meta.services.desc":
     "Vente de véhicules neufs et d'occasion, conseil et accompagnement à l'achat, livraison et accompagnement administratif.",
   "meta.contact.title": "Contact",
   "meta.contact.desc":
-    "Contactez Horizon Auto Export, Bucarest : téléphone, e-mail ou formulaire de demande. Nous répondons rapidement à chaque demande B2B.",
+    "Contactez Horizon Auto Export, Bucarest : téléphone, WhatsApp, e-mail ou formulaire de contact. Nous répondons à chaque demande dans les meilleurs délais.",
   "meta.privacy.title": "Politique de confidentialité",
   "meta.terms.title": "Conditions générales",
   "meta.notFound.title": "Page introuvable",

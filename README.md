@@ -131,7 +131,7 @@ change with re-authentication, e-mail notifications).
 8. **One real inquiry end-to-end** from a private window (not logged in): the reference appears,
    the inquiry shows in the admin, the notification e-mail arrives. Mark it "spam"/delete after.
 9. **Domain**: set `VITE_SITE_URL` (no trailing slash) → canonical, hreflang, OG, sitemap and
-   robots all follow. `grep -rn PLACEHOLDER-DOMAIN dist/` after a build must return nothing.
+   robots all follow. Without it the official domain (https://horizonautoexport.com) is used.
 10. **Verify on the Vercel preview**: open DevTools console on home, vehicles, a vehicle page,
     contact and an admin photo upload — there must be no `Refused to …` CSP messages. Then
     `curl -A "facebookexternalhit/1.1" https://<domain>/ro/vehicles/<slug>` returns the vehicle's
