@@ -1,11 +1,6 @@
 import { SEO_LANGS, STATIC_ROUTES } from "./seo-routes";
 
-/**
- * The sitemap, shared by the build script (static fallback in public/) and the
- * edge middleware (live: /sitemap.xml lists the stock as it is right now, so a
- * vehicle added in the admin reaches Google without a redeploy).
- * Every page in its three languages, each with its hreflang alternates.
- */
+/** The sitemap: every page in its three languages, each with its hreflang alternates. */
 export function buildSitemap(
   site: string,
   vehicles: ReadonlyArray<{ slug: string; updated_at: string }>,

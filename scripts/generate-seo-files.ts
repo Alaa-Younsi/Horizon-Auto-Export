@@ -1,11 +1,11 @@
 /**
- * Prebuild: writes public/robots.txt and a fallback public/sitemap.xml.
+ * Prebuild: writes public/robots.txt and public/sitemap.xml (every page in its
+ * three languages with hreflang alternates, plus every published vehicle), on
+ * the official domain unless VITE_SITE_URL overrides it.
  *
- * The live /sitemap.xml is served by the edge middleware (middleware.ts) from
- * the database at request time, so new vehicles reach Google without a
- * redeploy; this static copy is only what a crawler gets if that ever fails.
- * Every page exists in three languages (/ro, /en, /fr), each URL with its
- * hreflang alternates (scripts/sitemap-xml.ts).
+ * The sitemap is a snapshot of the stock at deploy time. (Serving it live from
+ * the edge middleware was tried and crashed the middleware on Vercel — keep
+ * middleware.ts self-contained, with no local imports.)
  *
  * Run: bun run seo  (automatically part of `bun run build`). Bun loads .env itself.
  */
