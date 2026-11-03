@@ -52,7 +52,7 @@ export function useSeo({ title, description, image, noindex, jsonLd }: SeoOption
     const previousTitle = document.title;
     const fullTitle = title.includes(BRAND_NAME) ? title : `${title} | ${BRAND_NAME}`;
     const url = `${SITE_URL}${pathname}`;
-    const img = image ?? `${SITE_URL}/og-image.jpg`;
+    const img = image ?? `${SITE_URL}/og-image.jpg?v=2`;
     document.title = fullTitle;
     upsertLink("canonical", url);
     for (const l of SITE_LANGS) upsertLink("alternate", `${SITE_URL}${withLang(pathname, l)}`, l);

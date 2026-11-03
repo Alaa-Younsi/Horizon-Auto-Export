@@ -97,14 +97,22 @@ await sharp("_brand/logo-full.png")
   .toFile("public/brand/logo-full-512.png");
 await report("public/brand/logo-full-512.png");
 
-// OG card: a straight crop of the hero photo (platforms print the title and
-// description themselves; baking text in would only repeat it).
-// 1200x630 out of the right of the photo: the three cars and the sun.
-await sharp(heroBuffer)
-  .resize({ height: 900 })
-  .extract({ left: 401, top: 150, width: 1200, height: 630 })
-  .jpeg({ quality: 82, mozjpeg: true })
-  .toFile("public/og-image.jpg");
+// OG card (link previews on WhatsApp, Facebook, LinkedIn…): the client's exact
+// logo (_brand/og-logo.jpeg) centred on white at 1200x630. The source has a
+// 1-2 px dark line along its bottom and right edges, so trim a few px first.
+{
+  const meta = await sharp("_brand/og-logo.jpeg").metadata();
+  const w = meta.width ?? 0;
+  const h = meta.height ?? 0;
+  const logo = await sharp("_brand/og-logo.jpeg")
+    .extract({ left: 0, top: 0, width: w - 6, height: h - 8 })
+    .resize({ width: 1140, height: 600, fit: "contain", background: "#ffffff" })
+    .toBuffer();
+  await sharp({ create: { width: 1200, height: 630, channels: 3, background: "#ffffff" } })
+    .composite([{ input: logo, gravity: "center" }])
+    .jpeg({ quality: 88, mozjpeg: true })
+    .toFile("public/og-image.jpg");
+}
 await report("public/og-image.jpg");
 
 // Loader / error screens on navy want the light mark as a static file too.

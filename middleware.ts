@@ -108,7 +108,7 @@ export default async function middleware(request: Request): Promise<Response> {
     const title = `${name}${v.year ? ` (${v.year})` : ""} | Horizon Auto Export`;
     const cover =
       [...(v.images ?? [])].sort((a, b) => a.sort_order - b.sort_order)[0]?.url ??
-      `${siteUrl}/og-image.jpg`;
+      `${siteUrl}/og-image.jpg?v=2`;
     const pageUrl = `${siteUrl}/${lang}/vehicles/${v.slug}`;
 
     const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8">
