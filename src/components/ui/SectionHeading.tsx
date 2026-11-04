@@ -28,7 +28,8 @@ export function SectionHeading({
         <p
           className={cn(
             "eyebrow mb-4 inline-flex items-center gap-3",
-            tone === "dark" ? "text-gold-600" : "text-gold-300",
+            // gold-700: small bold text, readable on white AND the grey "paper" sections
+            tone === "dark" ? "text-gold-700" : "text-gold-300",
           )}
         >
           <span aria-hidden className="h-px w-8 bg-current" />
