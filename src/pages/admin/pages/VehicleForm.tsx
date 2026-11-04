@@ -364,7 +364,7 @@ function Photos({ vehicleId, images }: { vehicleId: string; images: VehicleWithM
           >
             <img src={img.url} alt="" className="h-full w-full object-cover" loading="lazy" />
             {i === 0 && (
-              <span className="absolute start-2 top-2 rounded-md bg-gold-500 px-2 py-0.5 text-[11px] font-bold text-white">
+              <span className="absolute start-2 top-2 rounded-md bg-gold-600 px-2 py-0.5 text-[11px] font-bold text-white">
                 {t("veh.photos.cover")}
               </span>
             )}

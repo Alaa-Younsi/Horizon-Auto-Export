@@ -84,6 +84,7 @@ export const en: Dictionary = {
   "about.p1":
     "At Horizon Auto Export, we put our passion for cars at the service of your plans. We offer a range of new and used vehicles, with particular care for quality, choice and your satisfaction.",
   "about.cta": "Learn more",
+  "about.ctaContext": "about Horizon Auto Export",
   "about.imageAlt": "LED headlight of a dark premium car",
   "about.mission.title": "Our mission",
   "about.values.title": "Our values",

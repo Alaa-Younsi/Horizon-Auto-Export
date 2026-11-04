@@ -9,7 +9,8 @@ const base =
   "group/btn relative inline-flex select-none items-center justify-center gap-2.5 overflow-hidden rounded-md font-semibold whitespace-nowrap transition-[background-color,color,border-color,box-shadow,transform] duration-300 ease-[var(--ease-out-expo)] focus-visible:outline-2 focus-visible:outline-offset-3 disabled:pointer-events-none disabled:opacity-55 active:scale-[0.97]";
 
 const variants: Record<Variant, string> = {
-  gold: "bg-gold-500 text-white shadow-[0_14px_34px_-14px_rgb(167_124_56/0.9)] hover:bg-gold-600 hover:shadow-[0_18px_40px_-14px_rgb(167_124_56/1)]",
+  // gold-600 (not 500): white text needs 4.5:1, gold-500 only reaches 3.8:1
+  gold: "bg-gold-600 text-white shadow-[0_14px_34px_-14px_rgb(167_124_56/0.9)] hover:bg-gold-700 hover:shadow-[0_18px_40px_-14px_rgb(167_124_56/1)]",
   navy: "bg-navy-900 text-white shadow-[0_14px_34px_-16px_rgb(8_25_61/0.8)] hover:bg-navy-800",
   outline:
     "border border-navy-900/20 text-navy-900 hover:border-navy-900/60 hover:bg-navy-900/[0.03]",

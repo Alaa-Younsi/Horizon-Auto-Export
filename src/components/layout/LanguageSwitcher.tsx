@@ -34,7 +34,8 @@ export function LanguageSwitcher({ tone = "dark" }: { tone?: "dark" | "light" })
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={menuId}
-        aria-label={`${t("nav.language")}: ${LANG_META[lang].native}`}
+        // starts with the visible text ("FR"), so voice control ("click FR") works
+        aria-label={`${LANG_META[lang].short} — ${t("nav.language")}: ${LANG_META[lang].native}`}
         className={cn(
           "flex h-10 items-center gap-2 rounded-md px-2.5 text-[13px] font-bold tracking-wider transition-colors",
           tone === "dark" ? "text-navy-900 hover:bg-navy-50" : "text-white hover:bg-white/10",

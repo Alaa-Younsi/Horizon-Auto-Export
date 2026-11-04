@@ -124,7 +124,7 @@ export function VehicleFilters({
           <SlidersHorizontal className="size-4" aria-hidden />
           {t("veh.filter.open")}
           {count > 0 && (
-            <span className="grid size-5 place-items-center rounded-full bg-gold-500 text-[11px] text-white">
+            <span className="grid size-5 place-items-center rounded-full bg-gold-600 text-[11px] text-white">
               {count}
             </span>
           )}

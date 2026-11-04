@@ -93,6 +93,7 @@ export const ro = {
   "about.p1":
     "La Horizon Auto Export, ne punem pasiunea pentru automobile în slujba proiectelor dumneavoastră. Vă oferim o gamă de vehicule noi și rulate, cu o atenție deosebită acordată calității, diversității și satisfacției dumneavoastră.",
   "about.cta": "Află mai multe",
+  "about.ctaContext": "despre Horizon Auto Export",
   "about.imageAlt": "Far LED al unui autoturism premium închis la culoare",
   "about.mission.title": "Misiunea noastră",
   "about.values.title": "Valorile noastre",

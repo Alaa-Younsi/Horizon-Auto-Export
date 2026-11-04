@@ -17,9 +17,10 @@ const POINTS: Array<{ key: TranslationKey; icon: typeof ShieldCheck }> = [
 
 const HERO_SRCSET =
   "/images/hero-960.webp 960w, /images/hero-1600.webp 1600w, /images/hero-2400.webp 2400w";
-// The photo is 16:9 and covers the hero: on a portrait screen it is drawn at
-// roughly 1.8x the viewport height wide, not at the viewport width.
-const HERO_SIZES = "(orientation: portrait) 180vh, 100vw";
+// Phones: a 9:16 crop of the same photo. The 16:9 file covering a tall screen
+// would otherwise be picked at ~1.8x the screen height (the 2400 px file).
+const HERO_PORTRAIT_SRCSET =
+  "/images/hero-portrait-720.webp 720w, /images/hero-portrait-1080.webp 1080w";
 
 /**
  * Signature moment, on the client's sunset photo. Intro (pure CSS, so it can
@@ -92,18 +93,28 @@ export function Hero() {
       <div className="hero-open absolute inset-0">
         <div data-hero-photo className="absolute inset-0 will-change-transform">
           <div data-hero-depth className="absolute -inset-6">
-            <img
-              src={custom ?? "/images/hero-1600.webp"}
-              srcSet={custom ? undefined : HERO_SRCSET}
-              sizes={HERO_SIZES}
-              alt={t("hero.imageAlt")}
-              width={2400}
-              height={1350}
-              // React 18 only knows the lowercase attribute (camelCase is React 19).
-              {...{ fetchpriority: "high" }}
-              decoding="async"
-              className="hero-zoom h-full w-full object-cover object-[74%_62%] lg:object-[60%_58%]"
-            />
+            <picture className="block h-full w-full">
+              {!custom && (
+                <source
+                  media="(orientation: portrait)"
+                  srcSet={HERO_PORTRAIT_SRCSET}
+                  sizes="100vw"
+                  type="image/webp"
+                />
+              )}
+              <img
+                src={custom ?? "/images/hero-1600.webp"}
+                srcSet={custom ? undefined : HERO_SRCSET}
+                sizes="100vw"
+                alt={t("hero.imageAlt")}
+                width={2400}
+                height={1350}
+                // React 18 only knows the lowercase attribute (camelCase is React 19).
+                {...{ fetchpriority: "high" }}
+                decoding="async"
+                className="hero-zoom h-full w-full object-cover object-[74%_62%] lg:object-[60%_58%]"
+              />
+            </picture>
           </div>
         </div>
         {/* legibility: the photo is already navy on the copy side; deepen it a
@@ -158,7 +169,7 @@ export function Hero() {
         <div className="rise mt-10 [--rise-delay:2s]">
           <Link
             to={path("/vehicles")}
-            className="group inline-flex h-14 items-center gap-4 rounded-md bg-gold-500 ps-7 pe-6 text-[15px] font-semibold text-white shadow-[0_18px_40px_-16px_rgb(167_124_56/0.95)] transition-[background-color,box-shadow] duration-300 hover:bg-gold-400 hover:shadow-[0_22px_48px_-14px_rgb(191_150_83/1)]"
+            className="group inline-flex h-14 items-center gap-4 rounded-md bg-gold-600 ps-7 pe-6 text-[15px] font-semibold text-white shadow-[0_18px_40px_-16px_rgb(167_124_56/0.95)] transition-[background-color,box-shadow] duration-300 hover:bg-gold-700 hover:shadow-[0_22px_48px_-14px_rgb(191_150_83/1)]"
           >
             {t("hero.discover")}
             <ArrowRight

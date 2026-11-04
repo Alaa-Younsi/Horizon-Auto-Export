@@ -64,6 +64,40 @@ test.describe("admin dashboard (mocked database)", () => {
     expect(patch).toEqual({ status: "contacted" });
   });
 
+  test("vehicle date, accident-free and ticked options are saved as typed values", async ({
+    page,
+  }) => {
+    const mock = await mockSupabase(page);
+    await page.goto(`${MOCK}/admin/vehicles/v-a6`);
+    await expect(page.getByRole("heading", { name: "Editează vehiculul" })).toBeVisible();
+    await page.getByLabel("Luna").selectOption("3");
+    await page.getByLabel("Fără accident în istoric").selectOption("yes");
+    await page.getByLabel("Aer condiționat").check();
+    await page.getByRole("button", { name: "Salvează" }).first().click();
+    await expect(page.getByText("Salvat").first()).toBeVisible();
+    const patch = mock.writes.find((w) => w.method === "PATCH" && w.table === "vehicles")
+      ?.body as Record<string, unknown>;
+    expect(patch.registration_month).toBe(3);
+    expect(patch.accident_free).toBe(true);
+    expect(patch.options).toContain("ac");
+  });
+
+  test("inquiries export to a real .xlsx file", async ({ page }) => {
+    await mockSupabase(page);
+    await page.goto(`${MOCK}/admin/inquiries`);
+    await expect(page.locator("text=Andrei Popescu >> visible=true").first()).toBeVisible();
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.getByRole("button", { name: "Export Excel" }).click(),
+    ]);
+    expect(download.suggestedFilename()).toMatch(/\.xlsx$/);
+    const path = await download.path();
+    const { statSync, readFileSync } = await import("node:fs");
+    expect(statSync(path).size).toBeGreaterThan(1000);
+    // an .xlsx is a zip archive: "PK" magic bytes
+    expect(readFileSync(path).subarray(0, 2).toString()).toBe("PK");
+  });
+
   test("a worker granted only inquiries never reaches vehicles", async ({ page }) => {
     await mockSupabase(page, {
       profile: { is_owner: false, sections: ["inquiries"], active: true },

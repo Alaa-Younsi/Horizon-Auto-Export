@@ -87,6 +87,7 @@ export const fr: Dictionary = {
   "about.p1":
     "Chez Horizon Auto Export, nous mettons notre passion de l'automobile au service de vos projets. Nous vous proposons une gamme de véhicules neufs et d'occasion, avec une attention particulière portée à la qualité, au choix et à votre satisfaction.",
   "about.cta": "En savoir plus",
+  "about.ctaContext": "sur Horizon Auto Export",
   "about.imageAlt": "Phare LED d'une voiture premium sombre",
   "about.mission.title": "Notre mission",
   "about.values.title": "Nos valeurs",

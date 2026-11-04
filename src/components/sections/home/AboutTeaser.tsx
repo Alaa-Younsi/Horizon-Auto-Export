@@ -117,6 +117,8 @@ export function AboutTeaser() {
           <p className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-muted">{t("about.p1")}</p>
           <ButtonLink to={path("/about")} className="mt-9">
             {t("about.cta")}
+            {/* "Learn more" alone says nothing out of context (screen readers, SEO) */}
+            <span className="sr-only"> {t("about.ctaContext")}</span>
             <ArrowRight
               className="size-4 transition-transform group-hover/btn:translate-x-1"
               aria-hidden

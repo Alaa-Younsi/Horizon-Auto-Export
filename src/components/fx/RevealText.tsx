@@ -16,7 +16,8 @@ interface RevealTextProps {
 
 /**
  * Masked line-by-line word reveal (GSAP SplitText). The text stays real text for
- * screen readers and search engines (SplitText sets aria-label on the parent).
+ * screen readers and search engines (on headings SplitText sets aria-label on
+ * the parent; elsewhere the split words are read as they are).
  * Words, not characters: Romanian diacritics and French ligatures stay intact.
  */
 export function RevealText({
@@ -40,6 +41,9 @@ export function RevealText({
         mask: "lines",
         autoSplit: true,
         linesClass: "reveal-line",
+        // aria-label is only allowed on headings (and roles), not on a <p>/<span>:
+        // there the words stay plain inline text, which reads the same.
+        aria: typeof as === "string" && /^h[1-6]$/.test(as) ? "auto" : "none",
         onSplit(self) {
           return gsap.from(self.words, {
             yPercent: 115,
@@ -56,7 +60,7 @@ export function RevealText({
       return () => split.revert();
     },
     ref,
-    [reduced, lang, trigger, delay],
+    [reduced, lang, trigger, delay, as],
   );
 
   // key={lang}: SplitText.revert() restores the HTML it snapshotted at split time.

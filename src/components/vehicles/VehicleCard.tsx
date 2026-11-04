@@ -18,7 +18,7 @@ export function StatusBadge({ status }: { status: VehicleWithMedia["status"] }) 
     <span
       className={cn(
         "rounded-sm px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase",
-        status === "reserved" ? "bg-gold-500 text-white" : "bg-navy-900 text-white",
+        status === "reserved" ? "bg-gold-600 text-white" : "bg-navy-900 text-white",
       )}
     >
       {t(`veh.status.${status}`)}

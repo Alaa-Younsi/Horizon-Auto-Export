@@ -38,6 +38,7 @@ const SUPABASE_STUBS = `
     file_size_limit bigint, allowed_mime_types text[]);
   create table storage.objects (id uuid primary key default gen_random_uuid(), bucket_id text, name text);
   alter table storage.objects enable row level security;
+  grant select, insert, update, delete on storage.objects to anon, authenticated, service_role;
 `;
 
 type Row = Record<string, unknown>;
@@ -150,6 +151,7 @@ async function main() {
     insert into vehicle_images (vehicle_id, url, sort_order) values
       ('${CAR_LIVE}', 'https://x/live.webp', 0), ('${CAR_DRAFT}', 'https://x/draft.webp', 0);
     insert into vehicle_private (vehicle_id, vin, purchase_price) values ('${CAR_LIVE}', 'WAUZZZ4G0LN000000', 18000);
+    insert into storage.objects (bucket_id, name) values ('media', 'vehicles/draft/photo.webp');
   `);
 
   // ---- public reads ----------------------------------------------------------
@@ -170,6 +172,8 @@ async function main() {
     check("anon cannot read inquiries", inq.length === 0);
     const settings = await rows("select id from site_settings");
     check("anon reads site settings", settings.length === 1);
+    const files = await rows("select name from storage.objects");
+    check("anon cannot list uploaded files (draft photos stay private)", files.length === 0);
     const direct = await errorOf(
       `insert into inquiries (reference, name, email, message, consent_at) values ('X', 'a', 'a@b.co', 'hello there', now())`,
     );
@@ -341,6 +345,8 @@ async function main() {
   });
 
   await as("authenticated", OWNER, async () => {
+    const files = await rows("select name from storage.objects");
+    check("staff can see uploaded files (needed to replace/delete)", files.length === 1);
     const st = await rows("select get_admin_stats() as s");
     const s0 = st[0]?.s as { vehicles: { available: number; draft: number } | null };
     check("owner sees vehicle stats", s0.vehicles?.available === 1 && s0.vehicles?.draft === 1);

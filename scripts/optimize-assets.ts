@@ -3,7 +3,7 @@
  * Always regenerates from _brand (never from an already-shrunk copy), so a
  * second run is a byte-identical no-op rather than a slow quality loss.
  *
- *   _brand/hero-photo-x4.png -> public/images/hero-{960,1600,2400}.webp (LCP image, srcset)
+ *   _brand/hero-photo-x4.png -> public/images/hero-{960,1600,2400}.webp + hero-portrait-{720,1080}.webp (LCP image)
  *   _brand/about-x4/*.png -> public/images/about-<photo>-<width>.webp
  *   _brand/logo-*.png     -> src/assets/*.webp (bundled, hashed) + favicons + og-image
  *
@@ -34,6 +34,23 @@ for (const width of [960, 1600, 2400]) {
   const out = `public/images/hero-${width}.webp`;
   await sharp(heroBuffer).resize({ width }).webp({ quality: 80, effort: 6 }).toFile(out);
   await report(out);
+}
+// Phones (portrait): a 9:16 crop around the cars (the mobile hero shows the
+// photo at 74% across), so a phone downloads ~1080 px instead of the 2400 px
+// landscape file it would otherwise pick for its tall screen.
+{
+  const meta = await sharp(heroBuffer).metadata();
+  const h = meta.height ?? 0;
+  const w = Math.round(h * (9 / 16));
+  const left = Math.round(((meta.width ?? 0) - w) * 0.74);
+  const portrait = await sharp(heroBuffer)
+    .extract({ left, top: 0, width: w, height: h })
+    .toBuffer();
+  for (const width of [720, 1080]) {
+    const out = `public/images/hero-portrait-${width}.webp`;
+    await sharp(portrait).resize({ width }).webp({ quality: 68, effort: 6 }).toFile(out);
+    await report(out);
+  }
 }
 
 // About photos: cut from the client's "À propos" mock-up (_brand/about-mockup.jpeg),

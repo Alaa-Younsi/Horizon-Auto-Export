@@ -85,7 +85,7 @@ export function LoadError() {
 
 const BADGE_TONES = {
   gold: "bg-gold-100 text-gold-800 ring-gold-200",
-  goldSolid: "bg-gold-500 text-white ring-gold-500",
+  goldSolid: "bg-gold-600 text-white ring-gold-600",
   navy: "bg-navy-50 text-navy-800 ring-navy-100",
   navySolid: "bg-navy-900 text-white ring-navy-900",
   gray: "bg-paper text-muted ring-line",
@@ -443,7 +443,7 @@ export function StatTile({
 export const adminButton = {
   primary:
     "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-navy-900 px-5 text-sm font-semibold text-white transition-colors hover:bg-navy-800 disabled:opacity-55",
-  gold: "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-gold-500 px-5 text-sm font-semibold text-white transition-colors hover:bg-gold-600 disabled:opacity-55",
+  gold: "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-gold-600 px-5 text-sm font-semibold text-white transition-colors hover:bg-gold-700 disabled:opacity-55",
   secondary:
     "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-navy-900 ring-1 ring-line transition-colors hover:bg-paper disabled:opacity-55",
   danger:
