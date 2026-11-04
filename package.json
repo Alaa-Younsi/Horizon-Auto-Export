@@ -1,6 +1,8 @@
 {
   "name": "horizon-auto-export",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Alaa Younsi (https://alaayounsi.vercel.app)",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

@@ -1,170 +1,191 @@
-# Horizon Auto Export — website + admin
+<div align="center">
 
-B2B used-vehicle trading & export (Bucharest → all of Europe). Public site in **Romanian,
-English and French**, an integrated **admin dashboard**, and a **Supabase** backend.
+<img src="public/brand/logo-full-512.png" alt="Horizon Auto Export" width="220" />
 
-|          |                                                                                             |
-| -------- | ------------------------------------------------------------------------------------------- |
-| Frontend | Vite 8 · React 18 · TypeScript (strict) · Tailwind CSS v4 · React Router 7 · TanStack Query |
-| Motion   | GSAP 3.15 (ScrollTrigger, SplitText) · Lenis smooth scroll · Motion                         |
-| Forms    | react-hook-form + zod (server re-validates everything)                                      |
-| Backend  | Supabase: Postgres + RLS, RPCs, Storage, Auth, 3 Deno edge functions                        |
-| Hosting  | Vercel (static SPA + Edge Middleware for link previews), strict CSP                         |
-| Tooling  | Bun · Biome · Vitest · PGlite (Postgres-in-WASM DB tests) · Playwright                      |
+# Horizon Auto Export
 
-The site **runs without a database**: until Supabase is linked it uses the compiled contact
-details and brands, shows a "we source to order" state instead of stock (no invented vehicles
-in production — demo vehicles appear only in `bun run dev`), and the contact form explains that
-it is not active yet.
+**Website, vehicle catalogue and admin dashboard for a Bucharest car dealer:
+new and used vehicles, delivered across Europe.**
 
----
+[![Live site](https://img.shields.io/badge/Live-horizonautoexport.com-08193D?style=for-the-badge)](https://horizonautoexport.com/en)
+[![Licence](https://img.shields.io/badge/Licence-All%20rights%20reserved-A77C38?style=for-the-badge)](LICENSE)
 
-## Quick start
+![React](https://img.shields.io/badge/React_18-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript_strict-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?logo=tailwindcss&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?logo=supabase&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP-0AE448?logo=greensock&logoColor=black)
+![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)
 
-```bash
-bun install
-bun run dev            # http://localhost:5173 → redirects to /ro (or the browser's language)
-```
+</div>
 
-Copy `.env.example` to `.env.local` and fill it in once the database exists (see go-live).
+<br />
 
-### Scripts
+![Home page](docs/screenshots/home.jpg)
 
-| Script                               | What it does                                                                                                          |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `bun run dev`                        | Dev server                                                                                                            |
-| `bun run build`                      | Generates sitemap/robots → type-checks → production build in `dist/`                                                  |
-| `bun run preview`                    | Serves `dist/` **with the real `vercel.json` headers** (CSP included)                                                 |
-| `bun run typecheck` / `bun run lint` | `tsc -b` / `biome check .`                                                                                            |
-| `bun run test`                       | Unit tests (Vitest): logic, i18n completeness, cross-file consistency, components                                     |
-| `bun run test:db`                    | Applies **every migration** to an in-process Postgres and attacks RLS/RPCs as anon, staff, stranger (69 checks, ~2 s) |
-| `bun run test:e2e`                   | Playwright, desktop + phone: public site (no DB and mocked DB), admin, CSP                                            |
-| `bun run check`                      | typecheck + lint + unit + DB tests                                                                                    |
-| `bun run optimize:assets`            | Rebuilds every web image/icon from the pristine sources in `_brand/`                                                  |
-| `bun run build:map`                  | Rebuilds the faint dotted world map used as a background texture                                                      |
-| `bun run build:brands`               | Re-extracts the car-make marks from `simple-icons`                                                                    |
+## Overview
 
----
+Horizon Auto Export is a car dealership based in Bucharest, Romania. This repository contains
+its production website and the private dashboard its team uses to run it:
 
-## How it's organised
+- **Public website** in Romanian, English and French. It presents the company and its stock,
+  and turns visitors into customer requests.
+- **Admin dashboard** for publishing vehicles, handling requests and editing the site's
+  details. It needs no developer involvement.
+- **Backend on Supabase** (Postgres, Auth, Storage and edge functions). It is secured with
+  row-level security and tested against a real Postgres engine.
 
-```
+## Highlights
+
+### Website
+- **Three languages** (RO · EN · FR), each with its own URLs and hreflang tags. The visitor's
+  language is detected automatically.
+- **Vehicle catalogue** with filters for category, make, fuel, gearbox and model year. The
+  filters are kept in the URL, so a filtered list can be shared.
+- **Vehicle pages** with:
+  - a photo gallery;
+  - the full specifications, including first registration date and accident-free history;
+  - the ticked options;
+  - the price including VAT, and the net price when VAT is deductible.
+- **Contact flow** through a form, WhatsApp or a phone call. Every request is saved first and
+  then e-mailed to the business.
+- **Motion design** with GSAP and Lenis, including a cinematic hero intro on desktop. It is
+  fully disabled for visitors who choose reduced motion.
+
+### Admin dashboard
+- A **dashboard** with stock and request KPIs and a 30-day chart.
+- **Requests** sorted by follow-up stage, with reply by e-mail, phone or WhatsApp, internal
+  notes and Excel export.
+- **Vehicles**:
+  - text in three languages and the full specifications;
+  - an options checklist (51 options);
+  - photos that are compressed before upload and can be reordered;
+  - private fields (VIN, purchase price, margin) that never reach the public site.
+- **Makes**, **site settings** (contact details, hero photo) and **team accounts**, with
+  access set per section.
+- The dashboard itself is available in Romanian, English and French.
+
+### Engineering
+- **Server-side trust only.** Every form is re-validated in Postgres. The form is protected
+  by:
+  - bot timing checks;
+  - a limit on requests per sender;
+  - a flood guard that files excess requests as spam without sending e-mails.
+- **Database access rules.** Every table is protected by row-level security, and staff
+  permissions are enforced by the database itself, not only by the interface.
+- **Hardened delivery.** A strict Content Security Policy, HSTS and other security headers,
+  no secrets in the client, and a clean dependency audit.
+- **Social link previews.** An edge function shows each vehicle's photo, title and price
+  when its link is shared on WhatsApp or Facebook.
+- **Performance.**
+  - Phones get a hero image cropped for their screen, which is preloaded.
+  - Images are compressed when uploaded.
+  - Scripts are split, and below-the-fold animations wait until the browser is idle.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/services.jpg" alt="Services" /></td>
+    <td width="50%"><img src="docs/screenshots/vehicles.jpg" alt="Vehicle catalogue" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Services</sub></td>
+    <td align="center"><sub>Vehicle catalogue with filters</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/vehicle.jpg" alt="Vehicle page" /></td>
+    <td width="50%"><img src="docs/screenshots/contact.jpg" alt="Contact" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Vehicle page</sub></td>
+    <td align="center"><sub>Contact</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/about.jpg" alt="About" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>About</sub></td>
+  </tr>
+</table>
+
+### On mobile
+
+![Mobile views](docs/screenshots/mobile.jpg)
+
+### Admin dashboard
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/admin-dashboard.jpg" alt="Admin dashboard" /></td>
+    <td width="50%"><img src="docs/screenshots/admin-inquiries.jpg" alt="Customer requests" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Dashboard</sub></td>
+    <td align="center"><sub>Customer requests</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/admin-vehicles.jpg" alt="Vehicle stock" /></td>
+    <td width="50%"><img src="docs/screenshots/admin-vehicle-form.jpg" alt="Vehicle editor" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Vehicle stock</sub></td>
+    <td align="center"><sub>Vehicle editor: options, photos, private data</sub></td>
+  </tr>
+</table>
+
+<sub>The catalogue and dashboard screenshots use sample vehicles and requests.</sub>
+
+## Tech stack
+
+| Layer    | Technologies                                                                                            |
+| -------- | ------------------------------------------------------------------------------------------------------- |
+| Frontend | React 18 · TypeScript (strict) · Vite · Tailwind CSS v4 · React Router · TanStack Query                 |
+| Motion   | GSAP (ScrollTrigger, SplitText) · Lenis · Motion                                                        |
+| Forms    | react-hook-form · Zod. Every input is re-validated server-side                                          |
+| Backend  | Supabase: Postgres with row-level security, RPC functions, Auth, Storage, Deno edge functions           |
+| E-mail   | Resend, through a Supabase edge function                                                                |
+| Hosting  | Vercel: static SPA, Edge Middleware for link previews, strict security headers                          |
+| Quality  | Bun · Biome · Vitest · PGlite (Postgres-in-WASM database tests) · Playwright · Lighthouse               |
+
+## Quality
+
+| Check                        | Result                                                                              |
+| ---------------------------- | ----------------------------------------------------------------------------------- |
+| Unit tests (Vitest)          | 46 passing                                                                          |
+| Database tests (PGlite)      | 83 checks across 13 migrations: access rules, form validation, rate limits          |
+| End-to-end tests (Playwright)| 28 passing, desktop and mobile, including the admin dashboard and the Excel export  |
+| Lighthouse (live, desktop)   | Performance 93 · Best practices 100 · SEO 100                                       |
+| Lighthouse (live, mobile)    | Accessibility 100 · Best practices 100 · SEO 100                                    |
+| Static analysis              | TypeScript strict and Biome, both clean · `bun audit`: no known vulnerabilities     |
+
+## Project structure
+
+```text
 src/
-  App.tsx                    routes: /ro|/en|/fr/* (static prefixes), /admin/*
-  i18n/                      dictionaries (ro = source, typed), LanguageProvider (language lives in the URL)
-  components/
-    layout/                  Header, Footer (sunrise horizon), PublicLayout, PageHero
-    sections/home/           Hero, ServicesStrip, AboutTeaser, WhyUs, FeaturedVehicles, BrandsMarquee
-    sections/about/          AboutStory (the client's À-propos layout)
-    fx/                      SmoothScroll, RevealText, Reveal, DrawIcon, Magnetic, TiltCard, ScrollProgress
-    vehicles/ forms/ ui/
-  pages/                     Home, About, Services, Vehicles, VehicleDetail, Contact, Legal, NotFound
-  pages/admin/               dashboard (own EN/RO dictionary, lazy-loaded, never linked from the site)
-  lib/                       contact.ts (single source of contact details), vehicles.ts, image.ts, …
+  pages/          Public pages, plus pages/admin for the dashboard
+  components/     Layout, page sections, vehicle UI, forms, motion effects
+  i18n/           Romanian, English and French dictionaries
+  lib/ hooks/     Data access, formatting, VAT, SEO, contact helpers
 supabase/
-  migrations/                0001 schema … 0012 European makes (sequential; never edit one that may have run)
-  functions/                 create-staff, set-staff-password, notify (self-contained Deno)
-middleware.ts                Vercel Edge: real link previews for shared vehicle URLs (social crawlers only)
-scripts/                     SEO files, DB tests, asset pipeline, map/brand generators
-_brand/                      pristine brand sources (logo, mock-up, client hero photo, upscales)
+  migrations/     Database schema, access rules and functions, applied in order
+  functions/      Edge functions: e-mail notifications, staff accounts
+middleware.ts     Vercel edge middleware for social link previews
+tests/            Unit and end-to-end tests
+scripts/          Database test runner, SEO files, image pipeline
 ```
 
-### Design system
+Maintenance and deployment notes for the team are in [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
 
-Only the logo's two inks — **navy `#08193D`** and **gold `#A77C38`** — plus white and their tints
-(`src/index.css`). Archivo variable (weight + width axes, self-hosted, latin + latin-ext for
-Romanian diacritics); display type runs extended to echo the wide HORIZON wordmark.
+## Developer
 
-### Signature motion (all respect `prefers-reduced-motion`)
+Designed and developed by **[Alaa Younsi](https://alaayounsi.vercel.app)**.
 
-- **Hero** (the client's sunset photo, exactly one screen tall so nothing peeks below it): a
-  gold horizon line draws across, the photo opens out of it (pure CSS — can't stall), the
-  headline rises word by word, "B2B" catches a travelling gold sheen; contact details run along
-  its top edge; on scroll it contracts into a rounded card; subtle cursor depth parallax.
-- **Services**: their own section right under the hero — the two services the company offers
-  (passenger cars, commercial vehicles) as wide navy cards with their key points.
-- **About page**: the client's own layout — navy header with the full logo beside the headlight
-  photo, then three photo/text rows cut by the gold diagonal blade, and the motto band.
-- **Footer**: a sun rises out of a gold horizon line as the footer scrolls in.
-- Masked text reveals, self-drawing icons, scroll-scrubbed quote, route curtain transitions,
-  Lenis smooth scroll, tilt/magnetic hovers (mouse only).
+## Licence
 
-### Admin (`/admin`)
+**Copyright © 2026 Alaa Younsi. All rights reserved.**
 
-Dashboard (KPIs + 30-day chart) · **Inquiries** (pipeline rail, status picker, notes, reply by
-e-mail/phone/WhatsApp, Excel export with formula-injection guard) · **Vehicles** (3-language
-listing, specs, photos with compress-before-upload and reorderable cover, private VIN /
-purchase price / margin) · **Makes** · **Site settings** (contact details, hero/about photos) ·
-**Team** (staff accounts with per-section access, enforced by RLS) · **My account** (password
-change with re-authentication, e-mail notifications).
-
----
-
-## Go-live checklist
-
-1. **Create the Supabase project** (EU region). Put the URL + anon key in `.env.local` **and** in
-   the Vercel project env (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_SITE_URL`).
-   The edge middleware and the sitemap read them at build/edge time.
-2. **Create the owner login first**: Authentication → Users → _Add user_ with the client's
-   e-mail. Then check the e-mail in `supabase/migrations/0002_admin_permissions.sql`
-   (placeholder) — the real owner login, `admin@horizon.com`, is seeded by `0010_owner_admin_email.sql`.
-3. **Run the migrations in order** (SQL editor, 0001 → 0012, or `bunx supabase db push` after
-   `bunx supabase link`). Run `bun run test:db` first — it proves they all apply on a fresh DB.
-   _After 0002 only seeded admins can write._ The `media` storage bucket is created by 0006.
-4. **Disable public sign-up**: Authentication → Sign In / Providers → turn off "Allow new users
-   to sign up". (RLS already ignores stray accounts; this closes the door completely.)
-5. **Deploy the edge functions** (needs the Supabase CLI, `bunx supabase login` + `link`):
-
-   ```bash
-   bunx supabase functions deploy create-staff
-   bunx supabase functions deploy set-staff-password
-   bunx supabase functions deploy notify
-   bunx supabase secrets set RESEND_API_KEY=re_xxx SITE_ADMIN_URL=https://<domain>/admin
-   bunx supabase secrets set RESEND_FROM='Horizon Auto Export <noreply@<domain>>'
-   ```
-
-   Enter `RESEND_FROM` **without quotes** if you use the dashboard. Until the domain is verified
-   in Resend, the sandbox sender only delivers to the Resend account's own e-mail.
-6. **Sign in at `/admin`**, change the password in _My account_, enable e-mail notifications.
-7. **Prove the CRUD paths**: add a vehicle with photos, then _edit_ it, reload, and check the
-   change persisted (create and edit are different code paths). Same for a make and settings.
-8. **One real inquiry end-to-end** from a private window (not logged in): the reference appears,
-   the inquiry shows in the admin, the notification e-mail arrives. Mark it "spam"/delete after.
-9. **Domain**: set `VITE_SITE_URL` (no trailing slash) → canonical, hreflang, OG, sitemap and
-   robots all follow. Without it the official domain (https://horizonautoexport.com) is used.
-10. **Verify on the Vercel preview**: open DevTools console on home, vehicles, a vehicle page,
-    contact and an admin photo upload — there must be no `Refused to …` CSP messages. Then
-    `curl -A "facebookexternalhit/1.1" https://<domain>/ro/vehicles/<slug>` returns the vehicle's
-    own title/photo/price.
-11. **Content from the client**:
-    - **Hero photo**: the client's own image (`_brand/hero-source.png`); its baked-in copy is
-      painted out by `scripts/brand/clean_hero.py`, then upscaled ×4 with Real-ESRGAN
-      (`_brand/hero-photo-x4.png`) and turned into web sizes by `bun run optimize:assets`.
-      A text-free original from the designer would still be the cleanest source.
-    - **About photos**: cut from the client's "À propos" mock-up (`_brand/about-mockup.jpeg`,
-      946 px wide) and upscaled ×4 into `_brand/about-x4/`. Originals would be sharper: replace
-      the PNGs there and run `bun run optimize:assets` (the home one can also be uploaded in
-      _Site settings → Images_).
-    - Trade register number (_Nr. Reg. Com._) — add it in _Site settings_.
-    - Have a lawyer review `src/content/legal.ts` (privacy policy + terms).
-
-## GitHub & Vercel
-
-```bash
-git remote add origin git@github.com:<you>/horizon-auto-export.git
-git push -u origin main
-```
-In Vercel: _Import project_ → framework **Vite** is detected; `vercel.json` already sets
-`bun install --frozen-lockfile`, `bun run build`, `dist/`, the SPA rewrite, security headers,
-cache headers and the CSP. Add the three env vars (step 1) for Production **and** Preview.
-
-## Notes for developers
-
-- **Never** build a write payload from a loaded row (`select("*")` → PostgREST rejects relation
-  keys): every admin form maps editable columns explicitly. An E2E test guards this.
-- The three section lists must match: `src/pages/admin/adminSections.ts` · `has_section('…')` in
-  the migrations · `ALLOWED_SECTIONS` in `create-staff` — a unit test fails if they drift.
-- No custom headers on the browser Supabase client (they break edge-function CORS preflights).
-- Public routes use static `/ro|/en|/fr` prefixes, not `/:lang` — a param route outranks
-  `/admin/*` in React Router and swallows admin URLs.
-- The CSP allows **no inline scripts**; keep it that way (JSON-LD blocks are data, not scripts).
+This code is published for viewing only. No permission is granted to use, copy, modify or
+distribute it, in whole or in part. See [LICENSE](LICENSE). The Horizon Auto Export name,
+logo, photographs and content belong to Horizon Auto Export S.R.L.

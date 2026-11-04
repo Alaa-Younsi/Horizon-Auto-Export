@@ -1,0 +1,37 @@
+PROPRIETARY LICENSE — ALL RIGHTS RESERVED
+
+Copyright (c) 2026 Alaa Younsi. All rights reserved.
+
+Website developed by Alaa Younsi — https://alaayounsi.vercel.app
+for Horizon Auto Export S.R.L. (https://horizonautoexport.com).
+
+This repository and everything in it — source code, database migrations,
+server functions, scripts, configuration, design, documentation and any other
+material (the "Software") — is the proprietary work of Alaa Younsi.
+
+The Software is published for viewing and portfolio purposes only. No licence
+or right of any kind is granted, whether express or implied, by publishing,
+displaying or making the Software available.
+
+Without the prior written permission of Alaa Younsi, you may NOT:
+
+  1. copy, reproduce or download the Software, in whole or in part, other than
+     the temporary copy your browser makes to display it on GitHub;
+  2. use the Software, or any part of it, in any project, website, product or
+     service, whether commercial or non-commercial;
+  3. modify, adapt, translate or create derivative works based on the
+     Software;
+  4. distribute, publish, sublicense, sell, rent, lend or otherwise transfer
+     the Software or any part of it;
+  5. remove or alter this notice or any copyright or attribution notice.
+
+The names, logos, trademarks, photographs and written content of Horizon Auto
+Export S.R.L. belong to Horizon Auto Export S.R.L. and are not licensed under
+any terms by this repository. Third-party libraries used by the Software
+remain subject to their own licences.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE.
+
+For permission requests, contact Alaa Younsi via https://alaayounsi.vercel.app.
