@@ -12,6 +12,8 @@ interface RevealTextProps {
   trigger?: "mount" | "scroll";
   delay?: number;
   id?: string;
+  /** false = plain text, no split (e.g. the hero headline on phones, where it is LCP-critical). */
+  animate?: boolean;
 }
 
 /**
@@ -27,6 +29,7 @@ export function RevealText({
   trigger = "scroll",
   delay = 0,
   id,
+  animate = true,
 }: RevealTextProps) {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
@@ -35,7 +38,7 @@ export function RevealText({
   useGsap(
     () => {
       const el = ref.current;
-      if (!el || reduced) return;
+      if (!el || reduced || !animate) return;
       const split = SplitText.create(el, {
         type: "lines,words",
         mask: "lines",
@@ -60,7 +63,7 @@ export function RevealText({
       return () => split.revert();
     },
     ref,
-    [reduced, lang, trigger, delay, as],
+    [reduced, lang, trigger, delay, as, animate],
   );
 
   // key={lang}: SplitText.revert() restores the HTML it snapshotted at split time.

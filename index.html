@@ -23,6 +23,30 @@
     <!-- The database API answers the first data request of every page: open
          its connection while the scripts are still downloading (~300 ms). -->
     <link rel="preconnect" href="%VITE_SUPABASE_URL%" crossorigin />
+    <!-- The home hero photo is the LCP element, but an SPA only discovers it after
+         the scripts run (~2-3 s on a slow phone). Start it now. Each hint matches
+         exactly what the hero's <picture> picks (portrait crop vs landscape), so
+         nothing downloads twice; other landing pages pay one image. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/images/hero-portrait-1080.webp"
+      imagesrcset="/images/hero-portrait-720.webp 720w, /images/hero-portrait-1080.webp 1080w"
+      imagesizes="100vw"
+      media="(orientation: portrait)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/images/hero-1600.webp"
+      imagesrcset="/images/hero-960.webp 960w, /images/hero-1600.webp 1600w, /images/hero-2400.webp 2400w"
+      imagesizes="100vw"
+      media="(orientation: landscape)"
+      fetchpriority="high"
+    />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -3,10 +3,11 @@ import { useRef } from "react";
 import { Link } from "react-router";
 import { RevealText } from "@/components/fx/RevealText";
 import { useGsap } from "@/hooks/useGsap";
-import { useFinePointer, useReducedMotion } from "@/hooks/useMediaFlags";
+import { useFinePointer, useIsDesktop, useReducedMotion } from "@/hooks/useMediaFlags";
 import { useSiteSettings } from "@/hooks/usePublicData";
 import type { TranslationKey } from "@/i18n/dictionaries";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 
 const POINTS: Array<{ key: TranslationKey; icon: typeof ShieldCheck }> = [
@@ -37,6 +38,7 @@ export function Hero() {
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const fine = useFinePointer();
+  const desktop = useIsDesktop();
   const custom = settings?.hero_image_url;
 
   useGsap(
@@ -81,6 +83,7 @@ export function Hero() {
   return (
     <section
       ref={root}
+      data-hero
       aria-labelledby="hero-title"
       className="relative isolate flex h-[calc(100svh-92px)] min-h-[620px] flex-col overflow-hidden bg-navy-950 text-white lg:h-[calc(100svh-108px)]"
     >
@@ -142,7 +145,12 @@ export function Hero() {
           id="hero-title"
           trigger="mount"
           delay={1.35}
-          className="font-display max-w-4xl text-[clamp(2.5rem,5.6vw,5rem)] leading-[1.02] font-extrabold tracking-[-0.025em]"
+          // phones: no word-by-word split (it waits for the scripts); a quick CSS rise instead
+          animate={desktop}
+          className={cn(
+            !desktop && "rise [--rise-delay:0.5s]",
+            "font-display max-w-4xl text-[clamp(2.5rem,5.6vw,5rem)] leading-[1.02] font-extrabold tracking-[-0.025em]",
+          )}
         >
           {t("hero.title")} <span className="text-gold-sheen block">{t("hero.titleAccent")}</span>
         </RevealText>

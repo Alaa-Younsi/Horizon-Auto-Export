@@ -217,6 +217,36 @@
   .hero-sweep {
     animation: sweep 2.4s var(--ease-in-out-circ) 2.1s both;
   }
+  /*
+   * Phones and tablets: the photo is the page's LCP element, and the desktop
+   * intro (0.85 s wait + 1.35 s clip reveal) costs ~2 s of it on a slow phone.
+   * There the photo is on screen at once — a 0.5 s fade from 35 % (never from
+   * 0, which would hide it from LCP) and a shorter zoom — the gold line is
+   * skipped, and the copy rises ~3x sooner.
+   */
+  @media (max-width: 1023px) {
+    .hero-open {
+      animation: hero-fade 0.5s ease-out both;
+    }
+    .hero-zoom {
+      animation: hero-zoom 1.4s var(--ease-out-expo) both;
+    }
+    .hero-horizon {
+      display: none;
+    }
+    [data-hero] .rise {
+      animation-delay: calc(var(--rise-delay, 0s) * 0.3);
+    }
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes horizon-draw {

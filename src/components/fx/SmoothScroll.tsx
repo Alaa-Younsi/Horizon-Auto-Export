@@ -1,12 +1,12 @@
 import Lenis from "lenis";
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
-import { useReducedMotion } from "@/hooks/useMediaFlags";
+import { useFinePointer, useReducedMotion } from "@/hooks/useMediaFlags";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const LenisContext = createContext<Lenis | null>(null);
 
-/** The active Lenis instance (null under reduced motion — use native scrolling then). */
+/** The active Lenis instance (null under reduced motion and on touch — native scrolling then). */
 export function useLenis(): Lenis | null {
   return useContext(LenisContext);
 }
@@ -18,10 +18,13 @@ export function useLenis(): Lenis | null {
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const reduced = useReducedMotion();
+  // Touch screens scroll natively (Lenis leaves touch alone by default), so on
+  // phones it would only add a per-frame loop to a slow CPU: skip it there.
+  const fine = useFinePointer();
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || !fine) return;
     const instance = new Lenis({ duration: 1.15, smoothWheel: true, wheelMultiplier: 1 });
     const onScroll = () => ScrollTrigger.update();
     instance.on("scroll", onScroll);
@@ -35,7 +38,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       instance.destroy();
       setLenis(null);
     };
-  }, [reduced]);
+  }, [reduced, fine]);
 
   return (
     <LenisContext.Provider value={lenis}>
