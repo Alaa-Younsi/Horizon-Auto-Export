@@ -39,6 +39,7 @@ its production website and the private dashboard its team uses to run it:
 ## Highlights
 
 ### Website
+
 - **Three languages** (RO · EN · FR), each with its own URLs and hreflang tags. The visitor's
   language is detected automatically.
 - **Vehicle catalogue** with filters for category, make, fuel, gearbox and model year. The
@@ -54,6 +55,7 @@ its production website and the private dashboard its team uses to run it:
   fully disabled for visitors who choose reduced motion.
 
 ### Admin dashboard
+
 - A **dashboard** with stock and request KPIs and a 30-day chart.
 - **Requests** sorted by follow-up stage, with reply by e-mail, phone or WhatsApp, internal
   notes and Excel export.
@@ -67,6 +69,7 @@ its production website and the private dashboard its team uses to run it:
 - The dashboard itself is available in Romanian, English and French.
 
 ### Engineering
+
 - **Server-side trust only.** Every form is re-validated in Postgres. The form is protected
   by:
   - bot timing checks;
@@ -139,26 +142,26 @@ its production website and the private dashboard its team uses to run it:
 
 ## Tech stack
 
-| Layer    | Technologies                                                                                            |
-| -------- | ------------------------------------------------------------------------------------------------------- |
-| Frontend | React 18 · TypeScript (strict) · Vite · Tailwind CSS v4 · React Router · TanStack Query                 |
-| Motion   | GSAP (ScrollTrigger, SplitText) · Lenis · Motion                                                        |
-| Forms    | react-hook-form · Zod. Every input is re-validated server-side                                          |
-| Backend  | Supabase: Postgres with row-level security, RPC functions, Auth, Storage, Deno edge functions           |
-| E-mail   | Resend, through a Supabase edge function                                                                |
-| Hosting  | Vercel: static SPA, Edge Middleware for link previews, strict security headers                          |
-| Quality  | Bun · Biome · Vitest · PGlite (Postgres-in-WASM database tests) · Playwright · Lighthouse               |
+| Layer    | Technologies                                                                                  |
+| -------- | --------------------------------------------------------------------------------------------- |
+| Frontend | React 18 · TypeScript (strict) · Vite · Tailwind CSS v4 · React Router · TanStack Query       |
+| Motion   | GSAP (ScrollTrigger, SplitText) · Lenis · Motion                                              |
+| Forms    | react-hook-form · Zod. Every input is re-validated server-side                                |
+| Backend  | Supabase: Postgres with row-level security, RPC functions, Auth, Storage, Deno edge functions |
+| E-mail   | Resend, through a Supabase edge function                                                      |
+| Hosting  | Vercel: static SPA, Edge Middleware for link previews, strict security headers                |
+| Quality  | Bun · Biome · Vitest · PGlite (Postgres-in-WASM database tests) · Playwright · Lighthouse     |
 
 ## Quality
 
-| Check                        | Result                                                                              |
-| ---------------------------- | ----------------------------------------------------------------------------------- |
-| Unit tests (Vitest)          | 46 passing                                                                          |
-| Database tests (PGlite)      | 83 checks across 13 migrations: access rules, form validation, rate limits          |
-| End-to-end tests (Playwright)| 28 passing, desktop and mobile, including the admin dashboard and the Excel export  |
-| Lighthouse (live, desktop)   | Performance 93 · Best practices 100 · SEO 100                                       |
-| Lighthouse (live, mobile)    | Accessibility 100 · Best practices 100 · SEO 100                                    |
-| Static analysis              | TypeScript strict and Biome, both clean · `bun audit`: no known vulnerabilities     |
+| Check                         | Result                                                                             |
+| ----------------------------- | ---------------------------------------------------------------------------------- |
+| Unit tests (Vitest)           | 46 passing                                                                         |
+| Database tests (PGlite)       | 83 checks across 13 migrations: access rules, form validation, rate limits         |
+| End-to-end tests (Playwright) | 28 passing, desktop and mobile, including the admin dashboard and the Excel export |
+| Lighthouse (live, desktop)    | Performance 93 · Best practices 100 · SEO 100                                      |
+| Lighthouse (live, mobile)     | Accessibility 100 · Best practices 100 · SEO 100                                   |
+| Static analysis               | TypeScript strict and Biome, both clean · `bun audit`: no known vulnerabilities    |
 
 ## Project structure
 
