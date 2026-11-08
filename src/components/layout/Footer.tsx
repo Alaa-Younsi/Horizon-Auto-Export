@@ -225,18 +225,6 @@ export function Footer() {
               </span>
             )}
           </p>
-          {/* developer credit — the same English wording in every language */}
-          <p>
-            Website Developed by{" "}
-            <a
-              href="https://alaayounsi.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-white/80 underline decoration-gold-500/60 underline-offset-4 transition-colors hover:text-gold-300"
-            >
-              Alaa Younsi
-            </a>
-          </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link to={path("/terms")} className="hover:text-white">
               {t("footer.terms")}
